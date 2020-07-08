@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- Milestone Project 2 for HTML5/CSS3/JavaScript/jQuery -->
+	<meta charset="UTF-8">
+	<meta name="description" content="Prickwillow art club">
+	<meta name="keywords" content="Prickwillow artclub art">
+	<meta name="author" content="Mike Green">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<!-- Using Bootstrap CDN -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+
+	<!--
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+		type="text/css" />
+    -->
+	<script src="https://kit.fontawesome.com/169cf7da54.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.1/css/hover-min.css"
+		type="text/css" />
+	<link type="text/css" rel="stylesheet" href="assets/css/stylesheet.css">
+	<title>MSP2</title>
+</head>
+
+<body>
+	<!--    Header -->
+	<header class="heading">
+		<div class="jumbotron text-center row row-cols-2">
+			<div class="col-3 col-sm-3">
+				<a class="col logo" href="index.html">
+					<img src="assets/images/artclub.jpg" class="img-rounded" alt="Art Club" width="100" height="100"/>
+                </a>
+			</div>
+			<div class="col-9  header-text d-none d-md-block"> Prickwillow Art Club </div>
+			<div class="col-9 d-md-none">
+				<nav class="navbar navbar-expand-sx navbar-light bg-light">
+					<a class="navbar-brand" href="index.html">Prickwillow Art Club</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+					<div class="collapse navbar-collapse" id="navbarNav">
+						<ul class="navbar-nav">
+							<li class="nav-item active">
+								<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="activities.html">Activities</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="exhibition.html">Exhibition</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="joinus.html">Join Us</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div class="col-12 offset-1 d-none d-md-block">
+				<ul id="nav" class="list-inline menucontainer">
+					<li class="col-2 ui-menu-color-home list-inline-item menuitem">
+						<a href="index.html"
+							class="hvr-sweep-to-bottom"><i class="fa fa-home" aria-hidden="true"></i><span> Home</span></a>
+					</li>
+					<li class="col-2 ui-menu-color-activity list-inline-item menuitem">
+						<a href="activities.html"
+							class="hvr-sweep-to-bottom"><i class="fa fa-paint-brush" aria-hidden="true"></i><span> Activities</span></a>
+					</li>
+					<li class="col-3 ui-menu-color-exhibition list-inline-item menuitem">
+						<a href="exhibition.html"
+							class="hvr-sweep-to-bottom"><i class="fa fa-image" aria-hidden="true"></i><span> Exhibition</span></a>
+					</li>
+					<li class="col-2 ui-menu-color-joinus list-inline-item menuitem">
+						<a href="joinus.html"
+							class="hvr-sweep-to-bottom"><i class="fas fa-pen-nib" aria-hidden="true"></i><span> Join Us</span></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+	</header>
+
+	<section class="container-fluid">
+
+		<!-- Introduce club -->
+		<div class="introduction">
+			<div class="row">
+				<div class="col-12 ">
+					<h2>An Introduction to our little club.</h2>
+					<p>A local collection of artists, hobbyists and art enthusiasts to share their enthusiasms from the
+						far flung reaches of the Fens.
+                    </p>
+                    <p>
+                    <a class="btn btn-success" href="joinus.html">
+						Join Us!
+					</a> 
+                    </p>
+				</div>
+			</div>
+            <div class="row">
+				<div class="col-12 col-sm-6 col-md-8 col-lg-12">
+					<h2>Activities</h2>
+					<p>What are we up to?.</p>
+					<p>Working in graphite, charcoal, pastel, inks, acrylics, oils and three dimensional materials. Our
+						members have vast range of skills and experience to draw from.</p>
+					<a class="btn btn-success" href="activities.html">
+						See further activity details
+					</a>
+				</div>
+			</div>
+            <div class="row row-cols-3">
+				<div class="col-1">
+				</div>
+				<div class="col-10">
+				</div>
+				<div class="col-1">
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+	<!--    Footer -->
+	<footer class="container-fluid">
+		<div id="footer-details" class="row">
+			<div class="col-sm-12">
+				<hr />
+				<!-- <h5 class="text-uppercase general-sub">Social</h5> -->
+				<ul class="list-inline social-links">
+					<li class="list-inline-item">
+						<a target="_blank" href="https://www.facebook.com/PrickwillowArtClub" title="Go to our facebook page">
+							<i class="fa fa-facebook" aria-hidden="true"></i>
+							<span class="sr-only">Facebook</span>
+						</a>
+					</li>
+
+					<li class="list-inline-item">
+						<a target="_blank" href="https://www.youtube.com" title="Go to our youtube entries">
+							<i class="fa fa-youtube" aria-hidden="true"></i>
+							<span class="sr-only">YouTube</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+	<!-- Bootstrap Javascript CDN  aria -->
+
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+	</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+	</script>
+
+</body>
+
+</html>
