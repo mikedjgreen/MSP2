@@ -10,24 +10,19 @@ function loadMember() {
   };
   var memberJSON = JSON.stringify(aMember);
 
-  // using localstorage
-  //localStorage.setItem("testJSON", memberJSON);
+  console.log("loadMember ");
 
   //  Setting up an external members file
   const memberFile = "assets/data/members.txt";
 
-  xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      myObj = JSON.parse(this.responseText);
-      for (x in myObj) {
-        txt += myObj[x].name + "<br>";
-      }
-      document.getElementById("Mike").innerHTML = txt;
-    }
-  };
+  console.log(memberFile);
 
+  console.log("******POST  *******");
+  xmlhttp = new XMLHttpRequest();
   xmlhttp.open("POST", memberFile, true);
-  xmlhttp.setRequestHeader("Content-type", "application/json");
+  xmlhttp.setRequestHeader("Content-type", "text/json");
+  console.log("***** "+memberJSON);
   xmlhttp.send(memberJSON);
 }
+
+loadMember();
