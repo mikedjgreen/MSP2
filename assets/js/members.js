@@ -1,4 +1,9 @@
 // POC: writing member data to
+
+  //  Setting up an external members file
+  const memberFile = "assets/data/members.txt";
+
+
 function loadMember() {
   var aMember = {
     forname: "Mike",
@@ -12,10 +17,7 @@ function loadMember() {
 
   console.log("loadMember ");
 
-  //  Setting up an external members file
-  const memberFile = "assets/data/members.txt";
-
-  console.log(memberFile);
+  console.log("Member file "+memberFile);
 
   console.log("******POST  *******");
   xmlhttp = new XMLHttpRequest();
@@ -25,4 +27,22 @@ function loadMember() {
   xmlhttp.send(memberJSON);
 }
 
-loadMember();
+//loadMember();
+
+// POC: Reading member data
+function getMembers(cb) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET",memberFile);
+    xhr.send();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            cb(JSON.parse(this.responseText));
+        }
+    };
+}
+
+function printDataToConsole(data) {
+    console.log(data);
+}
+
+//getMembers(printDataToConsole);
