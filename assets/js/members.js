@@ -33,12 +33,20 @@ function loadMember() {
 function getMembers(cb) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET",memberFile);
+    console.log("****** memberFile: "+memberFile)
     xhr.send();
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            cb(JSON.parse(this.responseText));
-        }
+            console.log(JSON.parse(this.responseText));
+        } else {
+            console.log("******** state "+ this.readyState +" ******* status " +this.status);
+        };
     };
+}
+function writeToDocument() {
+    getMembers(function(data){
+        document.getElementById("data").innerHTML=data;
+    });
 }
 
 function printDataToConsole(data) {
