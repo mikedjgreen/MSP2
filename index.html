@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
 
-	<script src="https://kit.fontawesome.com/169cf7da54.js" crossorigin="anonymous"></script>
+	<!-- <script src="https://kit.fontawesome.com/169cf7da54.js" crossorigin="anonymous"></script> -->
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.1/css/hover-min.css"
 		type="text/css" />
@@ -38,13 +38,14 @@
     <button type="button" class="btn btn-primary btn-lg" onclick="loadMember()">Post Member</button>
     <br>
     <button type="button" class="btn btn-secondary btn-lg" onclick="writeToDocument()">Get Membership</button>
-
+    <br>
+    <button type="button" class="btn btn-secondary btn-lg" onclick="writeDepts()">Get Met Art Departments</button>
     </div>
 
     <h1 id="memberDataH1"></h1>
-    <div id="memberData">
-    
-    </div>
+    <div id="memberData"> </div>
+    <h1>Metropolitan Musuem of Art's Departments</h1>
+    <div id="metArt">   </div>
 
 	</section>
 
@@ -70,6 +71,8 @@
     </script>
 
     <script src="assets/js/members.js"></script>
+    <!-- Metropolitan Museum of Art API portal -->
+    <script src="assets/js/metart.js"></script>
 
 </body>
 
