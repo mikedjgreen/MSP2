@@ -39,13 +39,36 @@
     <br>
     <button type="button" class="btn btn-secondary btn-lg" onclick="writeToDocument()">Get Membership</button>
     <br>
-    <button type="button" class="btn btn-secondary btn-lg" onclick="writeDepts()">Get Met Art Departments</button>
+    <button type="button" class="btn btn-secondary btn-md" onclick="writeDepts()" data-toggle="modal" data-target="#deptModal">Get Met Art Departments</button>
     </div>
 
-    <h1 id="memberDataH1"></h1>
-    <div id="memberData"> </div>
-    <h1>Metropolitan Musuem of Art's Departments</h1>
-    <div id="metArt">   </div>
+
+
+<!-- The Modal -->
+<div class="modal" id="deptModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Metropolitan Museum of Art Departments</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+            <div id="metArt">   </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 	</section>
 
