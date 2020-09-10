@@ -39,7 +39,9 @@
     <br>
     <button type="button" class="btn btn-secondary btn-lg" onclick="writeToDocument()">Get Membership</button>
     <br>
-    <button type="button" class="btn btn-secondary btn-md" onclick="writeDepts()" data-toggle="modal" data-target="#deptModal">Get Met Art Departments</button>
+    <button type="button" class="btn btn-secondary btn-sm" onclick="writeDepts()" data-toggle="modal" data-target="#deptModal">Get Met Art Departments</button>
+    <br>
+    <button type="button" class="btn btn-secondary btn-md" onclick="writeObjects()" data-target="#metArt">Get Met Art Departments</button>
     </div>
 
 
@@ -69,6 +71,9 @@
   </div>
 </div>
 
+<!-- Search objects results -->
+<div id="metArt">
+</div>
 
 	</section>
 
@@ -93,6 +98,12 @@
         src="https://storage.googleapis.com/storage/v1" >
     </script>
 
+    <!-- Metropolitan Museum of Art JSON API 
+    <script async defer
+        src="https://collectionapi.metmuseum.org/public/collection/v1/" >
+    </script>
+    -->
+    
     <script src="assets/js/members.js"></script>
     <!-- Metropolitan Museum of Art API portal -->
     <script src="assets/js/metart.js"></script>
