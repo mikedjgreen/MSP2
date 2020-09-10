@@ -8,6 +8,7 @@ function getMetDept(cb) {
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
             cb(JSON.parse(this.responseText));
+            //console.log("********  JSON response text "+JSON.parse(this.responseText));
         } else {
             console.log("******** state "+ this.readyState +" ******* status " +this.status);
         };
@@ -32,7 +33,6 @@ function getMet(cb) {
         if (this.readyState == 4 && this.status == 200) {
             console.dir(this.responseText);
              document.getElementById("metArtDept").innerHTML = this.responseText;
-            //console.log(JSON.parse(this.responseText));
         } else {
             console.log("******** state "+ this.readyState +" ******* status " +this.status);
         };

@@ -17,8 +17,9 @@ This section is also where you would share links to any wireframes, mockups, dia
 
 In this section, you should go over the different parts of your project, and describe each in a sentence or so.
 
-### Members API
-An application Programming Interface specifically for organising a club membership.
+### Metropolitan Museum of Art's Collection API
+An application Programming Interface specifically for documenting New York's vast collection af artifacts. 
+[Metropolitan Museum of Art API](https://metmuseum.github.io/)
  
 ### Existing Features
 - Feature 1 - allows users X to achieve Y, by having them fill out Z
