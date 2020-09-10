@@ -9,7 +9,7 @@ function getMetDept(cb) {
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
             cb(JSON.parse(this.responseText));
-            //console.log("********  JSON response text "+JSON.parse(this.responseText));
+            console.log("********  JSON response text "+JSON.parse(this.responseText));
         } else {
             console.log("******** state "+ this.readyState +" ******* status " +this.status);
         };
@@ -21,11 +21,12 @@ function writeDepts() {
        var depts = [];
        depts=item.departments;
        depts.forEach(function(item) {
-                document.getElementById("metArtDept").innerHTML += "<p> "+item.departmentId+") "+item.displayName+" </p>";
+                document.getElementById("metArtDept").innerHTML += item.departmentId+") "+item.displayName+" <br>";
             });
     });
 }
 
+/*
 function getMet(cb) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET",apiMet + "objects");
@@ -39,6 +40,8 @@ function getMet(cb) {
         };
     };
 }
+*/
+
 /*
     MET API search returns
         a listing of all Object IDs for objects 
@@ -66,14 +69,17 @@ function getMetSearch(cb1) {
     };
 }
 
-function getMetObject(obj) {
+function getMetObject(obj_ID) {
+    var foundObjects;
     var xhr3 = new XMLHttpRequest();
-    xhr3.open("GET",apiMetObject + obj);
+    xhr3.open("GET",apiMetObject + obj_ID);
     xhr3.send();
     xhr3.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
-            JSON.parse(this.responseText);
-            //console.log("********  JSON response text "+JSON.parse(this.responseText));
+            foundObjects = JSON.parse(this.responseText);
+            //console.log("******** foundObjects "+JSON.stringify(foundObjects) +" ");
+            console.log("******** returning "+obj_ID+ ": " + foundObjects.title);
+            return JSON.stringify(foundObjects.title);
         } else {
             console.log("******** state "+ this.readyState +" ******* status " +this.status);
         };
@@ -83,14 +89,18 @@ function getMetObject(obj) {
 function writeObjects() {
     getMetSearch(function(item) {
        var objects = [];
-       var total_found;
-       total_found = item.total;
-       document.getElementById("metArt").innerHTML += "<p> Total found: "+total_found+" </p>";
+       var total_Found;
+       var object_Title = "";
+       total_Found = item.total;
+       document.getElementById("metArt").innerHTML += "<p> Total found: "+total_Found+" </p>";
        objects=item.objectIDs;
-       console.dir(objects);
-       console.log("**** objects:"+objects);
+       //console.dir(objects);
+       //console.log("**** objects:"+objects);
        for (let arrayindex of objects) {
-           document.getElementById("metArt").innerHTML += "<p> "+ getMetObject(arrayindex) +" </p>";
+           //document.getElementById("metArt").innerHTML += "<p> "+ getMetObject(arrayindex) +" </p>";
+           object_Title = getMetObject(arrayindex);
+           console.log("********* objectID: "+arrayindex+" object_Title: "+object_Title);
+           document.getElementById("metArt").innerHTML += arrayindex + ": "+ object_Title +" <br>";
        }
        /*
        objects.forEach(function(item) {
