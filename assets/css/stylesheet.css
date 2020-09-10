@@ -1,0 +1,28 @@
+body{
+    font-family: Roboto, Arial, sans-serif;
+}
+
+
+/*--------------------------------------------Heading   */
+
+header {
+    margin: 0;
+    padding:0;
+}
+
+.heading {
+    margin-left: 5px;
+    padding: 0;
+}
+.header-text{ 
+    font-weight: 800;
+    font-size: 2em;
+    padding:0;
+}
+
+/*--------------------------------------------Modal */
+.metArtDept {
+    font-size: 1em;
+    line-height: 0.1px;
+    letter-spacing: 0.5px;
+}
