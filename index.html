@@ -33,47 +33,51 @@
 
 	<section class="container-fluid">
 
+<!-- The Buttons -->
     <div>
-
-    <button type="button" class="btn btn-primary btn-lg" onclick="loadMember()">Post Member</button>
-    <br>
-    <button type="button" class="btn btn-secondary btn-lg" onclick="writeToDocument()">Get Membership</button>
-    <br>
-    <button type="button" class="btn btn-secondary btn-sm" onclick="writeDepts()" data-toggle="modal" data-target="#deptModal">Get Met Art Departments</button>
-    <br>
-    <button type="button" class="btn btn-secondary btn-md" onclick="writeObjects()" data-target="#metArt">Get Met Art Objects</button>
+    <!--
+        <button type="button" class="btn btn-primary btn-lg" onclick="loadMember()">Post Member</button>
+        <br>
+        <button type="button" class="btn btn-secondary btn-lg" onclick="writeToDocument()">Get Membership</button>
+        <br>
+    -->
+        <button type="button" class="btn btn-secondary btn-sm" onclick="writeDepts()" data-toggle="modal" data-target="#deptModal">Get Met Art Departments</button>
+        <br>
+        <button type="button" class="btn btn-secondary btn-md" onclick="writeObjects()" data-target="#metArt">Get Met Art Objects</button>
     </div>
 
 
 
 <!-- The Modal -->
-<div class="modal" id="deptModal">
-  <div class="modal-dialog modal-dialog-scrollable">
-    <div class="modal-content">
+    <div class="modal" id="deptModal">
+        <div class="modal-dialog modal-dialog-scrollable">
+             <div class="modal-content">
 
       <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Metropolitan Museum of Art Departments</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
+        <div class="modal-header">
+            <h4 class="modal-title">Metropolitan Museum of Art Departments</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
 
       <!-- Modal body -->
-      <div class="modal-body">
+        <div class="modal-body">
             <div id="metArtDept">   </div>
-      </div>
+        </div>
 
       <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-      </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+        </div>
 
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
 <!-- Search objects results -->
-<div id="metArt">
-</div>
+    <div id="metCriteria">
+    </div>
+    <div id="metArt">
+    </div>
 
 	</section>
 
@@ -94,17 +98,22 @@
 	</script>
     
     <!-- Google Cloud Storage  JSON API -->
+    <!--  
     <script async defer
         src="https://storage.googleapis.com/storage/v1" >
     </script>
+    -->
 
-    <!-- Metropolitan Museum of Art JSON API 
+    <!-- Metropolitan Museum of Art JSON API -->
     <script async defer
         src="https://collectionapi.metmuseum.org/public/collection/v1/" >
     </script>
-    -->
     
+    
+    <!--
     <script src="assets/js/members.js"></script>
+    -->
+
     <!-- Metropolitan Museum of Art API portal -->
     <script src="assets/js/metart.js"></script>
 
