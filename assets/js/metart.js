@@ -87,27 +87,33 @@ function writeCriteria() {
 function writeObjects() {
     var objects = [];
     var objectId;
-    var object_Title = "";
+ 
     writeCriteria();
     getMetSearch(function(item) {
        var total_Found;
        total_Found = item.total;
        document.getElementById("metArt").innerHTML += "<p> Total found: "+total_Found+" </p>";
        objects=item.objectIDs;
-       document.getElementById("metArt").innerHTML += "<p> "+objects+" </p>";
-       document.getElementById("metArt").innerHTML += "<p> make array </p>";
        
-        for (objectId of objects) {
-           document.getElementById("metArt").innerHTML += "<p> "+objectId+" </p>";
-           //writeObjectDetails(objectId);
-        };
+       for (objectId of objects) {
+           //document.getElementById("metArt").innerHTML += "<p> "+objectId+" </p>";
+           writeObjectDetails(objectId);
+       };
+
     });
 };
 
 function writeObjectDetails(obj_ID) {
+    var objTitle = "";
+    var objPrimaryImage ="";
+    var objArtistDisplayName ="";
     getMetObject(obj_ID,function(item){
-        object_Title = item.title;
-        document.getElementById("metArt").innerHTML += obj_ID + ": "+ object_Title +" <br>";
-    }
+        objTitle = item.title;
+        objPrimaryImage = item.primaryImageSmall;
+        objArtistDisplayName = item.artistDisplayName;
+        document.getElementById("metArt").innerHTML += obj_ID + ": "+ objTitle +" <br>";
+        document.getElementById("metArt").innerHTML += "<img src="+ objPrimaryImage +" alt="+objTitle+"\"> <br>";
+        document.getElementById("metArt").innerHTML += "artist: " + objArtistDisplayName +" <br>";
+    });
 };
 
