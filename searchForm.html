@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- Milestone Project 2 for HTML5/CSS3/JavaScript/jQuery -->
+	<meta charset="UTF-8">
+	<meta name="description" content="Prickwillow art club">
+	<meta name="keywords" content="Prickwillow artclub art">
+	<meta name="author" content="Mike Green">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<!-- Using Bootstrap CDN -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+
+	<!-- <script src="https://kit.fontawesome.com/169cf7da54.js" crossorigin="anonymous"></script> -->
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.1/css/hover-min.css"
+		type="text/css" />
+
+	<link type="text/css" rel="stylesheet" href="assets/css/stylesheet.css">
+
+	<title>MSP2</title>
+</head>
+
+<body>
+	<!--    Header -->
+	<header class="heading">
+
+
+	</header>
+
+	<section class="container-fluid">
+
+    <form class="metArtCriteria">
+    <fieldset>
+    <legend>Search Criteria</legend>
+            				<div class="form-group">
+								<div class="form-check form-check-inline col-md-3">
+									<input type="checkbox" class="form-check-input" id="imageCheck">
+									<label class="form-check-label" for="imageCheck">has Images</label>
+								</div>
+								<div class="form-check form-check-inline col-md-3">
+									<input type="checkbox" class="form-check-input" id="onViewCheck">
+									<label class="form-check-label" for="onViewCheck">on View at NY?</label>
+								</div>
+							</div>
+    </fieldset>
+    <!--
+        q	Search term e.g. sunflowers	
+isHighlight	Boolean, true or false. Case sensitive.	
+departmentId	Integer	Returns objects that are a part of a specific department. 
+isOnView	Boolean, true or false. Case Sensitive.	Returns objects that match the query and are on view in the museum.
+artistOrCulture	Boolean, true or false. Case Sensitive.	Returns objects that match the query, specifically searching against the artist name or culture field for objects.
+medium	String, with multiple values separated by the | operator. Case Sensitive.	Returns objects that match the query and are of the specified medium or object type.
+hasImages	Boolean, true or false. Case sensitive.	Returns objects that match the query and have images.
+geoLocation	String, with multiple values separated by the | operator. Case Sensitive.	Returns objects that match the query and the specified geographic location. 
+dateBegin and dateEnd	Integer. You must use both dateBegin and dateEnd	Returns objects that match the query and fall between the dateBegin and dateEnd parameters. 
+    -->
+                        
+        				<div class="form-group col-md-3">
+							<hr>
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+    </form>
+
+<!-- Search objects results -->
+    <div id="metCriteria">
+    </div>
+    <div id="metArt">
+    </div>
+
+	</section>
+
+	<!--    Footer -->
+	<footer class="container-fluid">
+
+	</footer>
+	<!-- Bootstrap Javascript CDN  aria -->
+
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+	</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+	</script>
+    
+    <!-- Google Cloud Storage  JSON API -->
+    <!--  
+    <script async defer
+        src="https://storage.googleapis.com/storage/v1" >
+    </script>
+    -->
+
+    <!-- Metropolitan Museum of Art JSON API -->
+    <script async defer
+        src="https://collectionapi.metmuseum.org/public/collection/v1/" >
+    </script>
+    
+    
+    <!--
+    <script src="assets/js/members.js"></script>
+    -->
+
+    <!-- Metropolitan Museum of Art API portal -->
+    <script src="assets/js/metart.js"></script>
+
+</body>
+
+</html>
