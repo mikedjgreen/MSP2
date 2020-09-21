@@ -50,14 +50,26 @@ function getMet(cb) {
         The returned query also contains total number of objects found.
 */
 
-var searchCrit1 = "departmentID=11";
+var searchCrit1 = "departmentID=";
 var searchCrit2 = "q=sunflower";
+var qryStr ="Initial";  // q
+var qryHighlight;   // isHighlight
+var qryDept;        // departmentId
+var qryView;        // isOnView
+var qryCult;        // artistOrCulture
+var qryMedium;     // medium
+var qryImages;       // hasImages
+var qryLoc;          // geoLocation
+// must have both values for dateBegin and dateEnd queries:
+var qryBegin;        // dateBegin
+var qryEnd;          // dateEnd
+
 
 
 function getMetSearch(cb1) {
     var xhr2 = new XMLHttpRequest();
-    //xhr2.open("GET",apiMet + "search?departmentID=11&q=sunflower");
     xhr2.open("GET",apiMet + "search?"+searchCrit1+"&"+searchCrit2);
+    alert(apiMet+ "search?"+searchCrit1+"&"+searchCrit2);
     xhr2.send();
     xhr2.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
@@ -68,11 +80,11 @@ function getMetSearch(cb1) {
 };
 
 function getMetObject(obj_ID, cb2) {
-    console.log("1111111111111111111111 "+apiMetObject+obj_ID);
+ 
     var xhr3 = new XMLHttpRequest();
     xhr3.open("GET",apiMetObject + obj_ID);
     xhr3.send();
-    console.log("!!!!!!!!!!!!!!!!!!!!!! "+apiMetObject+obj_ID);
+
     xhr3.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
             cb2(JSON.parse(this.responseText));
@@ -107,13 +119,64 @@ function writeObjectDetails(obj_ID) {
     var objTitle = "";
     var objPrimaryImage ="";
     var objArtistDisplayName ="";
+    var objMedium = "";
+    var objDept = "";
+    var objBegin = "";
+    var objEnd = "";
+    var objArtistBegin = "";
+    var objArtistEnd = "";
     getMetObject(obj_ID,function(item){
         objTitle = item.title;
         objPrimaryImage = item.primaryImageSmall;
         objArtistDisplayName = item.artistDisplayName;
+        objMedium = item.medium;
+        objDept = item.department;
+        objBegin = item.objectBeginDate;
+        objEnd = item.objectEndDate;
+        objArtistBegin = item.artistBeginDate;
+        objArtistEnd = item.artistEndDate;
         document.getElementById("metArt").innerHTML += obj_ID + ": "+ objTitle +" <br>";
         document.getElementById("metArt").innerHTML += "<img src="+ objPrimaryImage +" alt="+objTitle+"\"> <br>";
         document.getElementById("metArt").innerHTML += "artist: " + objArtistDisplayName +" <br>";
+        document.getElementById("metArt").innerHTML += "artist birth: " + objArtistBegin +" death: "+objArtistEnd+ "<br>";
+        document.getElementById("metArt").innerHTML += "medium: " + objMedium +" <br>";
+        document.getElementById("metArt").innerHTML += "department: " + objDept +" <br>";
+        document.getElementById("metArt").innerHTML += "object begin date: " + objBegin + " object end date: "+ objEnd + " <br>";
     });
 };
 
+function getSelection() {
+    console.log("2222222222222222 getSelection ");
+
+    //document.getElementById("metArtSearch").innerHTML = "Met Art Search "  + "<br>";
+    /*
+                              type="text"
+                          class="form-input"
+                          id="queryString"
+                          name="queryString"
+    */
+    $(document).ready(function(){
+        $("#searchBtn").on("click",function() {
+            
+            qryStr= document.forms["metArtCriteria"]["queryString"].value;
+            writeSelection(qryStr);
+            console.log("33333333333333333 #searchBtn ");
+        });
+    });
+    console.log("queryString "+qryStr);
+    
+};
+
+function writeSelection() {
+    //alert("writeSelection1: " +document.getElementById("#queryString"));
+    alert("writeSelection2: " +document.forms["metArtCriteria"]["queryString"].value);
+    qryStr = document.forms["metArtCriteria"]["queryString"].value;
+    qryDept = document.forms["metArtCriteria"]["qryDept"].value;
+    alert("writeSelection: " + qryDept);
+
+    document.getElementById("metCriteria").innerHTML = "<p> writeSelection: "+this.qryStr+" </p>";
+    document.getElementById("metCriteria").innerHTML += "<p> writeSelection: "+this.qryDept+" </p>";
+
+    searchCrit1 = "departmentId=" + qryDept;
+    searchCrit2 = "q="+ qryStr;
+};

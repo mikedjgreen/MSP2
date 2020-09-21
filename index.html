@@ -1,102 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <!-- Milestone Project 2 for HTML5/CSS3/JavaScript/jQuery -->
+    <meta charset="UTF-8" />
+    <meta name="description" content="Prickwillow art club" />
+    <meta name="keywords" content="Prickwillow artclub art" />
+    <meta name="author" content="Mike Green" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-<head>
-	<!-- Milestone Project 2 for HTML5/CSS3/JavaScript/jQuery -->
-	<meta charset="UTF-8">
-	<meta name="description" content="Prickwillow art club">
-	<meta name="keywords" content="Prickwillow artclub art">
-	<meta name="author" content="Mike Green">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- using jquery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
 
-	<!-- Using Bootstrap CDN -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <!-- Using Bootstrap CDN -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
 
-	<!-- <script src="https://kit.fontawesome.com/169cf7da54.js" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://kit.fontawesome.com/169cf7da54.js" crossorigin="anonymous"></script> -->
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.1/css/hover-min.css"
-		type="text/css" />
-
-	<link type="text/css" rel="stylesheet" href="assets/css/stylesheet.css">
-
-	<title>MSP2</title>
-</head>
-
-<body>
-	<!--    Header -->
-	<header class="heading">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.1/css/hover-min.css"
+      type="text/css"
+    />
 
 
-	</header>
+    <link type="text/css" rel="stylesheet" href="assets/css/stylesheet.css" />
 
-	<section class="container-fluid">
+    <title>MSP2</title>
+  </head>
 
-<!-- The Buttons -->
-    <div>
-    <!--
+  <body>
+    <!--    Header -->
+    <header class="heading"></header>
+
+    <section class="container-fluid">
+      <!-- The Buttons -->
+      <div>
+        <!--
         <button type="button" class="btn btn-primary btn-lg" onclick="loadMember()">Post Member</button>
         <br>
         <button type="button" class="btn btn-secondary btn-lg" onclick="writeToDocument()">Get Membership</button>
         <br>
     -->
-        <button type="button" class="btn btn-secondary btn-sm" onclick="writeDepts()" data-toggle="modal" data-target="#deptModal">Get Met Art Departments</button>
-        <br>
-        <button type="button" class="btn btn-secondary btn-md" onclick="writeObjects()" data-target="#metArt">Get Met Art Objects</button>
-    </div>
+        <button
+          type="button"
+          class="btn btn-secondary btn-sm"
+          onclick="writeDepts()"
+          data-toggle="modal"
+          data-target="#deptModal"
+        >
+          Get Met Art Departments
+        </button>
+        <br />
 
+        <button
+          type="button"
+          class="btn btn-secondary btn-md"
+          onclick="getSelection()"
+          data-toggle="modal"
+          data-target="#searchModal"
+        >
+          Selection Criteria for Met Art
+        </button>
+        <br />
 
+        <button
+          type="button"
+          class="btn btn-secondary btn-sm"
+          onclick="writeObjects()"
+          data-target="#metArt"
+        >
+          Get Met Art Objects
+        </button>
 
-<!-- The Modal -->
-    <div class="modal" id="deptModal">
+      </div>
+
+      <!-- The Department Modal -->
+      <div class="modal" id="deptModal">
         <div class="modal-dialog modal-dialog-scrollable">
-             <div class="modal-content">
-
-      <!-- Modal Header -->
-        <div class="modal-header">
-            <h4 class="modal-title">Metropolitan Museum of Art Departments</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-
-      <!-- Modal body -->
-        <div class="modal-body">
-            <div id="metArtDept">   </div>
-        </div>
-
-      <!-- Modal footer -->
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-        </div>
-
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">
+                Metropolitan Museum of Art Departments
+              </h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
             </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              <div id="metArtDept"></div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-danger btn-sm"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
 
-<!-- Search objects results -->
-    <div id="metCriteria">
-    </div>
-    <div id="metArt">
-    </div>
+      <!-- The Search Criteria Modal -->
+      <div class="modal" id="searchModal">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">
+                New York Metropolitan Museum of Art
+              </h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
 
-	</section>
+            <!-- Modal body -->
+            <div class="modal-body">
+              <div id="metArtSearch">
+                <form name="metArtCriteria" class="metArtCriteria" onsubmit="return writeSelection()" method="GET">
+                  <fieldset>
+                    <legend>Search Criteria</legend>
 
-	<!--    Footer -->
-	<footer class="container-fluid">
+                    <div class="form-group">
+                      <div class="form-check form-check-inline col-md-3">
+                        <label class="form-check-label" for="queryString">search term
+                        </label>
+                        <input
+                          type="text"
+                          class="form-input"
+                          id="queryString"
+                          name="queryString"
+                          required
+                        />
+                        </div>
+                      <div class="form-check form-check-inline col-md-3">
+                        <label class="form-check-label" for="qryHighlight">is highlighted?
+                        </label>
+                        <input
+                          type="text"
+                          class="form-input"
+                          id="qryHighlight"
+                          name="qryHighlight"
+                          required
+                        />
+                        </div>                        
+                        <div class="form-check form-check-inline col-md-3">
+                        <label class="form-check-label" for="qryDept">search Department
+                        </label>
+                        <input
+                          type="text"
+                          class="form-input"
+                          id="qryDept"
+                          name="qryDept"
+                          required
+                        />
+                        </div>
+                        <div class="form-check form-check-inline col-md-3">
+                        <label class="form-check-label" for="qryView">is on view?
+                        </label>
+                        <input
+                          type="text"
+                          class="form-input"
+                          id="qryView"
+                          name="qryView"
+                          required
+                        />
+                        </div>
+                        <div class="form-check form-check-inline col-md-3">
+                        <label class="form-check-label" for="qryCult">artist or culture?
+                        </label>
+                        <input
+                          type="text"
+                          class="form-input"
+                          id="qryCult"
+                          name="qryCult"
+                          required
+                        />
+                        </div>
+                        <div class="form-check form-check-inline col-md-3">
+                        <label class="form-check-label" for="qryMedium">what medium?
+                        </label>
+                        <input
+                          type="text"
+                          class="form-input"
+                          id="qryMedium"
+                          name="qryMedium"
+                          required
+                        />
+                        </div>              
+                        <div class="form-check form-check-inline col-md-3">
+                        <label class="form-check-label" for="qryImages">has images?
+                        </label>
+                        <input
+                          type="text"
+                          class="form-input"
+                          id="qryImages"
+                          name="qryImages"
+                          required
+                        />
+                        </div>
+                        <div class="form-check form-check-inline col-md-3">
+                        <label class="form-check-label" for="qryLoc">location?
+                        </label>
+                        <input
+                          type="text"
+                          class="form-input"
+                          id="qryLoc"
+                          name="qryLoc"
+                          required
+                        />
+                        </div>    
+                       <div class="form-check form-check-inline col-md-3">
+                        <label class="form-check-label" for="qryBegin">beginning date?
+                        </label>
+                        <input
+                          type="text"
+                          class="form-input"
+                          id="qryBegin"
+                          name="qryBegin"
+                          required
+                        />
+                        <label class="form-check-label" for="qryEnd">end date?
+                        </label>
+                        <input
+                          type="text"
+                          class="form-input"
+                          id="qryEnd"
+                          name="qryEnd"
+                          required
+                        />                      
+                        </div>                                                                                                               
+                    </div>
+                    <button
+                        type="submit"
+                        id="searchBtn"
+                        class="btn btn-danger btn-sm"
+                        data-dismiss="modal"
+                        onclick="writeSelection()"
+                    >
+                    Search
+                    </button>
+                  </fieldset>
+                </form>
+              </div>
+            </div>
 
-	</footer>
-	<!-- Bootstrap Javascript CDN  aria -->
+            <!-- Modal footer -->
+            <div class="modal-footer">
+            
+            </div>
+          </div>
+        </div>
+      </div>
 
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+      <!-- Search objects results -->
+      <div id="metCriteria"></div>
+      <div id="metArt"></div>
+    </section>
+
+    <!--    Footer -->
+    <footer class="container-fluid"></footer>
+    <!-- Bootstrap Javascript CDN  aria -->
+
+<!--
+        <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.js"
+		integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" 
+		rossorigin="anonymous">
 	</script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-	</script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-	</script>
-    
+    -->
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+
     <!-- Google Cloud Storage  JSON API -->
     <!--  
     <script async defer
@@ -105,18 +308,15 @@
     -->
 
     <!-- Metropolitan Museum of Art JSON API -->
-    <script async defer
-        src="https://collectionapi.metmuseum.org/public/collection/v1/" >
-    </script>
-    
-    
-    <!--
-    <script src="assets/js/members.js"></script>
-    -->
+    <script
+      async
+      defer
+      src="https://collectionapi.metmuseum.org/public/collection/v1/"
+    ></script>
 
-    <!-- Metropolitan Museum of Art API portal -->
+
+    <!-- Metropolitan Museum of Art query script -->
     <script src="assets/js/metart.js"></script>
 
-</body>
-
+  </body>
 </html>

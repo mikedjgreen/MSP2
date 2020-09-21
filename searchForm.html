@@ -18,7 +18,9 @@
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.1/css/hover-min.css"
 		type="text/css" />
-
+    <!-- JQuery for popovers
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+-->
 	<link type="text/css" rel="stylesheet" href="assets/css/stylesheet.css">
 
 	<title>MSP2</title>
@@ -36,16 +38,31 @@
     <form class="metArtCriteria">
     <fieldset>
     <legend>Search Criteria</legend>
-            				<div class="form-group">
-								<div class="form-check form-check-inline col-md-3">
-									<input type="checkbox" class="form-check-input" id="imageCheck">
-									<label class="form-check-label" for="imageCheck">has Images</label>
-								</div>
-								<div class="form-check form-check-inline col-md-3">
-									<input type="checkbox" class="form-check-input" id="onViewCheck">
-									<label class="form-check-label" for="onViewCheck">on View at NY?</label>
-								</div>
-							</div>
+
+            <div class="form-group">
+                <div class="form-check form-check-inline col-md-3">
+                    <label class="form-check-label" for="queryString"> 
+                        <a href="#" data-toggle="popover" title="Search Term" data-content="A phrase such as 'sunflower'">Search Term</a>
+                    </label>
+                    <script>
+                            $(document).ready(function(){
+                                $('[data-toggle="popover"]').popover();   
+                            });
+                    </script>
+
+				    <input type="text" class="form-input" id="queryString" name="queryString">				
+				</div>
+            </div>
+            <div class="form-group">
+				<div class="form-check form-check-inline col-md-3">
+					<input type="checkbox" class="form-check-input" id="imageCheck" name="imageCheck">
+					<label class="form-check-label" for="imageCheck">has Images</label>
+				</div>
+				<div class="form-check form-check-inline col-md-3">
+					<input type="checkbox" class="form-check-input" id="onViewCheck" name="onViewCheck">
+					<label class="form-check-label" for="onViewCheck">on View at NY?</label>
+				</div>
+			</div>
     </fieldset>
     <!--
         q	Search term e.g. sunflowers	
