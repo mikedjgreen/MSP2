@@ -69,7 +69,6 @@ var qryEnd;          // dateEnd
 function getMetSearch(cb1) {
     var xhr2 = new XMLHttpRequest();
     xhr2.open("GET",apiMet + "search?"+searchCrit1+"&"+searchCrit2);
-    alert(apiMet+ "search?"+searchCrit1+"&"+searchCrit2);
     xhr2.send();
     xhr2.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
@@ -142,37 +141,21 @@ function writeObjectDetails(obj_ID) {
         document.getElementById("metArt").innerHTML += "medium: " + objMedium +" <br>";
         document.getElementById("metArt").innerHTML += "department: " + objDept +" <br>";
         document.getElementById("metArt").innerHTML += "object begin date: " + objBegin + " object end date: "+ objEnd + " <br>";
+        document.getElementById("metArt").innerHTML += "<hr>";
     });
 };
 
 function getSelection() {
-    console.log("2222222222222222 getSelection ");
-
-    //document.getElementById("metArtSearch").innerHTML = "Met Art Search "  + "<br>";
-    /*
-                              type="text"
-                          class="form-input"
-                          id="queryString"
-                          name="queryString"
-    */
     $(document).ready(function(){
         $("#searchBtn").on("click",function() {
-            
-            qryStr= document.forms["metArtCriteria"]["queryString"].value;
-            writeSelection(qryStr);
-            console.log("33333333333333333 #searchBtn ");
+            writeSelection();
         });
-    });
-    console.log("queryString "+qryStr);
-    
+    });  
 };
 
 function writeSelection() {
-    //alert("writeSelection1: " +document.getElementById("#queryString"));
-    alert("writeSelection2: " +document.forms["metArtCriteria"]["queryString"].value);
     qryStr = document.forms["metArtCriteria"]["queryString"].value;
     qryDept = document.forms["metArtCriteria"]["qryDept"].value;
-    alert("writeSelection: " + qryDept);
 
     document.getElementById("metCriteria").innerHTML = "<p> writeSelection: "+this.qryStr+" </p>";
     document.getElementById("metCriteria").innerHTML += "<p> writeSelection: "+this.qryDept+" </p>";
