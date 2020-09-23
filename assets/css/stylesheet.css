@@ -21,8 +21,15 @@ header {
 }
 
 /*--------------------------------------------Modal */
-.metArtDept {
-    font-size: 1em;
-    line-height: 0.25;
+#metArtDept {
+    font-size: 0.75em;
     letter-spacing: 0.5px;
+}
+/*--------------------------------------------Searched collection display */
+#metCriteria {
+    font-size: 0.75em;
+}
+#metArt {
+    font-size: 0.5em;
+    margin-left: 5px;
 }
