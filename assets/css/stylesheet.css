@@ -2,6 +2,13 @@ body{
     font-family: Roboto, Arial, sans-serif;
 }
 
+/*----------------------------------- Introducing guttering on wide screens (xl) ---*/
+body,  footer {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #D9E6F3;
+}
 
 /*--------------------------------------------Heading   */
 
@@ -18,7 +25,32 @@ header {
     font-weight: 800;
     font-size: 2em;
     padding:0;
+    color: black;
+    text-align: center;
 }
+.header-text-sm{ 
+    font-weight: 800;
+    font-size: 1em;
+    padding:0;
+    text-align: center;
+}
+/*-------------------------------------------- overriding bootstrap class properties */
+.container-fluid {
+    padding: 0;
+}
+
+.jumbotron {
+    padding:1rem;
+    margin: 0;
+    background-color: #D9E6F3;
+}
+
+#theButtons {
+    padding:1rem;
+    margin: 0;
+    background-color: #D9E6F3;
+}
+
 
 /*--------------------------------------------Modal */
 #metArtDept {
@@ -32,4 +64,15 @@ header {
 #metArt {
     font-size: 0.5em;
     margin-left: 5px;
+}
+
+/*--------------------------------------------Footer   */
+
+footer {
+    background-color: #d9e6f3;   
+    color: #fafafa;
+    min-height: 120px;
+    margin: 0;
+    padding-left: 10rem;
+    text-align: center;
 }

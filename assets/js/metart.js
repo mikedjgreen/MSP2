@@ -6,7 +6,7 @@ const apiMetObject = "https://collectionapi.metmuseum.org/public/collection/v1/o
 
 var searchCrit1 = "departmentID=";
 var searchCrit2 = "q=sunflower";
-var qryStr ="Initial";  // q
+var qryStr ="";  // q
 var qryHighlight;   // isHighlight
 var qryDept;        // departmentId
 var qryView;        // isOnView
@@ -18,6 +18,32 @@ var qryLoc;          // geoLocation
 var qryBegin;        // dateBegin
 var qryEnd;          // dateEnd
 var deptName; //department Name
+var totalObjects;   // to capture the total number of objects listed on the Met's public collectsions
+
+
+function getTotalObjects(cb) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET",apiMetObject);
+    xhr.send();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {  
+            cb(JSON.parse(this.responseText));
+            console.log("********  JSON response text "+JSON.parse(this.responseText));
+        } else {
+            console.log("******** state "+ this.readyState +" ******* status " +this.status);
+        };
+    };
+};
+
+function totalCollection() {
+    getTotalObjects(function(item) {
+       totalObjects = item.total;
+       console.log(`There are a total collection of ${totalObjects} objects` );
+       return totalObjects;
+    })
+};
+
+
 
 function getMetDept(cb) {
     var xhr = new XMLHttpRequest();
@@ -60,20 +86,12 @@ function getDeptName(deptId) {
 }
 
 /*
-function getMet(cb) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET",apiMet + "objects");
-    xhr.send();
-    xhr.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            console.dir(this.responseText);
-             document.getElementById("metArt").innerHTML = this.responseText;
-        } else {
-            console.log("******** state "+ this.readyState +" ******* status " +this.status);
-        };
-    };
-}
+    Initialising popovers to help with selection criteria validation, UX
 */
+
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover();
+});
 
 /*
     MET API search returns
@@ -220,15 +238,24 @@ function getSelection() {
 function writeSelection() {
     qryStr = document.forms["metArtCriteria"]["queryString"].value;
     qryDept = document.forms["metArtCriteria"]["qryDept"].value;
+    qryHighlight = document.forms["metArtCriteria"]["qryHighlight"].value;
+    qryView = document.forms["metArtCriteria"]["qryView"].value;        // isOnView
+    qryCult = document.forms["metArtCriteria"]["qryCult"].value;       // artistOrCulture
+    qryMedium = document.forms["metArtCriteria"]["qryMedium"].value;     // medium
+    qryImages = document.forms["metArtCriteria"]["qryImages"].value;       // hasImages
+    qryLoc = document.forms["metArtCriteria"]["qryLoc"].value;          // geoLocation
+// must have both values for dateBegin and dateEnd queries:
+    qryBegin = document.forms["metArtCriteria"]["qryBegin"].value;        // dateBegin
+    qryEnd = document.forms["metArtCriteria"]["qryEnd"].value;    
 
-    document.getElementById("metCriteria").innerHTML = "<p> Selection: "+this.qryStr;
-    document.getElementById("metCriteria").innerHTML += " Department: "+this.qryDept+" ";
+    let criteriaString = `Selection: ${qryStr} Department: ${qryDept} highlighted: ${qryHighlight} on view: ${qryView}
+        artist or culture: ${qryCult} medium: ${qryMedium} has images: ${qryImages} geographic location: ${qryLoc} 
+        work date began: ${qryBegin} work date finished: ${qryEnd}`;
+    document.getElementById("metCriteria").innerHTML = "<p> " + criteriaString + "</p>";
+    //document.getElementById("metCriteria").innerHTML += " Department: "+this.qryDept+" ";
 
-    getDeptName(qryDept);
+    getDeptName(qryDept);  
 
-
-    
-
-    searchCrit1 = "departmentId=" + qryDept;
-    searchCrit2 = "q="+ qryStr;
+    searchCrit1 = `departmentId=${qryDept}&q=${qryStr}`;
+    searchCrit2 = `isHighlight=${qryHighlight}&isOnView=${qryView}&hasImages=${qryImages}&geoLocation=${qryLoc}&dateBegin=${qryBegin}&dateEnd=${qryEnd}`;
 };

@@ -37,7 +37,12 @@
 
   <body>
     <!--    Header -->
-    <header class="heading"></header>
+    <header class="heading">
+        <div class="jumbotron text-center row row-cols-2">
+        	<div class="col-3 d-none d-md-block">Art Resource</div>
+			<div class="col-9  header-text d-none d-md-block">  Metropolitan Museum of Art's Collection</div>
+        </div>
+    </header>
 
     <section class="container-fluid">
       <!-- The Buttons -->
@@ -139,7 +144,7 @@
                 <form name="metArtCriteria" class="metArtCriteria" onsubmit="return writeSelection()" method="GET">
                   <fieldset>
                     <legend>Search Criteria</legend>
-
+                    <div id="searchCautionary"></div>
                     <div class="form-group">
                       <div class="form-check form-check-inline col-md-3">
                         <label class="form-check-label" for="queryString">search term
@@ -153,7 +158,10 @@
                         />
                         </div>
                       <div class="form-check form-check-inline col-md-3">
-                        <label class="form-check-label" for="qryHighlight" data-toggle="tooltip" data-placement="top" title="true or false">is highlighted?
+                        <label class="form-check-label" for="qryHighlight" 
+                            data-toggle="popover" data-trigger="hover" data-placement="top"
+                            title="Highlights are selected works of art from permanent collection"
+                            data-content="true or false">is highlighted?
                         </label>
                         <input
                           type="text"
@@ -162,11 +170,13 @@
                           name="qryHighlight"
                           value="true"
                           size = "5"
-                          required
                         />
                         </div>                        
                         <div class="form-check form-check-inline col-md-3">
-                        <label class="form-check-label" for="qryDept">search Department
+                        <label class="form-check-label" for="qryDept"
+                            data-toggle="popover" data-trigger="hover" data-placement="top" 
+                            title="Department Id"
+                            data-content="Select 'Get Met Art Departments' button for valid list">Search Department
                         </label>
                         <input
                           type="text"
@@ -178,7 +188,10 @@
                         />
                         </div>
                         <div class="form-check form-check-inline col-md-3">
-                        <label class="form-check-label" for="qryView" data-toggle="tooltip" data-placement="top" title="true or false">is on view?
+                        <label class="form-check-label" for="qryView" 
+                            data-toggle="popover" data-trigger="hover" data-placement="top" 
+                            title="Are on view in the museum"
+                            data-content="Either true or false">is on view?
                         </label>
                         <input
                           type="text"
@@ -187,33 +200,40 @@
                           name="qryView"
                           value="true"
                           size="5"
-                          required
                         />
                         </div>
                         <div class="form-check form-check-inline col-md-3">
-                        <label class="form-check-label" for="qryCult">artist or culture?
+                        <label class="form-check-label" for="qryCult"
+                                data-toggle="popover" data-trigger="hover" data-placement="top"
+                                title="Searching against the artist name or culture field"
+                                data-content="Either true or false"
+                            >artist or culture?
                         </label>
                         <input
                           type="text"
                           class="form-input"
                           id="qryCult"
                           name="qryCult"
-                          required
                         />
                         </div>
                         <div class="form-check form-check-inline col-md-3">
-                        <label class="form-check-label" for="qryMedium">what medium?
+                        <label class="form-check-label" for="qryMedium"
+                                data-toggle="popover" data-trigger="hover" data-placement="top"
+                                title="Returns objects of specified medium or type"
+                                data-content="E.g.: 'Ceramics', 'Furniture', 'Paintings', 'Sculpture', 'Textiles', etc.">what medium?
                         </label>
                         <input
                           type="text"
                           class="form-input"
                           id="qryMedium"
                           name="qryMedium"
-                          required
                         />
                         </div>              
                         <div class="form-check form-check-inline col-md-3">
-                        <label class="form-check-label" for="qryImages" data-toggle="tooltip" data-placement="top" title="true or false">has images?
+                        <label class="form-check-label" for="qryImages" 
+                            data-toggle="popover" data-trigger="hover" data-placement="top"
+                            title="Images required"
+                            data-content="Either true or false">has images?
                         </label>
                         <input
                           type="text"
@@ -222,22 +242,24 @@
                           name="qryImages"
                           value="true"
                           size="5"
-                          required
                         />
                         </div>
                         <div class="form-check form-check-inline col-md-3">
-                        <label class="form-check-label" for="qryLoc">location?
+                        <label class="form-check-label" for="qryLoc"
+                        data-toggle="popover" data-trigger="hover" data-placement="top"
+                            title="Geographic Location"
+                        data-content="Examples include: 'Europe', 'France', 'Paris', 'China', 'New York', etc.">location?
                         </label>
                         <input
                           type="text"
                           class="form-input"
                           id="qryLoc"
                           name="qryLoc"
-                          required
                         />
                         </div>    
                        <div class="form-check form-check-inline col-md-3">
-                        <label class="form-check-label" for="qryBegin" data-toggle="tooltip" data-placement="top" title="e.g. 1600">beginning date?
+                        <label class="form-check-label" for="qryBegin" 
+                            data-toggle="popover" data-trigger="hover" data-placement="top" title="Objects since this year" data-content="e.g. 1600">beginning date?
                         </label>
                         <input
                           type="text"
@@ -245,9 +267,9 @@
                           id="qryBegin"
                           name="qryBegin"
                           size="4"
-                          required
                         />
-                        <label class="form-check-label" for="qryEnd" data-toggle="tooltip" data-placement="top" title="e.g. 1800">end date?
+                        <label class="form-check-label" for="qryEnd" 
+                            data-toggle="popover" data-trigger="hover" data-placement="top" title="Objects prior to this year" data-content="e.g. 1800">end date?
                         </label>
                         <input
                           type="text"
@@ -255,7 +277,6 @@
                           id="qryEnd"
                           name="qryEnd"
                           size="4"
-                          required
                         />                      
                         </div>                                                                                                               
                     </div>
@@ -287,7 +308,30 @@
     </section>
 
     <!--    Footer -->
-    <footer class="container-fluid"></footer>
+    <footer class="container-fluid">
+    	<div id="footer-details" class="row">
+			<div class="col-sm-12">
+				<hr />
+				<!-- <h5 class="text-uppercase general-sub">Social</h5> -->
+				<ul class="list-inline social-links">
+					<li class="list-inline-item px-3">
+						<a target="_blank" href="https://www.metmuseum.org/"
+							title="Go to our facebook page">
+							<i class="fa fa-facebook fa-lg" aria-hidden="true"></i>
+							<span class="sr-only">Facebook</span>
+						</a>
+					</li>
+					<li class="list-inline-item px-3">
+						<a target="_blank" href="https://www.metmuseum.org/"
+							title="Go to our youtube entries">
+							<i class="fa fa-youtube fa-lg" aria-hidden="true"></i>
+							<span class="sr-only">YouTube</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+    </footer>
     <!-- Bootstrap Javascript CDN  aria -->
 
 <!--
