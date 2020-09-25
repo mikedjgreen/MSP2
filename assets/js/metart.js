@@ -180,7 +180,28 @@ function writeObjectDetails(obj_ID) {
   var objReign = "";
   var objDimensions = "";
   var objCreditLine = "";
+  var objAdditionalImages = [];
   var objConstituents = [];
+  var objArtistDisplayBio = "";
+  var objPortfolio = "";
+  var objArtistRole = "";
+  var objArtistPrefix = "";
+  var objArtistSuffix = "";
+  var objArtistNationality = "";
+  var objArtistGender = "";
+  var objDate = "";
+  var objCity = "";
+  var objState = "";
+  var objCounty = "";
+  var objCountry = "";
+  var objRegion = "";
+  var objSubRegion = "";
+  var objLocale = "";
+  var objLocus = "";
+  var objExcavation = "";
+  var objRiver = "";
+  var objClassification = "";
+
 
   getMetObject(obj_ID, function (item) {
     objTitle = item.title;
@@ -199,65 +220,115 @@ function writeObjectDetails(obj_ID) {
     objReign = item.reign;
     objDimensions = item.dimensions;
     objCreditLine = item.creditLine;
-    objConstituents = item.constituents;
-    objWiki = item.objectWikidata_URL;
-
-    document.getElementById("metArt").innerHTML +=
-      obj_ID + ": " + objTitle + " <br>";
-    document.getElementById("metArt").innerHTML += objName + " <br>";
-    document.getElementById("metArt").innerHTML +=
-      "<img src=" + objPrimaryImage + " alt=" + objTitle + '"> <br>';
-    document.getElementById("metArt").innerHTML +=
-      "artist: " + objArtistDisplayName + " <br>";
-    if (objArtistBegin.length > 0) {
-      document.getElementById("metArt").innerHTML +=
-        "artist birth: " + objArtistBegin + " death: " + objArtistEnd + "<br>";
+    //objAdditionalImages = item.additionalImages; // array
+    for ( let i in item.additionalImages ) {
+        objAdditionalImages.push(item.additionalImages[i]);
     }
-    document.getElementById("metArt").innerHTML +=
-      "medium: " + objMedium + " <br>";
-    document.getElementById("metArt").innerHTML +=
-      "department: " + objDept + " <br>";
+    //objConstituents = item.constituents;  //array
+    for ( let i in item.constituents ) {
+        objConstituents.push(item.constituents[i]);
+    }    
+    objWiki = item.objectWikidata_URL;
+    objArtistDisplayBio = item.artistDisplayBio;
+    objPortfolio = item.portfolio;
+    objArtistRole = item.artistRole;
+    objArtistPrefix = item.artistPrefix;   
+    objArtistSuffix = item.artistSuffix;
+    objArtistNationality = item.artistNationality;
+    objArtistGender = item.artistGender;
+    objDate = item.objectDate;
+    objCity = item.city;
+    objState = item.state;
+    objCounty = item.county;
+    objCountry = item.country;
+    objRegion = item.region;
+    objSubRegion = item.subregion;
+    objLocale = item.locale;
+    objLocus = item.locus;
+    objExcavation = item.excavation;
+    objRiver = item.river;
+    objClassification = item.classification;
+
+
+    document.getElementById("metArt").innerHTML += `${obj_ID} : ${objTitle} <br>`;
+    document.getElementById("metArt").innerHTML += `${objName} <br>`;
+    document.getElementById("metArt").innerHTML += `"<img src="${objPrimaryImage}" alt="${objTitle}"> <br>`;
+    document.getElementById("metArt").innerHTML += `artist: ${objArtistDisplayName} <br>`;
+    if (objArtistDisplayBio.length > 0 ) {
+        document.getElementById("metArt").innerHTML += `artist bio: ${objArtistDisplayBio} <br>`;
+    }
+    if (objArtistBegin.length > 0) {
+      document.getElementById("metArt").innerHTML += `artist birth: ${objArtistBegin} death: ${objArtistEnd} <br>`;
+    }
+    if (objMedium.length > 0) {
+        document.getElementById("metArt").innerHTML += `medium: ${objMedium} <br>`;
+    }
+    document.getElementById("metArt").innerHTML += `department: ${objDept} <br>`;
     if (objCulture.length > 0) {
-      document.getElementById("metArt").innerHTML +=
-        "culture: " + objCulture + " <br>";
+      document.getElementById("metArt").innerHTML += `culture: ${objCulture} <br>`;
     }
     if (objPeriod.length > 0) {
-      document.getElementById("metArt").innerHTML +=
-        "period: " + objPeriod + " <br>";
+      document.getElementById("metArt").innerHTML += `period: ${objPeriod} <br>`;
     }
     if (objDynasty.length > 0) {
-      document.getElementById("metArt").innerHTML +=
-        "dynasty: " + objDynasty + " <br>";
+      document.getElementById("metArt").innerHTML += `dynasty: ${objDynasty} <br>`;
     }
     if (objReign.length > 0) {
-      document.getElementById("metArt").innerHTML +=
-        "reign: " + objReign + " <br>";
+      document.getElementById("metArt").innerHTML += `reign: ${objReign} <br>`;
     }
     if (objDimensions.length > 0) {
-      document.getElementById("metArt").innerHTML +=
-        "artwork dimensions: " + objDimensions + " <br>";
+      document.getElementById("metArt").innerHTML += `artwork dimensions: ${objDimensions} <br>`;
     }
 
-    document.getElementById("metArt").innerHTML +=
-      "object begin date: " +
-      objBegin +
-      " object end date: " +
-      objEnd +
-      " <br>";
+    document.getElementById("metArt").innerHTML += `object begin date: ${objBegin} object end date: ${objEnd} <br>`;
 
     if (objCreditLine.length > 0) {
       document.getElementById("metArt").innerHTML +=
         "origin and year acquired: " + objCreditLine + " <br>";
-    }
+    };
 
-    if (objConstituents.length > 0 ) {
-        document.getElementById("metArt").innerHTML +=
-        "constituents: " + objConstituents + " <br>";
-    }
+    /*  blanking out additional images for the moment...another window? 
+
+    for ( let i in objAdditionalImages ) {
+        document.getElementById("metArt").innerHTML += `additional images <img src="${objAdditionalImages[i]}" alt="add image"> <br>`;
+    };
+    */
+
+    for ( let i in objConstituents ) {
+        document.getElementById("metArt").innerHTML += `constituents: ${objConstituents[i]} <br>`;
+    };
+
     if (objWiki.length > 0 ) {
         document.getElementById("metArt").innerHTML +=
-        `WIKIData: <a href="${objWiki} target="_blank" title="WIKIData link">WIKI link</a>  <br>`;
-    } 
+        `WIKIData: <a href="${objWiki}" target="_blank" title="WIKIData link">WIKI link</a>  <br>`;
+    } ;
+
+    if (objPortfolio.length > 0 ) {
+         document.getElementById("metArt").innerHTML += `portfolio: ${objPortfolio} <br>`;
+    };
+
+    if (objArtistRole.length > 0 ) {
+        document.getElementById("metArt").innerHTML += `Artists role: ${objArtistRole} <br>`;
+    };
+    if (objArtistPrefix.length > 0 ) {
+        document.getElementById("metArt").innerHTML += `Prefix: ${objArtistPrefix} <br>`;
+    };
+
+    if ( objArtistSuffix.length > 0 ){ document.getElementById("metArt").innerHTML += `Suffix: ${objArtistSuffix} <br>`;};
+    if (objArtistNationality.length > 0 ) { document.getElementById("metArt").innerHTML += `Nationality: ${objArtistNationality} <br>`;};
+  if ( objArtistGender.length > 0 ) { document.getElementById("metArt").innerHTML += `Gender: ${objArtistGender} <br>`;};
+  if (objDate.length > 0 ) { document.getElementById("metArt").innerHTML += `object date: ${objDate} <br>`;};
+  if ( objCity.length > 0 ) { document.getElementById("metArt").innerHTML += `city: ${objCity} <br>`;};
+  if ( objState.length > 0 ) { document.getElementById("metArt").innerHTML += `state: ${objState} <br>`;};
+  if (objCounty.length > 0 ) { document.getElementById("metArt").innerHTML += `county: ${objCounty} <br>`;};
+  if ( objCountry.length > 0 ) { document.getElementById("metArt").innerHTML += `country: ${objCountry} <br>`;};
+  if ( objRegion.length > 0 ) { document.getElementById("metArt").innerHTML += `region: ${objRegion} <br>`;};
+  if (objSubRegion.length > 0 ) { document.getElementById("metArt").innerHTML += `subregion: ${objSubRegion} <br>`;};
+  if (objLocale.length > 0 ) { document.getElementById("metArt").innerHTML += `locale: ${objLocale} <br>`;};
+  if (objLocus.length > 0 ) { document.getElementById("metArt").innerHTML += `locus: ${objLocus} <br>`;};
+  if ( objExcavation.length > 0 ) { document.getElementById("metArt").innerHTML += `excavation: ${objExcavation} <br>`;};
+  if ( objRiver.length > 0 ) { document.getElementById("metArtt").innerHTML += `river: ${objRiver} <br>`;};
+  if ( objClassification.length > 0 ) { document.getElementById("metArt").innerHTML += `classification: ${objClassification} <br>`;};
 
     document.getElementById("metArt").innerHTML += "<hr>";
   });
