@@ -47,50 +47,44 @@
     <section class="container-fluid">
       <!-- The Buttons -->
       <div id="theButtons">
-        <!--
-        <button type="button" class="btn btn-primary btn-lg" onclick="loadMember()">Post Member</button>
-        <br>
-        <button type="button" class="btn btn-secondary btn-lg" onclick="writeToDocument()">Get Membership</button>
-        <br>
-        -->
         <table>
         <tr>
-        <button
-          type="button"
-          class="btn btn-secondary btn-sm"
-          onclick="writeDepts()"
-          data-toggle="modal"
-          data-target="#deptModal"
-        >
+        <td>
+        <button type="button" class="btn btn-secondary btn-sm"
+          onclick="writeDepts()" 
+          data-toggle="modal" data-target="#deptModal">
           Get Met Art Departments
         </button>
-        </tr>
+        </td>
         
-        <tr>
-        <button
-          type="button"
-          class="btn btn-secondary btn-sm"
+        <td>
+        <button type="button" class="btn btn-secondary btn-sm"
           onclick="getSelection()"
-          data-toggle="modal"
-          data-target="#searchModal"
-        >
+          data-toggle="modal" data-target="#searchModal">
           Selection Criteria for Met Art
         </button>
+        </td>
         </tr>
 
         <tr>
-        <button
-          type="button"
-          class="btn btn-secondary btn-sm"
+        <td>
+        <button type="button" class="btn btn-secondary btn-sm"
           onclick="writeObjects()"
-          data-target="#metArt"
-        >
+          data-target="#metArt">
           Get Met Art Objects
         </button>
+        </td>
+        <td>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="totalCollection()">
+          Get Total Objects
+        </button>
+        </td>
         </tr>
         </table>
       </div>
 
+      <div id="metArtTotal">
+      </div>  
       <!-- The Department Modal -->
       <div class="modal" id="deptModal">
         <div class="modal-dialog modal-dialog-scrollable">

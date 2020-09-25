@@ -45,6 +45,11 @@ header {
     background-color: #D9E6F3;
 }
 
+#metArtTotal {
+    margin:1rem;
+    padding:0;
+}
+
 #theButtons {
     padding:1rem;
     margin: 0;
