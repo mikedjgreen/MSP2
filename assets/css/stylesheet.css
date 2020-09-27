@@ -56,6 +56,11 @@ header {
     background-color: #D9E6F3;
 }
 
+/*-----  Initially do not display button until selection of criteria is made */
+#btnGetObjects {
+    display: none;
+}
+
 
 /*--------------------------------------------Modal */
 #metArtDept {
@@ -65,6 +70,7 @@ header {
 /*--------------------------------------------Searched collection display */
 #metCriteria {
     font-size: 0.75em;
+    font-style: italic;
 }
 #metArt {
     margin-left: 5px;

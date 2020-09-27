@@ -3,8 +3,8 @@
   <head>
     <!-- Milestone Project 2 for HTML5/CSS3/JavaScript/jQuery -->
     <meta charset="UTF-8" />
-    <meta name="description" content="Prickwillow art club" />
-    <meta name="keywords" content="Prickwillow artclub art" />
+    <meta name="description" content="Metropolitan Museum of Art Collection" />
+    <meta name="keywords" content="NY Metro Art" />
     <meta name="author" content="Mike Green" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -49,8 +49,16 @@
       <div id="theButtons">
         <table>
         <tr>
+        <td> <button type="button" class="btn btn-secondary btn-sm"
+             onclick="toggleDisplayBtn()">
+             toggle Button
+             </button>
+        </td>
+        </tr>
+
+        <tr>
         <td>
-        <button type="button" class="btn btn-secondary btn-sm"
+        <button type="button" id="btnGetDepts" class="btn btn-secondary btn-sm"
           onclick="writeDepts()" 
           data-toggle="modal" data-target="#deptModal">
           Get Met Art Departments
@@ -58,7 +66,7 @@
         </td>
         
         <td>
-        <button type="button" class="btn btn-secondary btn-sm"
+        <button type="button" id="btnGetCriteria" class="btn btn-secondary btn-sm"
           onclick="getSelection()"
           data-toggle="modal" data-target="#searchModal">
           Select Criteria for searching the Met</button>
@@ -67,14 +75,14 @@
 
         <tr>
         <td>
-        <button type="button" class="btn btn-secondary btn-sm"
+        <button type="button" id="btnGetObjects" class="btn btn-secondary btn-sm"
           onclick="writeObjects()"
           data-target="#metArt">
           Get Met Art Objects
         </button>
         </td>
         <td>
-        <button type="button" class="btn btn-secondary btn-sm" onclick="totalCollection()">
+        <button type="button" id="btnGetTotal" class="btn btn-secondary btn-sm" onclick="totalCollection()">
           Get Total Objects
         </button>
         </td>
@@ -134,7 +142,7 @@
             <!-- Modal body -->
             <div class="modal-body">
               <div id="metArtSearch">
-                <form name="metArtCriteria" class="metArtCriteria" onsubmit="return writeSelection()" method="GET">
+                <form name="metArtCriteria" class="metArtCriteria" > <!--onsubmit="return writeSelection()" method="GET"> -->
                   <fieldset>
                     <legend>Search Criteria</legend>
                     <div id="searchCautionary"></div>
@@ -273,13 +281,13 @@
                         />                      
                         </div>                                                                                                               
                     </div>
-                    <button
-                        type="submit"
-                        id="searchBtn"
+                    <button type="submit" value="submit" class="btn btn-danger btn-sm"
+                        data-dismiss="modal" onclick="writeSelection()">
+                    <!--    id="searchBtn"
                         class="btn btn-danger btn-sm"
                         data-dismiss="modal"
                         onclick="writeSelection()"
-                    >
+                    -->
                     Search
                     </button>
                   </fieldset>
