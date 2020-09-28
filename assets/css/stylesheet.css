@@ -60,6 +60,9 @@ header {
 #btnGetObjects {
     display: none;
 }
+#btnGetTotal {
+     display: none;
+}
 
 
 /*--------------------------------------------Modal */
@@ -71,11 +74,13 @@ header {
 #metCriteria {
     font-size: 0.75em;
     font-style: italic;
+    text-align: center;
 }
 #metArt {
     margin-left: 5px;
     font-size: 1em;
 }
+
 
 /*--------------------------------------------Footer   */
 

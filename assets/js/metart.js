@@ -23,6 +23,7 @@ var depts = [];
 var deptName; //department Name
 var totalObjects; // to capture the total number of objects listed on the Met's public collections
 
+/*
 function toggleDisplayBtn() {
     var x = document.getElementById("btnGetObjects");
 
@@ -32,6 +33,20 @@ function toggleDisplayBtn() {
         document.getElementById("btnGetObjects").style.display = "none";
     }
 };
+*/
+
+/*
+    Initialising popovers to help with selection criteria validation, UX
+    Also returning total objects in collection.
+    Also populating departments array
+*/
+
+$(document).ready(function () {
+  $('[data-toggle="popover"]').popover();
+  totalCollection();
+  writeDepts();
+  loadDept();
+});
 
 function getTotalObjects(cb) {
   var xhr = new XMLHttpRequest();
@@ -51,7 +66,8 @@ function getTotalObjects(cb) {
 function totalCollection() {
   getTotalObjects(function (item) {
     totalObjects = item.total;
-    document.getElementById("metArtTotal").innerHTML = `There is a total of ${totalObjects} recorded objects in the Met's collection.`;
+    document.getElementById("metArtTotal").innerHTML = `There are a total of ${totalObjects} available objects in the Met's collection.`;
+    document.getElementById("metArtTotal").innerHTML += `<br>So use the selection criteria wisely.`;
     return totalObjects;
   });
 }
@@ -84,6 +100,14 @@ function writeDepts() {
   });
 }
 
+function loadDept() {
+    alert("Loading Depts");
+    for (let i = 0; i < depts.length ; i++ ) {
+        console.log("Depts " + depts[i]);
+        alert("Dept:"+ depts[i].departmentId);
+    } 
+}
+
 function writeDeptName(data) {
   document.getElementById("metCriteria").innerHTML +=    " : " + data.displayName + "</p>";
 }
@@ -113,15 +137,6 @@ function returnDeptName(deptId) {
     alert("returnDeptName " + deptName);
     return deptName;
 }
-
-/*
-    Initialising popovers to help with selection criteria validation, UX
-*/
-
-$(document).ready(function () {
-  $('[data-toggle="popover"]').popover();
-  totalCollection();
-});
 
 
 /*
@@ -174,17 +189,14 @@ function writeObjects() {
   */
     writeCriteria();
     getMetSearch(function (item) {
-    var total_Found;
-    total_Found = item.total;
-    document.getElementById("metArt").innerHTML +=
-      "<p> Total found: " + total_Found + " </p>";
-    objects = item.objectIDs;
-
-    for (objectId of objects) {
-      //document.getElementById("metArt").innerHTML += "<p> "+objectId+" </p>";
-      writeObjectDetails(objectId);
-    }
-  });
+        var total_Found;
+        total_Found = item.total;
+        document.getElementById("metArt").innerHTML += `<p> Total found: ${total_Found} </p>`;
+        objects = item.objectIDs;
+        for (objectId of objects) {
+            writeObjectDetails(objectId);
+        }
+    });
 }
 
 function writeObjectDetails(obj_ID) {
@@ -276,7 +288,7 @@ function writeObjectDetails(obj_ID) {
     objClassification = item.classification;
 
 
-    document.getElementById("metArt").innerHTML += `(${obj_ID}) : ${objTitle} <br>`;
+    document.getElementById("metArt").innerHTML += `(${obj_ID}) :<text-align:center> ${objTitle} </text-align:center><br>`;
     document.getElementById("metArt").innerHTML += `${objName} <br>`;
     document.getElementById("metArt").innerHTML += `"<img src="${objPrimaryImage}" alt="${objTitle}"> <br>`;
     document.getElementById("metArt").innerHTML += `Artist: ${objArtistDisplayName} <br>`;
@@ -375,16 +387,6 @@ function writeSelection() {
   document.getElementById("metArt").innerHTML = "";
   qryStr = document.forms["metArtCriteria"]["queryString"].value;
   qryDept = document.forms["metArtCriteria"]["qryDept"].value;
-/*
-    if ( qryDept.checkvalidity()) {
-        alert("checkvalidity");
-        document.getElementById("qryDeptValidation").innerHTML = qryDept.validationMessage;
-     } 
-     else {
-        document.getElementById("qryDeptValidation").innerHTML = returnDeptName(qryDept);
-    };
-*/
-
 
   qryHighlight = document.forms["metArtCriteria"]["qryHighlight"].value;
   qryView = document.forms["metArtCriteria"]["qryView"].value; // isOnView
@@ -403,10 +405,10 @@ function writeSelection() {
   */
 
   searchCrit1 = `departmentId=${qryDept}&q=${qryStr}`;
-  var searchCrit2Orig = `isHighlight=${qryHighlight}&isOnView=${qryView}&hasImages=${qryImages}&geoLocation=${qryLoc}&dateBegin=${qryBegin}&dateEnd=${qryEnd}`;
+  var searchCrit2Orig = `isHighlight=${qryHighlight}&isOnView=${qryView}&artistOrCulture=${qryCult}&medium=${qryMedium}&hasImages=${qryImages}&geoLocation=${qryLoc}&dateBegin=${qryBegin}&dateEnd=${qryEnd}`;
   searchCritArray = searchCrit2Orig.split("&");
   searchCrit2 = stripBlankSelections(searchCritArray);
-  document.getElementById("metCriteria").innerHTML += `<p> Search criteria: ${searchCrit1} & ${searchCrit2} </p>`;
+  document.getElementById("metCriteria").innerHTML += `<p> Search criteria: ${searchCrit1}${searchCrit2} </p>`;
 
   /* let criteriaString = `Selection: ${qryStr} Department: ${qryDept} highlighted: ${qryHighlight} on view: ${qryView}
         artist or culture: ${qryCult} medium: ${qryMedium} has images: ${qryImages} geographic location: ${qryLoc} 

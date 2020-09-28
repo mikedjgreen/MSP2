@@ -49,14 +49,6 @@
       <div id="theButtons">
         <table>
         <tr>
-        <td> <button type="button" class="btn btn-secondary btn-sm"
-             onclick="toggleDisplayBtn()">
-             toggle Button
-             </button>
-        </td>
-        </tr>
-
-        <tr>
         <td>
         <button type="button" id="btnGetDepts" class="btn btn-secondary btn-sm"
           onclick="writeDepts()" 
@@ -169,7 +161,6 @@
                           class="form-input"
                           id="qryHighlight"
                           name="qryHighlight"
-                          value="true"
                           size = "5"
                         />
                         </div>                        
@@ -180,14 +171,16 @@
                             data-content="Select 'Get Met Art Departments' button for valid list">Search Department
                         </label>
                         <input
-                          type="text"
+                          type="number"
                           class="form-input"
                           id="qryDept"
                           name="qryDept"
-                          size="2"
+                          min="1"
+                          max="21"
                           required
                         />
                         </div>
+                        <div id="qryDeptValidation"></div>
                         <div class="form-check form-check-inline col-md-3">
                         <label class="form-check-label" for="qryView" 
                             data-toggle="popover" data-trigger="hover" data-placement="top" 
@@ -199,7 +192,6 @@
                           class="form-input"
                           id="qryView"
                           name="qryView"
-                          value="true"
                           size="5"
                         />
                         </div>
@@ -215,6 +207,7 @@
                           class="form-input"
                           id="qryCult"
                           name="qryCult"
+                          size="5"
                         />
                         </div>
                         <div class="form-check form-check-inline col-md-3">
@@ -305,7 +298,8 @@
 
       <!-- Search objects results -->
       <div id="metCriteria"></div>
-      <div id="metArt"></div>
+      <div id="metArt">
+      </div>
     </section>
 
     <!--    Footer -->
