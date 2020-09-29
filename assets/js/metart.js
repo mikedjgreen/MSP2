@@ -278,13 +278,13 @@ function writeObjectDetails(obj_ID) {
     objRiver = item.river;
     objClassification = item.classification;
 
-    document.getElementById("metArt").innerHTML += `<div class=\"card bg-info text-white\">`;
-    document.getElementById("metArt").innerHTML += `<div class=\"card-header card-title\">`;
+    document.getElementById("metArt").innerHTML += `<div class="card bg-info text-white">`;
+    document.getElementById("metArt").innerHTML += `<div class="card-header card-title">`;
 
-    document.getElementById("metArt").innerHTML += `(${obj_ID}) :<text-align:center> ${objTitle} </text-align:center><br>`;
+    document.getElementById("metArt").innerHTML += `(${obj_ID}) :<text-align:center> ${objTitle} </text-align:center>`;
 
     document.getElementById("metArt").innerHTML += `</div>` //end of card header
-    document.getElementById("metArt").innerHTML +=  `<div class=\"card-body\">`;
+    document.getElementById("metArt").innerHTML +=  `<div class="card-body">`;
 
 
     document.getElementById("metArt").innerHTML += `${objName} <br>`;
@@ -367,7 +367,7 @@ function writeObjectDetails(obj_ID) {
   if ( objExcavation.length > 0 ) { document.getElementById("metArt").innerHTML += `Excavation: ${objExcavation} <br>`;};
   if ( objRiver.length > 0 ) { document.getElementById("metArtt").innerHTML += `River: ${objRiver} <br>`;};
   if ( objClassification.length > 0 ) { document.getElementById("metArt").innerHTML += `Classification: ${objClassification} <br>`;};
-document.getElementById("metArt").innerHTML += `</div>` //end of card body
+document.getElementById("metArt").innerHTML += `</div>`; //end of card body
     //document.getElementById("metArt").innerHTML += "<hr>";
     document.getElementById("metArt").innerHTML += `</div>`;  // end of card
   });
