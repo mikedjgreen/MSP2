@@ -278,13 +278,13 @@ function writeObjectDetails(obj_ID) {
     objRiver = item.river;
     objClassification = item.classification;
 
-    document.getElementById("metArt").innerHTML += `<div class="card bg-info text-white">`;
-    document.getElementById("metArt").innerHTML += `<div class="card-header card-title">`;
+    document.getElementById("metArt").innerHTML += `<div class="card bg-info text-white style="width:400px">`;
+    document.getElementById("metArt").innerHTML += `<div class="card-header card-title"> (${obj_ID}) ${objTitle} </div>`;
 
-    document.getElementById("metArt").innerHTML += `(${obj_ID}) :<text-align:center> ${objTitle} </text-align:center>`;
+    //document.getElementById("metArt").innerHTML += `(${obj_ID}) ${objTitle}`;
 
-    document.getElementById("metArt").innerHTML += `</div>` //end of card header
-    document.getElementById("metArt").innerHTML +=  `<div class="card-body">`;
+    //document.getElementById("metArt").innerHTML += `</div>` //end of card header
+    document.getElementById("metArt").innerHTML += `<div class="card-body">`;
 
 
     document.getElementById("metArt").innerHTML += `${objName} <br>`;
