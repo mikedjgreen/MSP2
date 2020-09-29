@@ -24,18 +24,6 @@ var deptName; //department Name
 var totalObjects; // to capture the total number of objects listed on the Met's public collections
 
 /*
-function toggleDisplayBtn() {
-    var x = document.getElementById("btnGetObjects");
-
-    if (x.style.display === "none") {
-        document.getElementById("btnGetObjects").style.display = "block";
-    } else {
-        document.getElementById("btnGetObjects").style.display = "none";
-    }
-};
-*/
-
-/*
     Initialising popovers to help with selection criteria validation, UX
     Also returning total objects in collection.
     Also populating departments array
@@ -90,13 +78,11 @@ function getMetDept(cb) {
 }
 
 function writeDepts() {
-  //getMetDept(function (item) {
-  //var depts = [];
-  // depts = item.departments;
+    document.getElementById("metArtDept").innerHTML = "";
     depts.forEach(function (item) {
       document.getElementById("metArtDept").innerHTML += item.departmentId + ") " + item.displayName + " <br>";
     });
-  //});
+
 }
 
 function loadDepts() {
@@ -114,13 +100,11 @@ function loadDepts() {
 }
 
 function writeDeptName(data) {
-  document.getElementById("metCriteria").innerHTML +=    " : " + data.displayName + "</p>";
+  document.getElementById("metCriteria").innerHTML += data.displayName + "</p>";
 }
 
 function getDeptName(deptId) {
-  //var depts = [];
   getMetDept(function (item) {
-    depts = item.departments;
     depts.forEach(function (item) {
       if (item.departmentId == deptId) {
         writeDeptName(item);
@@ -205,6 +189,8 @@ function writeObjects() {
 }
 
 function writeObjectDetails(obj_ID) {
+
+    /* Each artwork will be bounded by a 'card' */
   var objTitle = "";
   var objPrimaryImage = "";
   var objArtistDisplayName = "";
@@ -292,8 +278,15 @@ function writeObjectDetails(obj_ID) {
     objRiver = item.river;
     objClassification = item.classification;
 
+    document.getElementById("metArt").innerHTML += "<div class=\"card bg-info text-white\">";
+    document.getElementById("metArt").innerHTML += "<div class=\"card-header card-title\">";
 
     document.getElementById("metArt").innerHTML += `(${obj_ID}) :<text-align:center> ${objTitle} </text-align:center><br>`;
+
+    document.getElementById("metArt").innerHTML += "</div>" //end of card header
+    document.getElementById("metArt").innerHTML +=  "<div class=\"card-body\">";
+
+
     document.getElementById("metArt").innerHTML += `${objName} <br>`;
     document.getElementById("metArt").innerHTML += `"<img src="${objPrimaryImage}" alt="${objTitle}"> <br>`;
     if (objArtistDisplayName.length > 0) {
@@ -374,8 +367,9 @@ function writeObjectDetails(obj_ID) {
   if ( objExcavation.length > 0 ) { document.getElementById("metArt").innerHTML += `Excavation: ${objExcavation} <br>`;};
   if ( objRiver.length > 0 ) { document.getElementById("metArtt").innerHTML += `River: ${objRiver} <br>`;};
   if ( objClassification.length > 0 ) { document.getElementById("metArt").innerHTML += `Classification: ${objClassification} <br>`;};
-
-    document.getElementById("metArt").innerHTML += "<hr>";
+document.getElementById("metArt").innerHTML += "</div>" //end of card body
+    //document.getElementById("metArt").innerHTML += "<hr>";
+    document.getElementById("metArt").innerHTML += "</div>";  // end of card
   });
 }
 
