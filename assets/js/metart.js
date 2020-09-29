@@ -45,7 +45,7 @@ $(document).ready(function () {
   $('[data-toggle="popover"]').popover();
   totalCollection();
   writeDepts();
-  loadDept();
+  loadDepts();
 });
 
 function getTotalObjects(cb) {
@@ -67,7 +67,7 @@ function totalCollection() {
   getTotalObjects(function (item) {
     totalObjects = item.total;
     document.getElementById("metArtTotal").innerHTML = `There are a total of ${totalObjects} available objects in the Met's collection.`;
-    document.getElementById("metArtTotal").innerHTML += `<br>So use the selection criteria wisely.`;
+    document.getElementById("metArtTotal").innerHTML += `<br>Use the selection criteria wisely.`;
     return totalObjects;
   });
 }
@@ -100,12 +100,17 @@ function writeDepts() {
   });
 }
 
-function loadDept() {
-    alert("Loading Depts");
-    for (let i = 0; i < depts.length ; i++ ) {
-        console.log("Depts " + depts[i]);
-        alert("Dept:"+ depts[i].departmentId);
-    } 
+function loadDepts() {
+/*  
+    Using temporary store for department names
+    Will clear when browser closed
+*/
+    getMetDept(function (item) {
+        depts = item.departments;
+        depts.forEach(function(item){
+            sessionStorage.setItem(item.departmentId,item.displayName);
+        })
+    });
 }
 
 function writeDeptName(data) {
@@ -375,6 +380,8 @@ function writeObjectDetails(obj_ID) {
 function getSelection() {
   $(document).ready(function () {
     $("#searchBtn").on("click", function () {
+      /* clear down any previous searches */
+      document.getElementById("qryDeptValidation").innerHTML = "";
       document.getElementById("metCriteria").innerHTML = "";
       
       writeSelection();

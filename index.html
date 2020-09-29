@@ -147,6 +147,7 @@
                           class="form-input"
                           id="queryString"
                           name="queryString"
+                          value="''"
                           required
                         />
                         </div>
@@ -179,8 +180,13 @@
                           max="21"
                           required
                         />
+                        <button type="button" class="btn btn-info btn-sm" 
+                                value="dept. names" 
+                                onclick="document.getElementById('qryDeptValidation').innerHTML = sessionStorage.getItem(qryDept.value)">
+                                Dept. Name
+                        </button> 
                         </div>
-                        <div id="qryDeptValidation"></div>
+                        <div id="qryDeptValidation" class="bg-info text-white"></div>
                         <div class="form-check form-check-inline col-md-3">
                         <label class="form-check-label" for="qryView" 
                             data-toggle="popover" data-trigger="hover" data-placement="top" 
@@ -240,9 +246,9 @@
                         </div>
                         <div class="form-check form-check-inline col-md-3">
                         <label class="form-check-label" for="qryLoc"
-                        data-toggle="popover" data-trigger="hover" data-placement="top"
+                            data-toggle="popover" data-trigger="hover" data-placement="top"
                             title="Geographic Location"
-                        data-content="Examples include: 'Europe', 'France', 'Paris', 'China', 'New York', etc.">location?
+                            data-content="Examples include: 'Europe', 'France', 'Paris', 'China', 'New York', etc.">location?
                         </label>
                         <input
                           type="text"
@@ -276,13 +282,9 @@
                     </div>
                     <button type="submit" value="submit" class="btn btn-danger btn-sm"
                         data-dismiss="modal" onclick="writeSelection()">
-                    <!--    id="searchBtn"
-                        class="btn btn-danger btn-sm"
-                        data-dismiss="modal"
-                        onclick="writeSelection()"
-                    -->
-                    Search
+                        Search
                     </button>
+                    <input type="reset"/>
                   </fieldset>
                 </form>
               </div>
