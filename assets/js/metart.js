@@ -104,6 +104,7 @@ function loadDepts() {
     Using temporary store for department names
     Will clear when browser closed
 */
+    sessionStorage.clear();
     getMetDept(function (item) {
         depts = item.departments;
         depts.forEach(function(item){
