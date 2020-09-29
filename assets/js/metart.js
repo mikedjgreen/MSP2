@@ -296,7 +296,9 @@ function writeObjectDetails(obj_ID) {
     document.getElementById("metArt").innerHTML += `(${obj_ID}) :<text-align:center> ${objTitle} </text-align:center><br>`;
     document.getElementById("metArt").innerHTML += `${objName} <br>`;
     document.getElementById("metArt").innerHTML += `"<img src="${objPrimaryImage}" alt="${objTitle}"> <br>`;
-    document.getElementById("metArt").innerHTML += `Artist: ${objArtistDisplayName} <br>`;
+    if (objArtistDisplayName.length > 0) {
+        document.getElementById("metArt").innerHTML += `Artist: ${objArtistDisplayName} <br>`;
+    }
     if (objArtistDisplayBio.length > 0 ) {
         document.getElementById("metArt").innerHTML += `Artist's bio: ${objArtistDisplayBio} <br>`;
     }
