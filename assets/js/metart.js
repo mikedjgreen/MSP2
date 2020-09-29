@@ -90,13 +90,13 @@ function getMetDept(cb) {
 }
 
 function writeDepts() {
-  getMetDept(function (item) {
+  //getMetDept(function (item) {
   //var depts = [];
-    depts = item.departments;
+  // depts = item.departments;
     depts.forEach(function (item) {
       document.getElementById("metArtDept").innerHTML += item.departmentId + ") " + item.displayName + " <br>";
     });
-  });
+  //});
 }
 
 function loadDepts() {
