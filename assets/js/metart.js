@@ -44,7 +44,6 @@ function toggleDisplayBtn() {
 $(document).ready(function () {
   $('[data-toggle="popover"]').popover();
   totalCollection();
-  writeDepts();
   loadDepts();
 });
 
