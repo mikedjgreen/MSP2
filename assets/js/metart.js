@@ -166,13 +166,17 @@ function writeCriteria() {
 }
 
 function writeObjects() {
-  var objects = [];
-  var objectId;
+    var objects = [];
+    var objectId;
+    var totalInt;
+    var artCnt = 0;
+    var pageCnt = 0;
+
 
   /*
         Clear down previous search results...
   */
-  document.getElementById("metArt").innerHTML = "";
+     document.getElementById("metArt").innerHTML = "";
   /*
         Now for current search results.....
   */
@@ -181,16 +185,27 @@ function writeObjects() {
         var total_Found;
         total_Found = item.total;
         document.getElementById("metArt").innerHTML += `<p> Total found: ${total_Found} </p>`;
+        totalInt = parseInt(total_Found);
         objects = item.objectIDs;
         for (objectId of objects) {
-            writeObjectDetails(objectId);
+            if (totalInt < 6) { 
+                writeObjectDetails(objectId);
+            }
+            else {    
+                artCnt++;
+                pageCnt++;
+                if (artCnt < 6) {
+                    writeObjectDetails(objectId);
+                }
+                else {
+                    generatePaginationButton();
+                }
+            } 
         }
     });
 }
 
 function writeObjectDetails(obj_ID) {
-
-    /* Each artwork will be bounded by a 'card' */
   var objTitle = "";
   var objPrimaryImage = "";
   var objArtistDisplayName = "";
@@ -278,13 +293,11 @@ function writeObjectDetails(obj_ID) {
     objRiver = item.river;
     objClassification = item.classification;
 
-    document.getElementById("metArt").innerHTML += `<div class="card bg-info text-white style="width:400px">`;
-    document.getElementById("metArt").innerHTML += `<div class="card-header card-title"> (${obj_ID}) ${objTitle} </div>`;
+  
+   
+    document.getElementById("metArt").innerHTML += `(${obj_ID}) <bold>${objTitle}</bold>`;
 
-    //document.getElementById("metArt").innerHTML += `(${obj_ID}) ${objTitle}`;
 
-    //document.getElementById("metArt").innerHTML += `</div>` //end of card header
-    document.getElementById("metArt").innerHTML += `<div class="card-body">`;
 
 
     document.getElementById("metArt").innerHTML += `${objName} <br>`;
@@ -354,22 +367,22 @@ function writeObjectDetails(obj_ID) {
 
     if ( objArtistSuffix.length > 0 ){ document.getElementById("metArt").innerHTML += `Suffix: ${objArtistSuffix} <br>`;};
     if (objArtistNationality.length > 0 ) { document.getElementById("metArt").innerHTML += `Nationality: ${objArtistNationality} <br>`;};
-  if ( objArtistGender.length > 0 ) { document.getElementById("metArt").innerHTML += `Gender: ${objArtistGender} <br>`;};
-  if (objDate.length > 0 ) { document.getElementById("metArt").innerHTML += `Artwork date: ${objDate} <br>`;};
-  if ( objCity.length > 0 ) { document.getElementById("metArt").innerHTML += `City: ${objCity} <br>`;};
-  if ( objState.length > 0 ) { document.getElementById("metArt").innerHTML += `State: ${objState} <br>`;};
-  if (objCounty.length > 0 ) { document.getElementById("metArt").innerHTML += `County: ${objCounty} <br>`;};
-  if ( objCountry.length > 0 ) { document.getElementById("metArt").innerHTML += `Country: ${objCountry} <br>`;};
-  if ( objRegion.length > 0 ) { document.getElementById("metArt").innerHTML += `Region: ${objRegion} <br>`;};
-  if (objSubRegion.length > 0 ) { document.getElementById("metArt").innerHTML += `Subregion: ${objSubRegion} <br>`;};
-  if (objLocale.length > 0 ) { document.getElementById("metArt").innerHTML += `Locale: ${objLocale} <br>`;};
-  if (objLocus.length > 0 ) { document.getElementById("metArt").innerHTML += `Locus: ${objLocus} <br>`;};
-  if ( objExcavation.length > 0 ) { document.getElementById("metArt").innerHTML += `Excavation: ${objExcavation} <br>`;};
-  if ( objRiver.length > 0 ) { document.getElementById("metArtt").innerHTML += `River: ${objRiver} <br>`;};
-  if ( objClassification.length > 0 ) { document.getElementById("metArt").innerHTML += `Classification: ${objClassification} <br>`;};
-document.getElementById("metArt").innerHTML += `</div>`; //end of card body
-    //document.getElementById("metArt").innerHTML += "<hr>";
-    document.getElementById("metArt").innerHTML += `</div>`;  // end of card
+    if ( objArtistGender.length > 0 ) { document.getElementById("metArt").innerHTML += `Gender: ${objArtistGender} <br>`;};
+    if (objDate.length > 0 ) { document.getElementById("metArt").innerHTML += `Artwork date: ${objDate} <br>`;};
+    if ( objCity.length > 0 ) { document.getElementById("metArt").innerHTML += `City: ${objCity} <br>`;};
+    if ( objState.length > 0 ) { document.getElementById("metArt").innerHTML += `State: ${objState} <br>`;};
+    if (objCounty.length > 0 ) { document.getElementById("metArt").innerHTML += `County: ${objCounty} <br>`;};
+    if ( objCountry.length > 0 ) { document.getElementById("metArt").innerHTML += `Country: ${objCountry} <br>`;};
+    if ( objRegion.length > 0 ) { document.getElementById("metArt").innerHTML += `Region: ${objRegion} <br>`;};
+    if (objSubRegion.length > 0 ) { document.getElementById("metArt").innerHTML += `Subregion: ${objSubRegion} <br>`;};
+    if (objLocale.length > 0 ) { document.getElementById("metArt").innerHTML += `Locale: ${objLocale} <br>`;};
+    if (objLocus.length > 0 ) { document.getElementById("metArt").innerHTML += `Locus: ${objLocus} <br>`;};
+    if ( objExcavation.length > 0 ) { document.getElementById("metArt").innerHTML += `Excavation: ${objExcavation} <br>`;};
+    if ( objRiver.length > 0 ) { document.getElementById("metArtt").innerHTML += `River: ${objRiver} <br>`;};
+    if ( objClassification.length > 0 ) { document.getElementById("metArt").innerHTML += `Classification: ${objClassification} <br>`;};
+
+    document.getElementById("metArt").innerHTML += "<hr>";
+    
   });
 }
 
@@ -434,4 +447,8 @@ function stripBlankSelections(searchCritArray) {
     }
   }
   return searchString;
+}
+
+function generatePaginationButton() {
+    document.getElementById("metPages").innerHTML += "<button>Next 5 artworks</button>";
 }

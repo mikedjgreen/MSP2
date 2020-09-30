@@ -144,10 +144,10 @@
                         </label>
                         <input
                           type="text"
-                          class="form-input mr-sm-2"
+                          class="form-input mb-2 mr-sm-2"
                           id="queryString"
                           name="queryString"
-                          value="''"
+                          placeholder="''"
                           required
                         />
                         </div>
@@ -159,7 +159,7 @@
                         </label>
                         <input
                           type="text"
-                          class="form-input mr-sm-2"
+                          class="form-input mb-2 mr-sm-2"
                           id="qryHighlight"
                           name="qryHighlight"
                           size = "5"
@@ -173,14 +173,14 @@
                         </label>
                         <input
                           type="number"
-                          class="form-input mr-sm-2"
+                          class="form-input mb-2 mr-sm-2"
                           id="qryDept"
                           name="qryDept"
                           min="1"
                           max="21"
                           required
                         />
-                        <button type="button" class="btn btn-info btn-sm" 
+                        <button type="button" class="btn btn-info btn-sm mb-2 mr-sm-2" 
                                 value="dept. names" 
                                 onclick="document.getElementById('qryDeptValidation').innerHTML = sessionStorage.getItem(qryDept.value)">
                                 Dept. Name
@@ -195,7 +195,7 @@
                         </label>
                         <input
                           type="text"
-                          class="form-input mr-sm-2"
+                          class="form-input mb-2 mr-sm-2"
                           id="qryView"
                           name="qryView"
                           size="5"
@@ -210,34 +210,34 @@
                         </label>
                         <input
                           type="text"
-                          class="form-input mr-sm-2"
+                          class="form-input mb-2 mr-sm-2"
                           id="qryCult"
                           name="qryCult"
                           size="5"
                         />
                         </div>
                         <div class="form-check form-check-inline col-md-3">
-                        <label class="form-check-label" for="qryMedium"
+                        <label class="form-check-label mr-sm-2" for="qryMedium"
                                 data-toggle="popover" data-trigger="hover" data-placement="top"
                                 title="Returns objects of specified medium or type"
                                 data-content="E.g.: 'Ceramics', 'Furniture', 'Paintings', 'Sculpture', 'Textiles', etc.">what medium?
                         </label>
                         <input
                           type="text"
-                          class="form-input"
+                          class="form-input mb-2 mr-sm-2"
                           id="qryMedium"
                           name="qryMedium"
                         />
                         </div>              
                         <div class="form-check form-check-inline col-md-3">
-                        <label class="form-check-label" for="qryImages" 
+                        <label class="form-check-label mr-sm-2" for="qryImages" 
                             data-toggle="popover" data-trigger="hover" data-placement="top"
                             title="Images required"
                             data-content="Either true or false">has images?
                         </label>
                         <input
                           type="text"
-                          class="form-input"
+                          class="form-input mb-2 mr-sm-2"
                           id="qryImages"
                           name="qryImages"
                           value="true"
@@ -245,35 +245,35 @@
                         />
                         </div>
                         <div class="form-check form-check-inline col-md-3">
-                        <label class="form-check-label" for="qryLoc"
+                        <label class="form-check-label mr-sm-2" for="qryLoc"
                             data-toggle="popover" data-trigger="hover" data-placement="top"
                             title="Geographic Location"
                             data-content="Examples include: 'Europe', 'France', 'Paris', 'China', 'New York', etc.">location?
                         </label>
                         <input
                           type="text"
-                          class="form-input"
+                          class="form-input mb-2 mr-sm-2"
                           id="qryLoc"
                           name="qryLoc"
                         />
                         </div>    
                        <div class="form-check form-check-inline col-md-3">
-                        <label class="form-check-label" for="qryBegin" 
+                        <label class="form-check-label mr-sm-2" for="qryBegin" 
                             data-toggle="popover" data-trigger="hover" data-placement="top" title="Objects since this year" data-content="e.g. 1600">beginning date?
                         </label>
                         <input
                           type="text"
-                          class="form-input"
+                          class="form-input mb-2 mr-sm-2"
                           id="qryBegin"
                           name="qryBegin"
                           size="4"
                         />
-                        <label class="form-check-label" for="qryEnd" 
+                        <label class="form-check-label mr-sm-2" for="qryEnd" 
                             data-toggle="popover" data-trigger="hover" data-placement="top" title="Objects prior to this year" data-content="e.g. 1800">end date?
                         </label>
                         <input
                           type="text"
-                          class="form-input"
+                          class="form-input mb-2 mr-sm-2"
                           id="qryEnd"
                           name="qryEnd"
                           size="4"
@@ -298,8 +298,8 @@
 
       <!-- Search objects results -->
       <div id="metCriteria"></div>
-      <div id="metArt">
-      </div>
+      <div id="metArt"></div>
+      <div id="metPages"></div>
     </section>
 
     <!--    Footer -->
