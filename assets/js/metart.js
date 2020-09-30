@@ -169,8 +169,9 @@ function writeObjects() {
     var objects = [];
     var objectId;
     var totalInt;
-    var artCnt = 0;
+    var artCnt = 0; 
     var pageCnt = 0;
+    var displayObjects = [];
 
 
   /*
@@ -193,15 +194,19 @@ function writeObjects() {
             }
             else {    
                 artCnt++;
-                pageCnt++;
                 if (artCnt < 6) {
                     writeObjectDetails(objectId);
+                    displayObjects.push(artCnt,objectId,"displayed");
                 }
                 else {
-                    generatePaginationButton();
+                    pageCnt++;
+                    generatePaginationButton(pageCnt);
+                    displayObjects.push(artCnt,objectId,"undisplayed");
                 }
             } 
+            console.log(`artcnt ${artCnt} objectid ${objectId}`);
         }
+        console.log(displayObjects);
     });
 }
 
@@ -449,6 +454,23 @@ function stripBlankSelections(searchCritArray) {
   return searchString;
 }
 
-function generatePaginationButton() {
-    document.getElementById("metPages").innerHTML += "<button>Next 5 artworks</button>";
+function generatePaginationButton(pageCnt) {
+    document.getElementById("metPages").innerHTML = `<button id="btnNext" class="btn btn-secondary btn-sm">Next 5 artworks ${pageCnt}</button>`;
+    document.getElementById("btnNext").addEventListener("click", function() {
+                                artCnt = 0;      
+                            }, false);
+
+    document.getElementById("metPages").innerHTML += `<button id="btnNew" class="btn btn-secondary btn-sm">New selection</button>`;
+    document.getElementById("btnNew").addEventListener("click", function() {
+                                    clickBtnNew();
+                            }, false);
+}
+
+
+
+function clickBtnNew () {
+    /*    Clear down previous search results...  */
+    document.getElementById("metArt").innerHTML = "";
+    document.getElementById("btnGetObjects").style.display = "none";
+    document.getElementById("metPages").innerHTML = "";
 }
