@@ -197,34 +197,40 @@ function writeObjects() {
                     writeObjectDetails(objectId);
                     var thisArtWork = new DisplayObject(artCnt,objectId,pageCnt);
                     displayObjects.push(thisArtWork);
+                    generatePaginationButton(pageCnt);
                 }
                 else {
-                    if ( ageCnt == 6) {pageCnt++};
+                    if ( artCnt == 6) {pageCnt++};
                     if ( artCnt % 5 == 0 ) { pageCnt++ };
                     generatePaginationButton(pageCnt);
                     var thisArtWork = new DisplayObject(artCnt,objectId,pageCnt);
                     displayObjects.push(thisArtWork);
                 }
             } 
-            console.log(`artcnt ${artCnt} objectid ${objectId}  pagecnt ${pageCnt}`);
+            /* console.log(`artcnt ${artCnt} objectid ${objectId}  pagecnt ${pageCnt}`); */
         }
-        console.log(displayObjects);
+        /* console.log(displayObjects); */
     });
 }
 
-/* Object Constructor */
-function DisplayObject(artCnt,objectId,pageCnt) {
-    this.artCnt;
-    this.objectId;
-    this.pageCnt;
+/* Object DisplayObject and its constructor */
+class DisplayObject {
+    constructor(artCnt,objectId,pageCnt) {
+        this.artCnt;
+        this.objectId;
+        this.pageCnt;
+    }
     /* methods */
-    this.getObjectId = function() { return this.objectId;}
-    this.getPage = function() { return this.pageCnt;}
+    getObjectId() { return this.objectId;}
+    getPage() { return this.pageCnt;}
 }
 
 function writeNextPage(pageCnt) {
     for (getPage of displayObjects) {
+        console.log(`getPage: ${getPage} of displayObjects`);
         if ( getPage == pageCnt ) {
+             /*  Clear down any previous page results...  */
+            document.getElementById("metArt").innerHTML = "";
             writeObjectDetails(displayObjects.getObjectId);
         }
     }
@@ -475,7 +481,7 @@ function stripBlankSelections(searchCritArray) {
 }
 
 function generatePaginationButton(pageCnt) {
-    document.getElementById("metPages").innerHTML = `<button id="btnNext" class="btn btn-secondary btn-sm">Next 5 artworks ${pageCnt}</button>`;
+    document.getElementById("metPages").innerHTML = `<button id="btnNext" class="btn btn-secondary btn-sm">Next 5 artworks of ${pageCnt} pages</button>`;
     document.getElementById("btnNext").addEventListener("click", function() {
                                 writeNextPage(pageCnt);      
                             }, false);
