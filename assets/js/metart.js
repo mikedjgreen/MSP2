@@ -170,12 +170,10 @@ function writeObjects() {
     var objectId;
     var totalInt;
     var artCnt = 0; 
-    var pageCnt = 0;
+    var pageCnt = 1;
     var displayObjects = [];
-
-
   /*
-        Clear down previous search results...
+        Clear down any previous search results...
   */
      document.getElementById("metArt").innerHTML = "";
   /*
@@ -192,22 +190,44 @@ function writeObjects() {
             if (totalInt < 6) { 
                 writeObjectDetails(objectId);
             }
+        /*  Decided on 5 artworks per page, to save on memory issues... */    
             else {    
                 artCnt++;
                 if (artCnt < 6) {
                     writeObjectDetails(objectId);
-                    displayObjects.push(artCnt,objectId,"displayed");
+                    var thisArtWork = new DisplayObject(artCnt,objectId,pageCnt);
+                    displayObjects.push(thisArtWork);
                 }
                 else {
-                    pageCnt++;
+                    if ( ageCnt == 6) {pageCnt++};
+                    if ( artCnt % 5 == 0 ) { pageCnt++ };
                     generatePaginationButton(pageCnt);
-                    displayObjects.push(artCnt,objectId,"undisplayed");
+                    var thisArtWork = new DisplayObject(artCnt,objectId,pageCnt);
+                    displayObjects.push(thisArtWork);
                 }
             } 
-            console.log(`artcnt ${artCnt} objectid ${objectId}`);
+            console.log(`artcnt ${artCnt} objectid ${objectId}  pagecnt ${pageCnt}`);
         }
         console.log(displayObjects);
     });
+}
+
+/* Object Constructor */
+function DisplayObject(artCnt,objectId,pageCnt) {
+    this.artCnt;
+    this.objectId;
+    this.pageCnt;
+    /* methods */
+    this.getObjectId = function() { return this.objectId;}
+    this.getPage = function() { return this.pageCnt;}
+}
+
+function writeNextPage(pageCnt) {
+    for (getPage of displayObjects) {
+        if ( getPage == pageCnt ) {
+            writeObjectDetails(displayObjects.getObjectId);
+        }
+    }
 }
 
 function writeObjectDetails(obj_ID) {
@@ -457,7 +477,7 @@ function stripBlankSelections(searchCritArray) {
 function generatePaginationButton(pageCnt) {
     document.getElementById("metPages").innerHTML = `<button id="btnNext" class="btn btn-secondary btn-sm">Next 5 artworks ${pageCnt}</button>`;
     document.getElementById("btnNext").addEventListener("click", function() {
-                                artCnt = 0;      
+                                writeNextPage(pageCnt);      
                             }, false);
 
     document.getElementById("metPages").innerHTML += `<button id="btnNew" class="btn btn-secondary btn-sm">New selection</button>`;
@@ -471,6 +491,7 @@ function generatePaginationButton(pageCnt) {
 function clickBtnNew () {
     /*    Clear down previous search results...  */
     document.getElementById("metArt").innerHTML = "";
+    document.getElementById("metArtTotal").innerHTML = "";
     document.getElementById("btnGetObjects").style.display = "none";
     document.getElementById("metPages").innerHTML = "";
 }
