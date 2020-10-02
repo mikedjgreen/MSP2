@@ -204,13 +204,14 @@ function writeObjects() {
         objects = item.objectIDs;
         for (objectId of objects) {
             if (totalInt < 6) { 
-                writeObjectDetails(objectId);
+                //writeObjectDetails(objectId);
+                alert("too few to mention");
             }
         /*  Decided on 5 artworks per page, to save on memory issues... */    
             else {    
                 artCnt++;
                 if (artCnt < 6) {
-                    writeObjectDetails(objectId);
+                   // writeObjectDetails(objectId);
                     var thisArtWork = new DisplayObject(artCnt,objectId,pageCnt);
                     displayObjects.push(thisArtWork);
                     generatePaginationButton(pageCnt);
@@ -224,11 +225,11 @@ function writeObjects() {
                 }
             } 
         }
-        alert("Printing display objects to metDebug");
-        document.getElementById("metDebug").innerHTML = "*********** TESTING ********";
-        alert(displayObjects(1));
-        for ( obj of displayObjects) {document.getElementById("metDebug").innerHTML += `displayObjects ${obj.getObjectId}`};
     });
+            alert("Printing display objects to metDebug");
+        document.getElementById("metDebug").innerHTML = "*********** TESTING ********";
+        //alert(displayObjects());
+        //for ( obj of displayObjects) {document.getElementById("metDebug").innerHTML += `displayObjects ${obj.getObjectId}`};
 }
 
 
