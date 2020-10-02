@@ -22,6 +22,9 @@ var qryEnd; // dateEnd
 var depts = [];
 var deptName; //department Name
 var totalObjects; // to capture the total number of objects listed on the Met's public collections
+var displayObjects = [];
+
+
 
 /*
     Initialising popovers to help with selection criteria validation, UX
@@ -165,13 +168,26 @@ function writeCriteria() {
     "<p> Search criteria: " + searchCrit1 + " " + searchCrit2 + " </p>";
 }
 
+/* Object DisplayObject and its constructor */
+class DisplayObject {
+    constructor(artCnt,objectId,pageCnt) {
+        this.artCnt;
+        this.objectId;
+        this.pageCnt;
+    }
+    /* methods */
+    getObjectId() { return this.objectId;}
+    getPage() { return this.pageCnt;}
+}
+
+
 function writeObjects() {
     var objects = [];
     var objectId;
     var totalInt;
     var artCnt = 0; 
     var pageCnt = 1;
-    var displayObjects = [];
+
   /*
         Clear down any previous search results...
   */
@@ -207,34 +223,28 @@ function writeObjects() {
                     displayObjects.push(thisArtWork);
                 }
             } 
-            /* console.log(`artcnt ${artCnt} objectid ${objectId}  pagecnt ${pageCnt}`); */
         }
-        /* console.log(displayObjects); */
+        alert("Printing display objects to metDebug");
+        document.getElementById("metDebug").innerHTML = "*********** TESTING ********";
+        alert(displayObjects(1));
+        for ( obj of displayObjects) {document.getElementById("metDebug").innerHTML += `displayObjects ${obj.getObjectId}`};
     });
 }
 
-/* Object DisplayObject and its constructor */
-class DisplayObject {
-    constructor(artCnt,objectId,pageCnt) {
-        this.artCnt;
-        this.objectId;
-        this.pageCnt;
-    }
-    /* methods */
-    getObjectId() { return this.objectId;}
-    getPage() { return this.pageCnt;}
-}
 
 function writeNextPage(pageCnt) {
-    for (getPage of displayObjects) {
-        console.log(`getPage: ${getPage} of displayObjects`);
-        if ( getPage == pageCnt ) {
+    for ( let i in displayObjects ) {
+        alert(`getPage: ${getPage} of displayObjects[${i}]`);
+        if ( displayObjects[i].getPage() == pageCnt ) {
              /*  Clear down any previous page results...  */
             document.getElementById("metArt").innerHTML = "";
-            writeObjectDetails(displayObjects.getObjectId);
+            console.log(`objectId ${displayObjects[i].getObjectId}  `);
+            writeObjectDetails(displayObjects[i].getObjectId());
         }
     }
 }
+
+
 
 function writeObjectDetails(obj_ID) {
   var objTitle = "";
@@ -422,8 +432,7 @@ function getSelection() {
     $("#searchBtn").on("click", function () {
       /* clear down any previous searches */
       document.getElementById("qryDeptValidation").innerHTML = "";
-      document.getElementById("metCriteria").innerHTML = "";
-      
+      document.getElementById("metCriteria").innerHTML = ""; 
       writeSelection();
     });
   });
@@ -481,18 +490,21 @@ function stripBlankSelections(searchCritArray) {
 }
 
 function generatePaginationButton(pageCnt) {
-    document.getElementById("metPages").innerHTML = `<button id="btnNext" class="btn btn-secondary btn-sm">Next 5 artworks of ${pageCnt} pages</button>`;
-    document.getElementById("btnNext").addEventListener("click", function() {
-                                writeNextPage(pageCnt);      
+    document.getElementById("metPages").innerHTML = `<button id="btnNext" onClick="writeNextPage(pageCnt)" class="btn btn-secondary btn-sm">Next 5 artworks of ${pageCnt} pages</button>`;
+/*  document.getElementById("btnNext").addEventListener("click", function() {
+                              writeNextPage(pageCnt); 
+                              clickBtnNext();
                             }, false);
-
+*/
     document.getElementById("metPages").innerHTML += `<button id="btnNew" class="btn btn-secondary btn-sm">New selection</button>`;
     document.getElementById("btnNew").addEventListener("click", function() {
                                     clickBtnNew();
                             }, false);
 }
 
-
+function clickBtnNext () {
+    document.getElementById("metPages").innerHTML +=   `************ ${"AAARGH!"}  *****`;
+}
 
 function clickBtnNew () {
     /*    Clear down previous search results...  */
