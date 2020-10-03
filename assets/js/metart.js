@@ -170,14 +170,14 @@ function writeCriteria() {
 
 /* Object DisplayObject and its constructor */
 class DisplayObject {
-    constructor(artCnt,objectId,pageCnt) {
-        this.artCnt = artCnt;
-        this.objectId = objectId;
-        this.pageCnt =pageCnt;
+    constructor(artCount,metObjectId,pageCount) {
+        this.artCnt = artCount;
+        this.objectId = metObjectId;
+        this.pageCnt =pageCount;
     }
     /* methods */
-    getObjectId() { return this.objectId;}
-    getPage() { return this.pageCnt;}
+    get workId() { return this.objectId;}
+    get pageNo() { return this.pageCnt;}
 }
 
 
@@ -204,15 +204,16 @@ function writeObjects() {
         objects = item.objectIDs;
         for (objectId of objects) {
             if (totalInt < 6) { 
-                //writeObjectDetails(objectId);
+                writeObjectDetails(objectId);
                 alert("too few to mention");
             }
         /*  Decided on 5 artworks per page, to save on memory issues... */    
             else {    
                 artCnt++;
                 if (artCnt < 6) {
-                   // writeObjectDetails(objectId);
+                    writeObjectDetails(objectId);
                     var thisArtWork = new DisplayObject(artCnt,objectId,pageCnt);
+                    /* document.getElementById("metDebug").innerHTML += `<br> ${thisArtWork.workId} , ${thisArtWork.pageNo}`; */
                     displayObjects.push(thisArtWork);
                     generatePaginationButton(pageCnt);
                 }
@@ -221,30 +222,37 @@ function writeObjects() {
                     if ( artCnt % 5 == 0 ) { pageCnt++ };
                     generatePaginationButton(pageCnt);
                     var thisArtWork = new DisplayObject(artCnt,objectId,pageCnt);
+                    /* document.getElementById("metDebug").innerHTML += `<br> ${thisArtWork.workId} , ${thisArtWork.pageNo}`; */
                     displayObjects.push(thisArtWork);
                 }
             } 
         }
     });
-            alert("Printing display objects to metDebug");
         document.getElementById("metDebug").innerHTML = "*********** TESTING ********";
-        displayObjects.forEach(function (item) {
-            document.getElementById("metDebug").innerHTML += `<br> ${item.DisplayObject.getObjectId()} `;
-        });
+       for ( let i in displayObjects ) {
+        if ( displayObjects[i].pageNo == pageCnt ) {
+            document.getElementById("metDebug").innerHTML += `objectId ${displayObjects[i].workId} of page ${displayObjects[i].pageNo}`;
+        }
+    }
         
 
 }
 
 
 function writeNextPage(pageCnt) {
-    for ( let i in displayObjects ) {
-        alert(`getPage: ${getPage} of displayObjects[${i}]`);
-        if ( displayObjects[i].getPage() == pageCnt ) {
-             /*  Clear down any previous page results...  */
-            document.getElementById("metArt").innerHTML = "";
-            console.log(`objectId ${displayObjects[i].getObjectId}  `);
-            writeObjectDetails(displayObjects[i].getObjectId());
-        }
+    /*  Clear down any previous page results...  */
+    document.getElementById("metArt").innerHTML = "";
+alert(`pageCnt ${pageCnt}`);
+
+    displayObjects.foreach( myFunction );
+    
+    function myFunction(value) {
+    
+       /* if ( value.pageNo == pageCnt ) { */
+            document.getElementById("metDebug").innerHTML += `<br>objectId ${value.workId} of page ${value.pageNo}`;
+            writeObjectDetails(value.workId);
+        /*} */
+    
     }
 }
 
@@ -340,10 +348,7 @@ function writeObjectDetails(obj_ID) {
 
   
    
-    document.getElementById("metArt").innerHTML += `(${obj_ID}) <bold>${objTitle}</bold>`;
-
-
-
+    document.getElementById("metArt").innerHTML += `(${obj_ID}) ${objTitle}<br>`;
 
     document.getElementById("metArt").innerHTML += `${objName} <br>`;
     document.getElementById("metArt").innerHTML += `"<img src="${objPrimaryImage}" alt="${objTitle}"> <br>`;
@@ -494,12 +499,14 @@ function stripBlankSelections(searchCritArray) {
 }
 
 function generatePaginationButton(pageCnt) {
-    document.getElementById("metPages").innerHTML = `<button id="btnNext" onClick="writeNextPage(pageCnt)" class="btn btn-secondary btn-sm">Next 5 artworks of ${pageCnt} pages</button>`;
-/*  document.getElementById("btnNext").addEventListener("click", function() {
-                              writeNextPage(pageCnt); 
+    document.getElementById("metPages").innerHTML = `<button id="btnNext" 
+                       /* onClick="writeNextPage(pageCnt)" */
+                        class="btn btn-secondary btn-sm">Next 5 artworks of ${pageCnt} pages</button>`;
+  document.getElementById("btnNext").addEventListener("click", function() {
+                              writeNextPage(); 
                               clickBtnNext();
                             }, false);
-*/
+
     document.getElementById("metPages").innerHTML += `<button id="btnNew" class="btn btn-secondary btn-sm">New selection</button>`;
     document.getElementById("btnNew").addEventListener("click", function() {
                                     clickBtnNew();
@@ -516,4 +523,5 @@ function clickBtnNew () {
     document.getElementById("metArtTotal").innerHTML = "";
     document.getElementById("btnGetObjects").style.display = "none";
     document.getElementById("metPages").innerHTML = "";
+    document.getElementById("metDebug").innerHTML = "";
 }
