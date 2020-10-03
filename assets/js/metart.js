@@ -229,9 +229,11 @@ function writeObjects() {
         }
     });
         document.getElementById("metDebug").innerHTML = "*********** TESTING ********";
-       for ( let i in displayObjects ) {
-        if ( displayObjects[i].pageNo == pageCnt ) {
-            document.getElementById("metDebug").innerHTML += `objectId ${displayObjects[i].workId} of page ${displayObjects[i].pageNo}`;
+        displayObjects.foreach(cb);
+
+        function cb(artWrk) {
+        if ( pageNo == pageCnt ) {
+            document.getElementById("metDebug").innerHTML += `<br>objectId ${artWrk.workId} of page ${artWrk.pageNo}`;
         }
     }
         
@@ -242,17 +244,18 @@ function writeObjects() {
 function writeNextPage(pageCnt) {
     /*  Clear down any previous page results...  */
     document.getElementById("metArt").innerHTML = "";
-alert(`pageCnt ${pageCnt}`);
+    alert(`pageCnt ${pageCnt}`);
+    var myArr = Object.values(displayObjects);
+    alert(myArr);
 
-    displayObjects.foreach( myFunction );
-    
+    myArr.foreach( myFunction );
+    alert(`myFunction`) ;
     function myFunction(value) {
-    
+        alert(`myFunction 2`) ;
        /* if ( value.pageNo == pageCnt ) { */
-            document.getElementById("metDebug").innerHTML += `<br>objectId ${value.workId} of page ${value.pageNo}`;
+            document.getElementById("metDebug").innerHTML += `<br>writeNextPage ${value.workId} of page ${value.pageNo}`;
             writeObjectDetails(value.workId);
         /*} */
-    
     }
 }
 
@@ -499,22 +502,20 @@ function stripBlankSelections(searchCritArray) {
 }
 
 function generatePaginationButton(pageCnt) {
-    document.getElementById("metPages").innerHTML = `<button id="btnNext" 
-                       /* onClick="writeNextPage(pageCnt)" */
-                        class="btn btn-secondary btn-sm">Next 5 artworks of ${pageCnt} pages</button>`;
-  document.getElementById("btnNext").addEventListener("click", function() {
-                              writeNextPage(); 
+    document.getElementById("metPages").innerHTML = `<button id="btnNext" onClick="clickBtnNext()" class="btn btn-secondary btn-sm">Next 5 artworks of ${pageCnt} pages</button>`;
+    document.getElementById("btnNext").addEventListener("click", function() {
                               clickBtnNext();
                             }, false);
 
-    document.getElementById("metPages").innerHTML += `<button id="btnNew" class="btn btn-secondary btn-sm">New selection</button>`;
+    document.getElementById("metPages").innerHTML += `  <button id="btnNew" class="btn btn-secondary btn-sm">New selection</button>`;
     document.getElementById("btnNew").addEventListener("click", function() {
                                     clickBtnNew();
                             }, false);
 }
 
 function clickBtnNext () {
-    document.getElementById("metPages").innerHTML +=   `************ ${"AAARGH!"}  *****`;
+    document.getElementById("metArt").innerHTML = "";
+    writeNextPage(2); 
 }
 
 function clickBtnNew () {
