@@ -228,8 +228,11 @@ function writeObjects() {
     });
             alert("Printing display objects to metDebug");
         document.getElementById("metDebug").innerHTML = "*********** TESTING ********";
-        //alert(displayObjects());
-        //for ( obj of displayObjects) {document.getElementById("metDebug").innerHTML += `displayObjects ${obj.getObjectId}`};
+        displayObjects.forEach(function (item) {
+            document.getElementById("metDebug").innerHTML += `<br> ${item.DisplayObject.objectId} `;
+        });
+        
+
 }
 
 
