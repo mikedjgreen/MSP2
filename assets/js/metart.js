@@ -23,6 +23,7 @@ var depts = [];
 var deptName; //department Name
 var totalObjects; // to capture the total number of objects listed on the Met's public collections
 var displayObjects = [];
+let currentPg = 1;
 
 
 
@@ -205,7 +206,6 @@ function writeObjects() {
         for (objectId of objects) {
             if (totalInt < 6) { 
                 writeObjectDetails(objectId);
-                alert("too few to mention");
             }
         /*  Decided on 5 artworks per page, to save on memory issues... */    
             else {    
@@ -213,7 +213,7 @@ function writeObjects() {
                 if (artCnt < 6) {
                     writeObjectDetails(objectId);
                     var thisArtWork = new DisplayObject(artCnt,objectId,pageCnt);
-                    /* document.getElementById("metDebug").innerHTML += `<br> ${thisArtWork.workId} , ${thisArtWork.pageNo}`; */
+                    document.getElementById("metDebug").innerHTML += `<br> ${thisArtWork.workId} , ${thisArtWork.pageNo}`; 
                     displayObjects.push(thisArtWork);
                     generatePaginationButton(pageCnt);
                 }
@@ -222,7 +222,7 @@ function writeObjects() {
                     if ( artCnt % 5 == 0 ) { pageCnt++ };
                     generatePaginationButton(pageCnt);
                     var thisArtWork = new DisplayObject(artCnt,objectId,pageCnt);
-                    /* document.getElementById("metDebug").innerHTML += `<br> ${thisArtWork.workId} , ${thisArtWork.pageNo}`; */
+                    document.getElementById("metDebug").innerHTML += `<br> ${thisArtWork.workId} , ${thisArtWork.pageNo}`; 
                     displayObjects.push(thisArtWork);
                 }
             } 
@@ -244,17 +244,18 @@ function writeObjects() {
 function writeNextPage(pageCnt) {
     /*  Clear down any previous page results...  */
     document.getElementById("metArt").innerHTML = "";
-    //alert(`pageCnt ${pageCnt}`);
+
     var myWrk = {};
     var myArr = Object.values(displayObjects);
     /* unpacking the found art works */
     let artFound = myArr.length;
 
     for (let i in myArr) {
-        //myWrk = Object.values(myArr[i]);
         myWrk = myArr[i];
-        document.getElementById("metDebug").innerHTML += `<br> ${myWrk.workId}`;
-        writeObjectDetails(myWrk.workId);
+        if ( myWrk.pageNo == pageCnt ) {
+            document.getElementById("metDebug").innerHTML += `<br> ${myWrk.workId}`;
+            writeObjectDetails(myWrk.workId);
+        }
     }
 
 }
@@ -502,10 +503,21 @@ function stripBlankSelections(searchCritArray) {
 }
 
 function generatePaginationButton(pageCnt) {
-    document.getElementById("metPages").innerHTML = `<button id="btnNext" onClick="clickBtnNext()" class="btn btn-secondary btn-sm">Next 5 artworks of ${pageCnt} pages</button>`;
-    document.getElementById("btnNext").addEventListener("click", function() {
+
+    if (currentPg > 1 ) {
+        currentPg--;
+        document.getElementById("metPages").innerHTML = `<button id="btnNext" onClick="writeNextPage(${currentPg})" class="btn btn-secondary btn-sm">Previous 5 artworks of ${pageCnt} pages</button>`;
+    }
+    if ( currentPg < pageCnt ) {
+        currentPg++;
+        document.getElementById("metPages").innerHTML = `<button id="btnNext" onClick="writeNextPage(${currentPg})" class="btn btn-secondary btn-sm">Next 5 artworks of ${pageCnt} pages</button>`;
+    }
+
+    /* 
+        document.getElementById("btnNext").addEventListener("click", function() {
                               clickBtnNext();
                             }, false);
+    */
 
     document.getElementById("metPages").innerHTML += `  <button id="btnNew" class="btn btn-secondary btn-sm">New selection</button>`;
     document.getElementById("btnNew").addEventListener("click", function() {
@@ -513,10 +525,12 @@ function generatePaginationButton(pageCnt) {
                             }, false);
 }
 
+/*
 function clickBtnNext () {
     document.getElementById("metArt").innerHTML = "";
     writeNextPage(2); 
 }
+*/
 
 function clickBtnNew () {
     /*    Clear down previous search results...  */
