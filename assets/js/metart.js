@@ -244,19 +244,19 @@ function writeObjects() {
 function writeNextPage(pageCnt) {
     /*  Clear down any previous page results...  */
     document.getElementById("metArt").innerHTML = "";
-    alert(`pageCnt ${pageCnt}`);
+    //alert(`pageCnt ${pageCnt}`);
+    var myWrk = {};
     var myArr = Object.values(displayObjects);
-    alert(myArr);
+    /* unpacking the found art works */
+    let artFound = myArr.length;
 
-    myArr.foreach( myFunction );
-    alert(`myFunction`) ;
-    function myFunction(value) {
-        alert(`myFunction 2`) ;
-       /* if ( value.pageNo == pageCnt ) { */
-            document.getElementById("metDebug").innerHTML += `<br>writeNextPage ${value.workId} of page ${value.pageNo}`;
-            writeObjectDetails(value.workId);
-        /*} */
+    for (let i in myArr) {
+        //myWrk = Object.values(myArr[i]);
+        myWrk = myArr[i];
+        document.getElementById("metDebug").innerHTML += `<br> ${myWrk.workId}`;
+        writeObjectDetails(myWrk.workId);
     }
+
 }
 
 
