@@ -171,9 +171,9 @@ function writeCriteria() {
 /* Object DisplayObject and its constructor */
 class DisplayObject {
     constructor(artCnt,objectId,pageCnt) {
-        this.artCnt;
-        this.objectId;
-        this.pageCnt;
+        this.artCnt = artCnt;
+        this.objectId = objectId;
+        this.pageCnt =pageCnt;
     }
     /* methods */
     getObjectId() { return this.objectId;}
@@ -229,7 +229,7 @@ function writeObjects() {
             alert("Printing display objects to metDebug");
         document.getElementById("metDebug").innerHTML = "*********** TESTING ********";
         displayObjects.forEach(function (item) {
-            document.getElementById("metDebug").innerHTML += `<br> ${item.DisplayObject.objectId} `;
+            document.getElementById("metDebug").innerHTML += `<br> ${item.DisplayObject.getObjectId()} `;
         });
         
 
