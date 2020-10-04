@@ -202,40 +202,51 @@ function writeObjects() {
         total_Found = item.total;
         document.getElementById("metArt").innerHTML += `<p> Total found: ${total_Found} </p>`;
         totalInt = parseInt(total_Found);
-        objects = item.objectIDs;
-        for (objectId of objects) {
-            if (totalInt < 6) { 
-                writeObjectDetails(objectId);
+        /*
+            If there are no objects found, no need to display get objects button
+        */
+       if (totalInt == 0) {
+            document.getElementById("btnGetObjects").style.display = "block";
+            //document.getElementById("metDebug").innerHTML += `<br> No works found : ${totalInt}`;
+       }
+       else {
+            /* 
+                If there are objects found for the search crieria given
+                need to hide the selection button until after the objects have been displayed
+                just to simplify UX
+            */
+            if (totalInt > 0) {
+                document.getElementById("btnGetCriteria").style.display = "none";
+                document.getElementById("btnGetObjects").style.display = "block";
             }
-        /*  Decided on 5 artworks per page, to save on memory issues... */    
-            else {    
-                artCnt++;
-                if (artCnt < 6) {
+            objects = item.objectIDs;
+            for (objectId of objects) {
+                if (totalInt < 6) { 
                     writeObjectDetails(objectId);
-                    var thisArtWork = new DisplayObject(artCnt,objectId,pageCnt);
-                    document.getElementById("metDebug").innerHTML += `<br> ${thisArtWork.workId} , ${thisArtWork.pageNo}`; 
-                    displayObjects.push(thisArtWork);
-                }
-                else {
-                    if ( artCnt == 6) {pageCnt++};
-                    if ( artCnt % 5 == 0 ) { pageCnt++ };
                     generatePaginationButton(pageCnt);
-                    var thisArtWork = new DisplayObject(artCnt,objectId,pageCnt);
-                    document.getElementById("metDebug").innerHTML += `<br> ${thisArtWork.workId} , ${thisArtWork.pageNo}`; 
-                    displayObjects.push(thisArtWork);
                 }
-            } 
-        }
+            /*  Decided on 5 artworks per page, to save on memory issues... */    
+                else {    
+                    artCnt++;
+                    if (artCnt < 6) {
+                        writeObjectDetails(objectId);
+                        var thisArtWork = new DisplayObject(artCnt,objectId,pageCnt);
+                        //document.getElementById("metDebug").innerHTML += `<br> ${thisArtWork.workId} , ${thisArtWork.pageNo}`; 
+                        displayObjects.push(thisArtWork);
+                    }
+                    else {
+                        if ( artCnt == 6) {pageCnt++};
+                        if ( artCnt % 5 == 0 ) { pageCnt++ };
+                        generatePaginationButton(pageCnt);
+                        var thisArtWork = new DisplayObject(artCnt,objectId,pageCnt);
+                        //document.getElementById("metDebug").innerHTML += `<br> ${thisArtWork.workId} , ${thisArtWork.pageNo}`; 
+                        displayObjects.push(thisArtWork);
+                    }
+                } 
+            }
+        }   
     });
-        document.getElementById("metDebug").innerHTML = "*********** TESTING ********";
-        displayObjects.foreach(cb);
-
-        function cb(artWrk) {
-        if ( pageNo == pageCnt ) {
-            document.getElementById("metDebug").innerHTML += `<br>objectId ${artWrk.workId} of page ${artWrk.pageNo}`;
-        }
-    }
-        
+    //    document.getElementById("metDebug").innerHTML = "*********** TESTING ********";
 
 }
 
@@ -244,7 +255,7 @@ function writeNextPage(pageCnt) {
     /*  Clear down any previous page results...  */
     document.getElementById("metArt").innerHTML = "";
     if ( currentPg < pageCnt) {
-        currentPg ++;
+        currentPg++;
     }
     var myWrk = {};
     var myArr = Object.values(displayObjects);
@@ -253,7 +264,7 @@ function writeNextPage(pageCnt) {
     for (let i in myArr) {
         myWrk = myArr[i];
         if ( myWrk.pageNo == currentPg ) {
-            document.getElementById("metDebug").innerHTML += `<br> ${myWrk.workId}`;
+            //document.getElementById("metDebug").innerHTML += `<br> ${myWrk.workId}`;
             writeObjectDetails(myWrk.workId);
         }
     }
@@ -263,7 +274,7 @@ function writePreviousPage(pageCnt) {
     /*  Clear down any previous page results...  */
     document.getElementById("metArt").innerHTML = "";
     if ( currentPg > 1 ) {
-        currentPg --;
+        currentPg--;
     }
     var myWrk = {};
     var myArr = Object.values(displayObjects);
@@ -272,7 +283,7 @@ function writePreviousPage(pageCnt) {
     for (let i in myArr) {
         myWrk = myArr[i];
         if ( myWrk.pageNo == currentPg ) {
-            document.getElementById("metDebug").innerHTML += `<br> ${myWrk.workId}`;
+            //document.getElementById("metDebug").innerHTML += `<br> ${myWrk.workId}`;
             writeObjectDetails(myWrk.workId);
         }
     }
@@ -539,10 +550,12 @@ function generatePaginationButton(pageCnt) {
 function clickBtnNew () {
     /*    Clear down previous search results...  */
     document.getElementById("metArt").innerHTML = "";
-    document.getElementById("metArtTotal").innerHTML = "";
+    document.getElementById("metCriteria").innerHTML = "";
     document.getElementById("btnGetObjects").style.display = "none";
     document.getElementById("metPages").innerHTML = "";
     document.getElementById("metDebug").innerHTML = "";
+    /* allow user to make another selection */
+    document.getElementById("btnGetCriteria").style.display = "block";
     /* initialise variables holding old selections */
     currentPg = 1;
     displayObjects = [];
