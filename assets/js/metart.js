@@ -259,6 +259,25 @@ function writeNextPage(pageCnt) {
     }
 }
 
+function writePreviousPage(pageCnt) {
+    /*  Clear down any previous page results...  */
+    document.getElementById("metArt").innerHTML = "";
+    if ( currentPg > 1 ) {
+        currentPg --;
+    }
+    var myWrk = {};
+    var myArr = Object.values(displayObjects);
+    
+    /* unpacking the found art works */
+    for (let i in myArr) {
+        myWrk = myArr[i];
+        if ( myWrk.pageNo == currentPg ) {
+            document.getElementById("metDebug").innerHTML += `<br> ${myWrk.workId}`;
+            writeObjectDetails(myWrk.workId);
+        }
+    }
+}
+
 
 
 function writeObjectDetails(obj_ID) {
@@ -503,15 +522,18 @@ function stripBlankSelections(searchCritArray) {
 
 function generatePaginationButton(pageCnt) {
 
+    document.getElementById("metPages").innerHTML = `<table><tr><td>`;
+    document.getElementById("metPages").innerHTML += `<button id="btnNext" onClick="writePreviousPage(${pageCnt})" class="btn btn-secondary btn-sm">Previous 5 artworks of ${pageCnt} pages</button>`;
+    document.getElementById("metPages").innerHTML += `</td></tr>`;
 
-    document.getElementById("metPages").innerHTML = `<button id="btnNext" onClick="writeNextPage(${pageCnt})" class="btn btn-secondary btn-sm">Previous 5 artworks of ${pageCnt} pages</button>`;
-
-    document.getElementById("metPages").innerHTML = `<button id="btnNext" onClick="writeNextPage(${pageCnt})" class="btn btn-secondary btn-sm">Next 5 artworks of ${pageCnt} pages</button>`;
+    document.getElementById("metPages").innerHTML += `<tr><td>`;
+    document.getElementById("metPages").innerHTML += `<button id="btnNext" onClick="writeNextPage(${pageCnt})" class="btn btn-secondary btn-sm">Next 5 artworks of ${pageCnt} pages</button>`;
+    document.getElementById("metPages").innerHTML += `</td></tr>`;
  
-    document.getElementById("metPages").innerHTML += `  <button id="btnNew" class="btn btn-secondary btn-sm">New selection</button>`;
-    document.getElementById("btnNew").addEventListener("click", function() {
-                                    clickBtnNew();
-                            }, false);
+    document.getElementById("metPages").innerHTML += `<tr><td>`;
+    document.getElementById("metPages").innerHTML += `<button id="btnNew" onClick="clickBtnNew()" class="btn btn-secondary btn-sm">New selection</button>`;
+    document.getElementById("metPages").innerHTML += `</td></tr></table>`;
+
 }
 
 function clickBtnNew () {
@@ -521,4 +543,7 @@ function clickBtnNew () {
     document.getElementById("btnGetObjects").style.display = "none";
     document.getElementById("metPages").innerHTML = "";
     document.getElementById("metDebug").innerHTML = "";
+    /* initialise variables holding old selections */
+    currentPg = 1;
+    displayObjects = [];
 }
