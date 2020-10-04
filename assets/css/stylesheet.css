@@ -70,6 +70,9 @@ header {
     font-size: 0.75em;
     letter-spacing: 0.5px;
 }
+#metArtSearch {
+    font-size: 0.75em;
+}
 /*--------------------------------------------Searched collection display */
 #metCriteria {
     font-size: 0.75em;
@@ -79,6 +82,10 @@ header {
 #metArt {
     margin-left: 5px;
     font-size: 1em;
+}
+
+#metArtTotal {
+    text-align: center;
 }
 
 
