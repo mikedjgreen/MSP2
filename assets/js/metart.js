@@ -57,7 +57,7 @@ function getTotalObjects(cb) {
 function totalCollection() {
   getTotalObjects(function (item) {
     totalObjects = item.total;
-    document.getElementById("metArtTotal").innerHTML = `There are a total of ${totalObjects} available objects in the Met's collection.`;
+    document.getElementById("metArtTotal").innerHTML = `There are a total of <mark>${totalObjects}</mark> available objects in the Met's collection.`;
     document.getElementById("metArtTotal").innerHTML += `<br>Use the selection criteria wisely.`;
     return totalObjects;
   });
@@ -384,7 +384,7 @@ function writeObjectDetails(obj_ID) {
     document.getElementById("metArt").innerHTML += `(${obj_ID}) ${objTitle}<br>`;
 
     document.getElementById("metArt").innerHTML += `${objName} <br>`;
-    document.getElementById("metArt").innerHTML += `"<img src="${objPrimaryImage}" alt="${objTitle}"> <br>`;
+    document.getElementById("metArt").innerHTML += `"<img class="img-fluid" src="${objPrimaryImage}" alt="${objTitle}"> <br>`;
     if (objArtistDisplayName.length > 0) {
         document.getElementById("metArt").innerHTML += `Artist: ${objArtistDisplayName} <br>`;
     }

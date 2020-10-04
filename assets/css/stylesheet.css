@@ -48,6 +48,7 @@ header {
 #metArtTotal {
     margin:1rem;
     padding:0;
+    text-align: center;
 }
 
 #theButtons {
