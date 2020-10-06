@@ -231,15 +231,15 @@ function writeObjects() {
                     if (artCnt < 6) {
                         writeObjectDetails(objectId);
                         var thisArtWork = new DisplayObject(artCnt,objectId,pageCnt);
-                        //document.getElementById("metDebug").innerHTML += `<br> ${thisArtWork.workId} , ${thisArtWork.pageNo}`; 
+                        document.getElementById("metDebug").innerHTML += `<br> ${thisArtWork.workId} , ${thisArtWork.pageNo} less than 6`; 
                         displayObjects.push(thisArtWork);
                     }
                     else {
-                        if ( artCnt == 6) {pageCnt++};
-                        if ( artCnt % 5 == 0 ) { pageCnt++ };
+                        //if ( artCnt == 6) {pageCnt++};
+                        if ( artCnt % 5 == 1 ) { pageCnt++ };
                         generatePaginationButton(pageCnt);
                         var thisArtWork = new DisplayObject(artCnt,objectId,pageCnt);
-                        //document.getElementById("metDebug").innerHTML += `<br> ${thisArtWork.workId} , ${thisArtWork.pageNo}`; 
+                        document.getElementById("metDebug").innerHTML += `<br> ${thisArtWork.workId} , ${thisArtWork.pageNo}`; 
                         displayObjects.push(thisArtWork);
                     }
                 } 
@@ -533,17 +533,14 @@ function stripBlankSelections(searchCritArray) {
 
 function generatePaginationButton(pageCnt) {
 
-    document.getElementById("metPages").innerHTML = `<table><tr><td>`;
-    document.getElementById("metPages").innerHTML += `<button id="btnNext" onClick="writePreviousPage(${pageCnt})" class="btn btn-secondary btn-sm">Previous 5 artworks of ${pageCnt} pages</button>`;
-    document.getElementById("metPages").innerHTML += `</td></tr>`;
 
-    document.getElementById("metPages").innerHTML += `<tr><td>`;
-    document.getElementById("metPages").innerHTML += `<button id="btnNext" onClick="writeNextPage(${pageCnt})" class="btn btn-secondary btn-sm">Next 5 artworks of ${pageCnt} pages</button>`;
-    document.getElementById("metPages").innerHTML += `</td></tr>`;
- 
-    document.getElementById("metPages").innerHTML += `<tr><td>`;
-    document.getElementById("metPages").innerHTML += `<button id="btnNew" onClick="clickBtnNew()" class="btn btn-secondary btn-sm">New selection</button>`;
-    document.getElementById("metPages").innerHTML += `</td></tr></table>`;
+    document.getElementById("metPages").innerHTML = `<div class="btn-group btn-group-sm">`;
+    document.getElementById("metPages").innerHTML += `<button id="btnNext" onClick="writePreviousPage(${pageCnt})" class="btn btn-info">Previous 5 artworks of <span class="badge badge-light">${pageCnt}</span> pages</button>`;
+
+    document.getElementById("metPages").innerHTML += `<button id="btnNext" onClick="writeNextPage(${pageCnt})" class="btn btn-info">Next 5 artworks of <span class="badge badge-light">${pageCnt}</span> pages</button>`;
+
+    document.getElementById("metPages").innerHTML += `<button id="btnNew" onClick="clickBtnNew()" class="btn btn-warning">New selection</button>`;
+    document.getElementById("metPages").innerHTML += `</div>`;
 
 }
 
