@@ -421,12 +421,13 @@ function writeObjectDetails(obj_ID) {
         "Origin and year acquired: " + objCreditLine + " <br>";
     };
 
-    /*  blanking out additional images for the moment...another window? 
-
-    for ( let i in objAdditionalImages ) {
-        document.getElementById("metArt").innerHTML += `additional images <img src="${objAdditionalImages[i]}" alt="add image"> <br>`;
+    /*  blanking out additional images for the moment...another window? */
+    if (objAdditionalImages.length > 0) {
+        for ( let i in objAdditionalImages ) {
+            document.getElementById("metArt").innerHTML += `Additional images: <img class="img-fluid" src="${objAdditionalImages[i]}" alt="add image"> <br>`;
+        };
     };
-    */
+    
 
     for ( let i in objConstituents ) {
         document.getElementById("metArt").innerHTML += `Constituents: ${objConstituents[i]} <br>`;
