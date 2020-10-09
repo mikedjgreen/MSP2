@@ -292,7 +292,7 @@ function writePreviousPage(pageCnt) {
     }
     /* writing current Page number to screen */
     document.getElementById("metPageCount").innerHTML = `Page: ${currentPg}`;
-    
+
     var myWrk = {};
     var myArr = Object.values(displayObjects);
     
@@ -405,11 +405,8 @@ function writeObjectDetails(obj_ID) {
     objExcavation = item.excavation;
     objRiver = item.river;
     objClassification = item.classification;
-
-  
    
     document.getElementById("metArt").innerHTML += `(${obj_ID}) ${objTitle}<br>`;
-
     document.getElementById("metArt").innerHTML += `${objName} <br>`;
     document.getElementById("metArt").innerHTML += `"<img class="img-fluid" src="${objPrimaryImage}" alt="${objTitle}"> <br>`;
     if (objArtistDisplayName.length > 0) {
@@ -440,7 +437,6 @@ function writeObjectDetails(obj_ID) {
     if (objDimensions.length > 0) {
       document.getElementById("metArt").innerHTML += `Artwork dimensions: ${objDimensions} <br>`;
     }
-
     document.getElementById("metArt").innerHTML += `Artwork began: ${objBegin} Artwork finished: ${objEnd} <br>`;
 
     if (objCreditLine.length > 0) {
@@ -456,8 +452,10 @@ function writeObjectDetails(obj_ID) {
     };
     */
 
-    for ( let i in objConstituents ) {
-        document.getElementById("metArt").innerHTML += `Constituents: ${objConstituents[i]} <br>`;
+    if (objConstituents.length > 0 ) {
+        for ( let i in objConstituents ) {
+            document.getElementById("metArt").innerHTML += `Constituents: ${objConstituents[i]} <br>`;
+        };
     };
 
     if (objWiki.length > 0 ) {
@@ -476,21 +474,51 @@ function writeObjectDetails(obj_ID) {
         document.getElementById("metArt").innerHTML += `Prefix: ${objArtistPrefix} <br>`;
     };
 
-    if ( objArtistSuffix.length > 0 ){ document.getElementById("metArt").innerHTML += `Suffix: ${objArtistSuffix} <br>`;};
-    if (objArtistNationality.length > 0 ) { document.getElementById("metArt").innerHTML += `Nationality: ${objArtistNationality} <br>`;};
-    if ( objArtistGender.length > 0 ) { document.getElementById("metArt").innerHTML += `Gender: ${objArtistGender} <br>`;};
-    if (objDate.length > 0 ) { document.getElementById("metArt").innerHTML += `Artwork date: ${objDate} <br>`;};
-    if ( objCity.length > 0 ) { document.getElementById("metArt").innerHTML += `City: ${objCity} <br>`;};
-    if ( objState.length > 0 ) { document.getElementById("metArt").innerHTML += `State: ${objState} <br>`;};
-    if (objCounty.length > 0 ) { document.getElementById("metArt").innerHTML += `County: ${objCounty} <br>`;};
-    if ( objCountry.length > 0 ) { document.getElementById("metArt").innerHTML += `Country: ${objCountry} <br>`;};
-    if ( objRegion.length > 0 ) { document.getElementById("metArt").innerHTML += `Region: ${objRegion} <br>`;};
-    if (objSubRegion.length > 0 ) { document.getElementById("metArt").innerHTML += `Subregion: ${objSubRegion} <br>`;};
-    if (objLocale.length > 0 ) { document.getElementById("metArt").innerHTML += `Locale: ${objLocale} <br>`;};
-    if (objLocus.length > 0 ) { document.getElementById("metArt").innerHTML += `Locus: ${objLocus} <br>`;};
-    if ( objExcavation.length > 0 ) { document.getElementById("metArt").innerHTML += `Excavation: ${objExcavation} <br>`;};
-    if ( objRiver.length > 0 ) { document.getElementById("metArtt").innerHTML += `River: ${objRiver} <br>`;};
-    if ( objClassification.length > 0 ) { document.getElementById("metArt").innerHTML += `Classification: ${objClassification} <br>`;};
+    if ( objArtistSuffix.length > 0 ){ 
+        document.getElementById("metArt").innerHTML += `Suffix: ${objArtistSuffix} <br>`;
+    };
+    if (objArtistNationality.length > 0 ) { 
+        document.getElementById("metArt").innerHTML += `Nationality: ${objArtistNationality} <br>`;
+    };
+    if ( objArtistGender.length > 0 ) { 
+        document.getElementById("metArt").innerHTML += `Gender: ${objArtistGender} <br>`;
+    };
+    if (objDate.length > 0 ) { 
+        document.getElementById("metArt").innerHTML += `Artwork date: ${objDate} <br>`;
+    };
+    if ( objCity.length > 0 ) {
+         document.getElementById("metArt").innerHTML += `City: ${objCity} <br>`;
+    };
+    if ( objState.length > 0 ) {
+         document.getElementById("metArt").innerHTML += `State: ${objState} <br>`;
+    };
+    if (objCounty.length > 0 ) { 
+        document.getElementById("metArt").innerHTML += `County: ${objCounty} <br>`;
+    };
+    if ( objCountry.length > 0 ) { 
+        document.getElementById("metArt").innerHTML += `Country: ${objCountry} <br>`;
+    };
+    if ( objRegion.length > 0 ) { 
+        document.getElementById("metArt").innerHTML += `Region: ${objRegion} <br>`;
+    };
+    if (objSubRegion.length > 0 ) { 
+        document.getElementById("metArt").innerHTML += `Subregion: ${objSubRegion} <br>`;
+    };
+    if (objLocale.length > 0 ) { 
+        document.getElementById("metArt").innerHTML += `Locale: ${objLocale} <br>`;
+    };
+    if (objLocus.length > 0 ) { 
+        document.getElementById("metArt").innerHTML += `Locus: ${objLocus} <br>`;
+    };
+    if ( objExcavation.length > 0 ) { 
+        document.getElementById("metArt").innerHTML += `Excavation: ${objExcavation} <br>`;
+    };
+    if ( objRiver.length > 0 ) { 
+        document.getElementById("metArtt").innerHTML += `River: ${objRiver} <br>`;
+    };
+    if ( objClassification.length > 0 ) { 
+        document.getElementById("metArt").innerHTML += `Classification: ${objClassification} <br>`;
+    };
 
     document.getElementById("metArt").innerHTML += "<hr>";
     
