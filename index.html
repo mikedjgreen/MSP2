@@ -21,7 +21,7 @@
       crossorigin="anonymous"
     />
 
-    <!-- <script src="https://kit.fontawesome.com/169cf7da54.js" crossorigin="anonymous"></script> -->
+    <script src="https://kit.fontawesome.com/169cf7da54.js" crossorigin="anonymous"></script> 
 
     <link
       rel="stylesheet"
@@ -194,13 +194,19 @@
                         <div class="invalid-feedback">Please fill out this field.</div>
                         <button type="button" class="btn btn-info btn-md" 
                                 value="dept. names" 
-                                onclick="document.getElementById('qryDeptValidation').innerHTML = sessionStorage.getItem(qryDept.value)">
+                                onclick="document.getElementById('qryDeptValidation').innerHTML = returnDeptName(qryDept.value)">
                                 Dept. Name
                         </button> 
                         </div>
-                    </div>
-                    <div class="form-group">
                         <div id="qryDeptValidation" class="bg-info text-white"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div id="selDept"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        
                         <div class="form-check form-check-inline col-md-3">
                         <label class="form-check-label mr-sm-2" for="qryView" 
                             data-toggle="popover" data-trigger="hover" data-placement="top" 

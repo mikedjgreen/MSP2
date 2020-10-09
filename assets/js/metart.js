@@ -37,6 +37,7 @@ $(document).ready(function () {
   $('[data-toggle="popover"]').popover();
   totalCollection();
   loadDepts();
+  document.getElementById("btnGetCriteria").addEventListener("click",loadSelDepts());
 });
 
 function getTotalObjects(cb) {
@@ -84,27 +85,28 @@ function getMetDept(cb) {
 function writeDepts() {
     document.getElementById("metArtDept").innerHTML = "";
     depts.forEach(function (item) {
-      document.getElementById("metArtDept").innerHTML += item.departmentId + ") " + item.displayName + " <br>";
+      document.getElementById("metArtDept").innerHTML += ` ${item.departmentId} ) ${item.displayName} <br>`;
     });
 
 }
 
 function loadDepts() {
 /*  
-    Using temporary store for department names
-    Will clear when browser closed
+    Using temporary store for department names keys and ID values.
+    Will clear when browser closed.
 */
     sessionStorage.clear();
     getMetDept(function (item) {
         depts = item.departments;
         depts.forEach(function(item){
-            sessionStorage.setItem(item.departmentId,item.displayName);
+            /* need a lookup from department name back to id. */
+            sessionStorage.setItem(item.displayName,item.departmentId);
         })
     });
 }
 
 function writeDeptName(data) {
-  document.getElementById("metCriteria").innerHTML += data.displayName + "</p>";
+  document.getElementById("metCriteria").innerHTML += "<p> " + data.displayName + "</p>";
 }
 
 function getDeptName(deptId) {
@@ -127,10 +129,30 @@ function returnDeptName(deptId) {
             deptName = item.displayName;
         }
     });
-    alert("returnDeptName " + deptName);
     return deptName;
 }
+function returnDeptId(deptName) {
+    /*
+    depends upon the sessionStorage of key displayName against value of departmentId
+    */
+   return sessionStorage.getItem(deptName);
+}
 
+
+function loadSelDepts() {
+    var selHTML = "";
+    selHTML = `      <label for="sel1">Select list (select one):</label>
+      <select class="form-control" id="sel1">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+      </select>` ;
+
+alert(selHTML);
+
+    document.getElementById("selDept").innerHTML += selHTML;
+}
 
 /*
     MET API search returns
@@ -527,10 +549,12 @@ function writeObjectDetails(obj_ID) {
 
 function getSelection() {
   $(document).ready(function () {
+            loadSelDepts();
     $("#searchBtn").on("click", function () {
       /* clear down any previous searches */
       document.getElementById("qryDeptValidation").innerHTML = "";
       document.getElementById("metCriteria").innerHTML = ""; 
+
       writeSelection();
     });
   });
@@ -539,6 +563,7 @@ function getSelection() {
 function writeSelection() {
   document.getElementById("metCriteria").innerHTML = "";
   document.getElementById("metArt").innerHTML = "";
+
   qryStr = document.forms["metArtCriteria"]["queryString"].value;
   qryDept = document.forms["metArtCriteria"]["qryDept"].value;
 
