@@ -207,7 +207,7 @@ function writeObjects() {
         */
        if (totalInt == 0) {
             document.getElementById("btnGetObjects").style.display = "block";
-            //document.getElementById("metDebug").innerHTML += `<br> No works found : ${totalInt}`;
+            document.getElementById("metDebug").innerHTML += `<br> No works found : ${totalInt}`;
        }
        else {
             /* 
@@ -246,7 +246,7 @@ function writeObjects() {
             }
         }   
     });
-    //    document.getElementById("metDebug").innerHTML = "*********** TESTING ********";
+        document.getElementById("metDebug").innerHTML = "*********** TESTING ********";
 
 }
 
@@ -257,6 +257,9 @@ function writeNextPage(pageCnt) {
     if ( currentPg < pageCnt) {
         currentPg++;
     }
+    /* writing current Page number to screen */
+    document.getElementById("metPageCount").innerHTML = `Page: ${currentPg}`;
+
     var myWrk = {};
     var myArr = Object.values(displayObjects);
 
@@ -264,18 +267,32 @@ function writeNextPage(pageCnt) {
     for (let i in myArr) {
         myWrk = myArr[i];
         if ( myWrk.pageNo == currentPg ) {
-            //document.getElementById("metDebug").innerHTML += `<br> ${myWrk.workId}`;
+            document.getElementById("metDebug").innerHTML += `<br>Next page ${myWrk.workId}`;
             writeObjectDetails(myWrk.workId);
         }
+    }
+    if ( currentPg < 2 ) { 
+        document.getElementById("btnPrev").style.display = "none";  
+    } else {
+        document.getElementById("btnPrev").style.display = "block"; 
+    }
+    if ( currentPg == pageCnt ) { 
+        document.getElementById("btnNext").style.display = "none";  
+    } else {
+        document.getElementById("btnNext").style.display = "block"; 
     }
 }
 
 function writePreviousPage(pageCnt) {
+
     /*  Clear down any previous page results...  */
     document.getElementById("metArt").innerHTML = "";
     if ( currentPg > 1 ) {
         currentPg--;
     }
+    /* writing current Page number to screen */
+    document.getElementById("metPageCount").innerHTML = `Page: ${currentPg}`;
+    
     var myWrk = {};
     var myArr = Object.values(displayObjects);
     
@@ -283,9 +300,19 @@ function writePreviousPage(pageCnt) {
     for (let i in myArr) {
         myWrk = myArr[i];
         if ( myWrk.pageNo == currentPg ) {
-            //document.getElementById("metDebug").innerHTML += `<br> ${myWrk.workId}`;
+            document.getElementById("metDebug").innerHTML += `<br>Prev page ${myWrk.workId}`;
             writeObjectDetails(myWrk.workId);
         }
+    }
+    if ( currentPg < 2 ) { 
+        document.getElementById("btnPrev").style.display = "none";  
+    } else {
+        document.getElementById("btnPrev").style.display = "block"; 
+    }
+    if ( currentPg == pageCnt ) { 
+        document.getElementById("btnNext").style.display = "none";  
+    } else {
+        document.getElementById("btnNext").style.display = "block"; 
     }
 }
 
@@ -421,13 +448,13 @@ function writeObjectDetails(obj_ID) {
         "Origin and year acquired: " + objCreditLine + " <br>";
     };
 
-    /*  blanking out additional images for the moment...another window? */
+    /*  blanking out additional images for the moment...another window? 
     if (objAdditionalImages.length > 0) {
         for ( let i in objAdditionalImages ) {
             document.getElementById("metArt").innerHTML += `Additional images: <img class="img-fluid" src="${objAdditionalImages[i]}" alt="add image"> <br>`;
         };
     };
-    
+    */
 
     for ( let i in objConstituents ) {
         document.getElementById("metArt").innerHTML += `Constituents: ${objConstituents[i]} <br>`;
@@ -534,15 +561,35 @@ function stripBlankSelections(searchCritArray) {
 
 function generatePaginationButton(pageCnt) {
 
-
+    document.getElementById("metPages").innerHTML = `<table><tr><td>`;
     document.getElementById("metPages").innerHTML = `<div class="btn-group btn-group-sm">`;
-    document.getElementById("metPages").innerHTML += `<button id="btnNext" onClick="writePreviousPage(${pageCnt})" class="btn btn-info">Previous 5 artworks of <span class="badge badge-light">${pageCnt}</span> pages</button>`;
+    document.getElementById("metPages").innerHTML += `<button id="btnPrev" onClick="writePreviousPage(${pageCnt})" class="btn btn-info">Previous 5 artworks of <span class="badge badge-light">${pageCnt}</span> pages</button>`;
+     document.getElementById("metPages").innerHTML += `</td></tr>`;
+
+    document.getElementById("metPages").innerHTML += `<tr><td>`;
 
     document.getElementById("metPages").innerHTML += `<button id="btnNext" onClick="writeNextPage(${pageCnt})" class="btn btn-info">Next 5 artworks of <span class="badge badge-light">${pageCnt}</span> pages</button>`;
+     document.getElementById("metPages").innerHTML += `</td></tr>`;
+
+    document.getElementById("metPages").innerHTML += `<tr><td>`;
 
     document.getElementById("metPages").innerHTML += `<button id="btnNew" onClick="clickBtnNew()" class="btn btn-warning">New selection</button>`;
     document.getElementById("metPages").innerHTML += `</div>`;
+    document.getElementById("metPages").innerHTML += `</td></tr></table>`;
 
+    document.getElementById("metPagesTop").innerHTML = `<table><tr><td>`;   
+    document.getElementById("metPagesTop").innerHTML = `<div class="btn-group btn-group-sm">`;
+    document.getElementById("metPagesTop").innerHTML += `<button id="btnPrev" onClick="writePreviousPage(${pageCnt})" class="btn btn-info">Previous 5 artworks of <span class="badge badge-light">${pageCnt}</span> pages</button>`;
+    document.getElementById("metPagesTop").innerHTML += `</td></tr>`;
+
+    document.getElementById("metPagesTop").innerHTML += `<tr><td>`;
+    document.getElementById("metPagesTop").innerHTML += `<button id="btnNext" onClick="writeNextPage(${pageCnt})" class="btn btn-info">Next 5 artworks of <span class="badge badge-light">${pageCnt}</span> pages</button>`;
+    document.getElementById("metPagesTop").innerHTML += `</td></tr>`;
+ 
+    document.getElementById("metPagesTop").innerHTML += `<tr><td>`;
+    document.getElementById("metPagesTop").innerHTML += `<button id="btnNew" onClick="clickBtnNew()" class="btn btn-warning">New selection</button>`;
+    document.getElementById("metPagesTop").innerHTML += `</div>`;
+    document.getElementById("metPagesTop").innerHTML += `</td></tr></table>`;
 }
 
 function clickBtnNew () {
@@ -551,6 +598,7 @@ function clickBtnNew () {
     document.getElementById("metCriteria").innerHTML = "";
     document.getElementById("btnGetObjects").style.display = "none";
     document.getElementById("metPages").innerHTML = "";
+    document.getElementById("metPagesTop").innerHTML = "";
     document.getElementById("metDebug").innerHTML = "";
     /* allow user to make another selection */
     document.getElementById("btnGetCriteria").style.display = "block";
