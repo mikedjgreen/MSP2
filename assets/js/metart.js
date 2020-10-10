@@ -10,6 +10,7 @@ var searchCrit2 = "";
 var qryStr = ""; // q
 var qryHighlight; // isHighlight
 var qryDept; // departmentId
+var qryDeptName; //Selection form now asks for name, not id.
 var qryView; // isOnView
 var qryCult; // artistOrCulture
 var qryMedium; // medium
@@ -36,8 +37,7 @@ let currentPg = 1;
 $(document).ready(function () {
   $('[data-toggle="popover"]').popover();
   totalCollection();
-  loadDepts();
-  document.getElementById("btnGetCriteria").addEventListener("click",loadSelDepts());
+  loadDepts()
 });
 
 function getTotalObjects(cb) {
@@ -71,23 +71,16 @@ function getMetDept(cb) {
   xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       cb(JSON.parse(this.responseText));
-      console.log(
-        "********  JSON response text " + JSON.parse(this.responseText)
-      );
-    } else {
-      console.log(
-        "******** state " + this.readyState + " ******* status " + this.status
-      );
-    }
+        };
+    }; 
   };
-}
+
 
 function writeDepts() {
     document.getElementById("metArtDept").innerHTML = "";
     depts.forEach(function (item) {
       document.getElementById("metArtDept").innerHTML += ` ${item.departmentId} ) ${item.displayName} <br>`;
     });
-
 }
 
 function loadDepts() {
@@ -138,19 +131,20 @@ function returnDeptId(deptName) {
    return sessionStorage.getItem(deptName);
 }
 
-
 function loadSelDepts() {
     var selHTML = "";
-    selHTML = `      <label for="sel1">Select list (select one):</label>
-      <select class="form-control" id="sel1">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-      </select>` ;
-
-alert(selHTML);
-
+    var selOptions = "";
+    
+    depts.forEach(function (dItem) {
+        /* need a lookup from department name back to id. */
+        selOptions += `     <option>${dItem.displayName}</option>`;
+    });
+    
+    selHTML = `      <label for="deptNameSel">Select one Department:</label>`;
+    selHTML += `     <select class="form-control" id="deptNameSel"> `;
+    selHTML += selOptions;
+    selHTML += `     </select>`;
+    alert(selHTML);
     document.getElementById("selDept").innerHTML += selHTML;
 }
 
@@ -549,7 +543,6 @@ function writeObjectDetails(obj_ID) {
 
 function getSelection() {
   $(document).ready(function () {
-            loadSelDepts();
     $("#searchBtn").on("click", function () {
       /* clear down any previous searches */
       document.getElementById("qryDeptValidation").innerHTML = "";
@@ -565,7 +558,14 @@ function writeSelection() {
   document.getElementById("metArt").innerHTML = "";
 
   qryStr = document.forms["metArtCriteria"]["queryString"].value;
-  qryDept = document.forms["metArtCriteria"]["qryDept"].value;
+  /*    
+        Prototype search form asked for department id.
+        Updated search form, now asking, via drop-down selections, for department names
+        For API search endpoint, need to convert 'human' name back to Id
+    */
+  qryDeptName = document.forms["metArtCriteria"]["deptNameSel"].value;
+  //qryDept = document.forms["metArtCriteria"]["qryDept"].value;
+  qryDept = returnDeptId(qryDeptName);
 
   qryHighlight = document.forms["metArtCriteria"]["qryHighlight"].value;
   qryView = document.forms["metArtCriteria"]["qryView"].value; // isOnView
