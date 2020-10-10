@@ -140,11 +140,15 @@ function loadSelDepts() {
         selOptions += `     <option>${dItem.displayName}</option>`;
     });
     
-    selHTML = `      <label for="deptNameSel">Select one Department:</label>`;
-    selHTML += `     <select class="form-control" id="deptNameSel"> `;
+    selHTML = `      <label for="deptNameSel"`;
+    selHTML += ` data-toggle="popover" data-trigger="hover" data-placement="top" `; 
+    selHTML += ` title="Department Name"`;
+    selHTML += ` data-content="Select Met Museum Art Departments valid list">`;
+    selHTML += ` Select one Department: </label>`;
+    selHTML += `     <select class="form-control" id="deptNameSel"  required > `;
     selHTML += selOptions;
     selHTML += `     </select>`;
-    alert(selHTML);
+    //alert(selHTML);
     document.getElementById("selDept").innerHTML += selHTML;
 }
 
@@ -209,6 +213,7 @@ function writeObjects() {
         Clear down any previous search results...
   */
      document.getElementById("metArt").innerHTML = "";
+     document.getElementById("selDept").innerHTML = "";
   /*
         Now for current search results.....
   */
