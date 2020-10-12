@@ -11,7 +11,6 @@
 
     <!-- using jquery CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
 
     <!-- Using Bootstrap CDN -->
     <link
@@ -21,14 +20,16 @@
       crossorigin="anonymous"
     />
 
-    <script src="https://kit.fontawesome.com/169cf7da54.js" crossorigin="anonymous"></script> 
+    <script
+      src="https://kit.fontawesome.com/169cf7da54.js"
+      crossorigin="anonymous"
+    ></script>
 
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.1/css/hover-min.css"
       type="text/css"
     />
-
 
     <link type="text/css" rel="stylesheet" href="assets/css/stylesheet.css" />
 
@@ -38,59 +39,84 @@
   <body>
     <!--    Header -->
     <header class="heading">
-        <div class="jumbotron text-center row row-cols-2">
-        	<div class="col-1"></div>
-			<div class="col-10  header-text-sm ">Metropolitan Museum of Art's Collection</div>
-            <div class="col-1 "></div>
+      <div class="jumbotron text-center row row-cols-2">
+        <div class="col-1"></div>
+        <div class="col-10 header-text-sm">
+          Metropolitan Museum of Art's Collection
         </div>
+        <div class="col-1"></div>
+      </div>
     </header>
 
     <section class="container-fluid">
       <!-- The Buttons -->
       <div id="theButtons">
-        <table>
-        <tr>
-        <td>
-        <button type="button" id="btnGetDepts" class="btn btn-secondary btn-sm"
-          onclick="writeDepts()" 
-          data-toggle="modal" data-target="#deptModal">
-          Get Met Art Departments
-        </button>
-        </td>
-        
-        <td>
-        <button type="button" id="btnGetCriteria" class="btn btn-secondary btn-sm"
-          onclick="getSelection();loadSelDepts()"
-          data-toggle="modal" data-target="#searchModal">
-          Select Criteria for searching the Met</button>
-        </td>
-        </tr>
+        <div class="row">
+          <div class="col">
+              <button
+                type="button"
+                id="btnGetDepts"
+                class="btn btn-secondary btn-sm"
+                onclick="writeDepts()"
+                data-toggle="modal"
+                data-target="#deptModal"
+              >
+                Get Met Art Departments
+              </button>
+            </div>
 
-        <tr>
-        <td>
-        <button type="button" id="btnGetObjects" class="btn btn-secondary btn-sm"
-          onclick="writeObjects()"
-          data-target="#metArt">
-          Get Met Art Objects
-        </button>
-        </td>
-        <td>
-        <button type="button" id="btnGetTotal" class="btn btn-secondary btn-sm" onclick="totalCollection()">
-          Get Total Objects
-        </button>
-        </td>
-        </tr>
-        </table>
+            <div classs="col">
+              <button
+                type="button"
+                id="btnGetCriteria"
+                class="btn btn-secondary btn-sm"
+                onclick="getSelection();loadSelDepts()"
+                data-toggle="modal"
+                data-target="#searchModal"
+              >
+                Select Criteria for searching the Met
+              </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class = "col">
+              <!--onclick="writeObjects()"-->
+              <button
+                type="button"
+                id="btnGetObjects"
+                class="btn btn-secondary btn-sm"
+                onclick="writeObjects()"
+                data-target="#metArt"
+              >
+                Get Met Art Objects
+              </button>
+            </div>
+            <div class="col">
+              <button
+                type="button"
+                id="btnGetTotal"
+                class="btn btn-secondary btn-sm"
+                onclick="totalCollection()"
+              >
+                Get Total Objects
+              </button>
+            </div>
+          </div>
+    
       </div>
 
-      <div id="metArtTotal" class="progress" style="height:20px">
-        <div class="progress-bar progress-bar-animated" style="width:40%;height:20px">
-        Getting total objects in collection...
+      <div id="metArtTotal" class="progress" style="height: 20px;">
+        <div
+          class="progress-bar progress-bar-animated"
+          style="width: 40%; height: 20px;"
+        >
+          Getting total objects in collection...
         </div>
-      </div>  
+      </div>
 
       <!-- The Department Modal -->
-      <div class="modal" id="deptModal">
+      <div class="modal fade" id="deptModal">
         <div class="modal-dialog modal-dialog-scrollable">
           <div class="modal-content">
             <!-- Modal Header -->
@@ -129,7 +155,7 @@
             <!-- Modal Header -->
             <div class="modal-header">
               <h4 class="modal-title">
-                New York Metropolitan Museum of Art 
+                New York Metropolitan Museum of Art
               </h4>
               <button type="button" class="close" data-dismiss="modal">
                 &times;
@@ -139,12 +165,18 @@
             <!-- Modal body -->
             <div class="modal-body">
               <div id="metArtSearch">
-                <form name="metArtCriteria" class="metArtCriteria, was-validated" >
+                <form
+                  name="metArtCriteria"
+                  class="metArtCriteria, was-validated"
+                >
                   <fieldset>
                     <legend>Search Criteria</legend>
                     <div class="form-group">
                       <div class="form-check form-check-inline col-sm-12">
-                        <label class="form-check-label mr-sm-2" for="queryString">search term
+                        <label
+                          class="form-check-label mr-sm-2"
+                          for="queryString"
+                          >search term
                         </label>
                         <input
                           type="text"
@@ -155,26 +187,33 @@
                           required
                         />
                         <div class="valid-feedback">Valid.</div>
-                        <div class="invalid-feedback">Please fill out this field.</div>
+                        <div class="invalid-feedback">
+                          Please fill out this field.
                         </div>
+                      </div>
                     </div>
-                    <div class="form-group">   
+                    <div class="form-group">
                       <div class="form-check form-check-inline col-sm-12">
-                        <label class="form-check-label mr-sm-2" for="qryHighlight" 
-                            data-toggle="popover" data-trigger="hover" data-placement="top"
-                            title="Highlights are selected works of art from permanent collection"
-                            data-content="true or false">is highlighted?
+                        <label
+                          class="form-check-label mr-sm-2"
+                          for="qryHighlight"
+                          data-toggle="popover"
+                          data-trigger="hover"
+                          data-placement="top"
+                          title="Highlights are selected works of art from permanent collection"
+                          data-content="true or false"
+                          >is highlighted?
                         </label>
                         <input
                           type="text"
                           class="form-input mb-2 mr-sm-2"
                           id="qryHighlight"
                           name="qryHighlight"
-                          size = "5"
+                          size="5"
                         />
-                        </div>
+                      </div>
                     </div>
-   <!--             <div class="form-group">                        
+                    <!--             <div class="form-group">                        
                         <div class="form-check form-check-inline col-md-3">
                         <label class="form-check-label mr-sm-2" for="qryDept"
                             data-toggle="popover" data-trigger="hover" data-placement="top" 
@@ -202,18 +241,24 @@
                     </div>
 -->
                     <div class="form-group">
-                        <div id="selDept"></div>
-                        <div class="valid-feedback">Valid.</div>
-                        <div class="invalid-feedback">Please fill out this field.</div>
+                      <div id="selDept"></div>
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">
+                        Please fill out this field.
+                      </div>
                     </div>
-                    
+
                     <div class="form-group">
-                        
-                        <div class="form-check form-check-inline col-md-3">
-                        <label class="form-check-label mr-sm-2" for="qryView" 
-                            data-toggle="popover" data-trigger="hover" data-placement="top" 
-                            title="Are on view in the museum"
-                            data-content="Either true or false">is on view?
+                      <div class="form-check form-check-inline col-md-3">
+                        <label
+                          class="form-check-label mr-sm-2"
+                          for="qryView"
+                          data-toggle="popover"
+                          data-trigger="hover"
+                          data-placement="top"
+                          title="Are on view in the museum"
+                          data-content="Either true or false"
+                          >is on view?
                         </label>
                         <input
                           type="text"
@@ -222,15 +267,19 @@
                           name="qryView"
                           size="5"
                         />
-                        </div>
+                      </div>
                     </div>
                     <div class="form-group">
-                        <div class="form-check form-check-inline col-md-3">
-                        <label class="form-check-label mr-sm-2" for="qryCult"
-                                data-toggle="popover" data-trigger="hover" data-placement="top"
-                                title="Searching against the artist name or culture field"
-                                data-content="Either true or false"
-                            >artist or culture?
+                      <div class="form-check form-check-inline col-md-3">
+                        <label
+                          class="form-check-label mr-sm-2"
+                          for="qryCult"
+                          data-toggle="popover"
+                          data-trigger="hover"
+                          data-placement="top"
+                          title="Searching against the artist name or culture field"
+                          data-content="Either true or false"
+                          >artist or culture?
                         </label>
                         <input
                           type="text"
@@ -239,14 +288,19 @@
                           name="qryCult"
                           size="5"
                         />
-                        </div>
+                      </div>
                     </div>
                     <div class="form-group">
-                        <div class="form-check form-check-inline col-md-3">
-                        <label class="form-check-label mr-sm-2" for="qryMedium"
-                                data-toggle="popover" data-trigger="hover" data-placement="top"
-                                title="Returns objects of specified medium or type"
-                                data-content="E.g.: 'Ceramics', 'Furniture', 'Paintings', 'Sculpture', 'Textiles', etc.">what medium?
+                      <div class="form-check form-check-inline col-md-3">
+                        <label
+                          class="form-check-label mr-sm-2"
+                          for="qryMedium"
+                          data-toggle="popover"
+                          data-trigger="hover"
+                          data-placement="top"
+                          title="Returns objects of specified medium or type"
+                          data-content="E.g.: 'Ceramics', 'Furniture', 'Paintings', 'Sculpture', 'Textiles', etc."
+                          >what medium?
                         </label>
                         <input
                           type="text"
@@ -254,14 +308,19 @@
                           id="qryMedium"
                           name="qryMedium"
                         />
-                        </div>  
+                      </div>
                     </div>
-                    <div class="form-group">            
-                        <div class="form-check form-check-inline col-md-3">
-                        <label class="form-check-label mr-sm-2" for="qryImages" 
-                            data-toggle="popover" data-trigger="hover" data-placement="top"
-                            title="Images required"
-                            data-content="Either true or false">has images?
+                    <div class="form-group">
+                      <div class="form-check form-check-inline col-md-3">
+                        <label
+                          class="form-check-label mr-sm-2"
+                          for="qryImages"
+                          data-toggle="popover"
+                          data-trigger="hover"
+                          data-placement="top"
+                          title="Images required"
+                          data-content="Either true or false"
+                          >has images?
                         </label>
                         <input
                           type="text"
@@ -271,14 +330,19 @@
                           value="true"
                           size="5"
                         />
-                        </div>
+                      </div>
                     </div>
                     <div class="form-group">
-                        <div class="form-check form-check-inline col-md-3">
-                        <label class="form-check-label mr-sm-2" for="qryLoc"
-                            data-toggle="popover" data-trigger="hover" data-placement="top"
-                            title="Geographic Location"
-                            data-content="Examples include: 'Europe', 'France', 'Paris', 'China', 'New York', etc.">location?
+                      <div class="form-check form-check-inline col-md-3">
+                        <label
+                          class="form-check-label mr-sm-2"
+                          for="qryLoc"
+                          data-toggle="popover"
+                          data-trigger="hover"
+                          data-placement="top"
+                          title="Geographic Location"
+                          data-content="Examples include: 'Europe', 'France', 'Paris', 'China', 'New York', etc."
+                          >location?
                         </label>
                         <input
                           type="text"
@@ -286,12 +350,19 @@
                           id="qryLoc"
                           name="qryLoc"
                         />
-                        </div>
-                    </div>    
+                      </div>
+                    </div>
                     <div class="form-group">
-                       <div class="form-check form-check-inline col-md-3">
-                        <label class="form-check-label mr-sm-2" for="qryBegin" 
-                            data-toggle="popover" data-trigger="hover" data-placement="top" title="Objects since this year" data-content="e.g. 1600">beginning date?
+                      <div class="form-check form-check-inline col-md-3">
+                        <label
+                          class="form-check-label mr-sm-2"
+                          for="qryBegin"
+                          data-toggle="popover"
+                          data-trigger="hover"
+                          data-placement="top"
+                          title="Objects since this year"
+                          data-content="e.g. 1600"
+                          >beginning date?
                         </label>
                         <input
                           type="text"
@@ -300,8 +371,15 @@
                           name="qryBegin"
                           size="4"
                         />
-                        <label class="form-check-label mr-sm-2" for="qryEnd" 
-                            data-toggle="popover" data-trigger="hover" data-placement="top" title="Objects prior to this year" data-content="e.g. 1800">end date?
+                        <label
+                          class="form-check-label mr-sm-2"
+                          for="qryEnd"
+                          data-toggle="popover"
+                          data-trigger="hover"
+                          data-placement="top"
+                          title="Objects prior to this year"
+                          data-content="e.g. 1800"
+                          >end date?
                         </label>
                         <input
                           type="text"
@@ -309,14 +387,19 @@
                           id="qryEnd"
                           name="qryEnd"
                           size="4"
-                        />                      
-                        </div>                                                                                                               
+                        />
+                      </div>
                     </div>
-                    <button type="submit" value="submit" class="btn btn-danger btn-sm"
-                        data-dismiss="modal" onclick="writeSelection()">
-                        Search
+                    <button
+                      type="submit"
+                      value="submit"
+                      class="btn btn-danger btn-sm"
+                      data-dismiss="modal"
+                      onclick="writeSelection()"
+                    >
+                      Search
                     </button>
-                    <input type="reset"/>
+                    <input type="reset" />
                   </fieldset>
                 </form>
               </div>
@@ -340,32 +423,38 @@
 
     <!--    Footer -->
     <footer class="container-fluid">
-    	<div id="footer-details" class="row">
-			<div class="col-sm-12">
-				<hr />
-				<!-- <h5 class="text-uppercase general-sub">Social</h5> -->
-				<ul class="list-inline social-links">
-					<li class="list-inline-item px-3">
-						<a target="_blank" href="https://www.metmuseum.org/"
-							title="Go to our facebook page">
-							<i class="fa fa-facebook fa-lg" aria-hidden="true"></i>
-							<span class="sr-only">Facebook</span>
-						</a>
-					</li>
-					<li class="list-inline-item px-3">
-						<a target="_blank" href="https://www.metmuseum.org/"
-							title="Go to our youtube entries">
-							<i class="fa fa-youtube fa-lg" aria-hidden="true"></i>
-							<span class="sr-only">YouTube</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
+      <div id="footer-details" class="row">
+        <div class="col-sm-12">
+          <hr />
+          <!-- <h5 class="text-uppercase general-sub">Social</h5> -->
+          <ul class="list-inline social-links">
+            <li class="list-inline-item px-3">
+              <a
+                target="_blank"
+                href="https://www.metmuseum.org/"
+                title="Go to our facebook page"
+              >
+                <i class="fa fa-facebook fa-lg" aria-hidden="true"></i>
+                <span class="sr-only">Facebook</span>
+              </a>
+            </li>
+            <li class="list-inline-item px-3">
+              <a
+                target="_blank"
+                href="https://www.metmuseum.org/"
+                title="Go to our youtube entries"
+              >
+                <i class="fa fa-youtube fa-lg" aria-hidden="true"></i>
+                <span class="sr-only">YouTube</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </footer>
     <!-- Bootstrap Javascript CDN  aria -->
 
-<!--
+    <!--
         <script
       src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
       integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -403,9 +492,7 @@
       src="https://collectionapi.metmuseum.org/public/collection/v1/"
     ></script>
 
-
     <!-- Metropolitan Museum of Art query script -->
     <script src="assets/js/metart.js"></script>
-
   </body>
 </html>

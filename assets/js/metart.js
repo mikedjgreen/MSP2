@@ -26,8 +26,6 @@ var totalObjects; // to capture the total number of objects listed on the Met's 
 var displayObjects = [];
 let currentPg = 1;
 
-
-
 /*
     Initialising popovers to help with selection criteria validation, UX
     Also returning total objects in collection.
@@ -37,7 +35,7 @@ let currentPg = 1;
 $(document).ready(function () {
   $('[data-toggle="popover"]').popover();
   totalCollection();
-  loadDepts()
+  loadDepts();
 });
 
 function getTotalObjects(cb) {
@@ -58,10 +56,27 @@ function getTotalObjects(cb) {
 function totalCollection() {
   getTotalObjects(function (item) {
     totalObjects = item.total;
-    document.getElementById("metArtTotal").innerHTML = `There are a total of <mark>${totalObjects}</mark> available objects in the Met's collection.`;
-    document.getElementById("metArtTotal").innerHTML += `<br>Use the selection criteria wisely.`;
+    document.getElementById(
+      "metArtTotal"
+    ).innerHTML = `There are a total of <mark>${totalObjects}</mark> available objects in the Met's collection.`;
+    document.getElementById(
+      "metArtTotal"
+    ).innerHTML += `<br>Use the selection criteria wisely.`;
     return totalObjects;
   });
+}
+
+function getMetDeptTotals(cb, DId) {
+  var apiMetDeptStub = apiMet + "objects?departmentIds=";
+  var apiQuery = apiMetDeptStub + DId;
+  var xhr3 = new XMLHttpRequest();
+  xhr3.open("GET", apiQuery);
+  xhr3.send();
+  xhr3.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      cb(JSON.parse(this.responseText));
+    }
+  };
 }
 
 function getMetDept(cb) {
@@ -71,31 +86,32 @@ function getMetDept(cb) {
   xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       cb(JSON.parse(this.responseText));
-        };
-    }; 
+    }
   };
-
+}
 
 function writeDepts() {
-    document.getElementById("metArtDept").innerHTML = "";
-    depts.forEach(function (item) {
-      document.getElementById("metArtDept").innerHTML += ` ${item.departmentId} ) ${item.displayName} <br>`;
-    });
+  document.getElementById("metArtDept").innerHTML = "";
+  depts.forEach(function (item) {
+    document.getElementById(
+      "metArtDept"
+    ).innerHTML += ` ${item.departmentId} ) ${item.displayName} <br>`;
+  });
 }
 
 function loadDepts() {
-/*  
+  /*  
     Using temporary store for department names keys and ID values.
     Will clear when browser closed.
 */
-    sessionStorage.clear();
-    getMetDept(function (item) {
-        depts = item.departments;
-        depts.forEach(function(item){
-            /* need a lookup from department name back to id. */
-            sessionStorage.setItem(item.displayName,item.departmentId);
-        })
+  sessionStorage.clear();
+  getMetDept(function (item) {
+    depts = item.departments;
+    depts.forEach(function (item) {
+      /* need a lookup from department name back to id. */
+      sessionStorage.setItem(item.displayName, item.departmentId);
     });
+  });
 }
 
 function writeDeptName(data) {
@@ -113,43 +129,43 @@ function getDeptName(deptId) {
 }
 
 function returnDeptName(deptId) {
-    /*
+/*
     depends upon populated  global array 'depts' to lookup name from id.
-    */
-    var deptName = "";
-    depts.forEach(function (item) {
-        if (item.departmentId == deptId) {
-            deptName = item.displayName;
-        }
-    });
-    return deptName;
+*/
+  var deptName = "";
+  depts.forEach(function (item) {
+    if (item.departmentId == deptId) {
+      deptName = item.displayName;
+    }
+  });
+  return deptName;
 }
 function returnDeptId(deptName) {
-    /*
+/*
     depends upon the sessionStorage of key displayName against value of departmentId
-    */
-   return sessionStorage.getItem(deptName);
+*/
+  return sessionStorage.getItem(deptName);
 }
 
 function loadSelDepts() {
-    var selHTML = "";
-    var selOptions = "";
-    
-    depts.forEach(function (dItem) {
-        /* need a lookup from department name back to id. */
-        selOptions += `     <option>${dItem.displayName}</option>`;
-    });
-    
-    selHTML = `      <label for="deptNameSel"`;
-    selHTML += ` data-toggle="popover" data-trigger="hover" data-placement="top" `; 
-    selHTML += ` title="Department Name"`;
-    selHTML += ` data-content="Select Met Museum Art Departments valid list">`;
-    selHTML += ` Select one Department: </label>`;
-    selHTML += `     <select class="form-control" id="deptNameSel"  required > `;
-    selHTML += selOptions;
-    selHTML += `     </select>`;
-    //alert(selHTML);
-    document.getElementById("selDept").innerHTML += selHTML;
+  var selHTML = "";
+  var selOptions = "";
+
+  depts.forEach(function (dItem) {
+    /* need a lookup from department name back to id. */
+    selOptions += `     <option>${dItem.displayName}</option>`;
+  });
+
+  selHTML = `      <label for="deptNameSel"`;
+  selHTML += ` data-toggle="popover" data-trigger="hover" data-placement="top" `;
+  selHTML += ` title="Department Name"`;
+  selHTML += ` data-content="Select Met Museum Art Departments valid list">`;
+  selHTML += ` Select one Department: </label>`;
+  selHTML += `     <select class="form-control" id="deptNameSel"  required > `;
+  selHTML += selOptions;
+  selHTML += `     </select>`;
+  //alert(selHTML);
+  document.getElementById("selDept").innerHTML += selHTML;
 }
 
 /*
@@ -191,153 +207,163 @@ function writeCriteria() {
 
 /* Object DisplayObject and its constructor */
 class DisplayObject {
-    constructor(artCount,metObjectId,pageCount) {
-        this.artCnt = artCount;
-        this.objectId = metObjectId;
-        this.pageCnt =pageCount;
-    }
-    /* methods */
-    get workId() { return this.objectId;}
-    get pageNo() { return this.pageCnt;}
+  constructor(artCount, metObjectId, pageCount) {
+    this.artCnt = artCount;
+    this.objectId = metObjectId;
+    this.pageCnt = pageCount;
+  }
+  /* methods */
+  get workId() {
+    return this.objectId;
+  }
+  get pageNo() {
+    return this.pageCnt;
+  }
 }
 
-
 function writeObjects() {
-    var objects = [];
-    var objectId;
-    var totalInt;
-    var artCnt = 0; 
-    var pageCnt = 1;
+  var objects = [];
+  var objectId;
+  var totalInt;
+  var artCnt = 0;
+  var pageCnt = 1;
 
   /*
         Clear down any previous search results...
   */
-     document.getElementById("metArt").innerHTML = "";
-     document.getElementById("selDept").innerHTML = "";
+  document.getElementById("metArt").innerHTML = "";
+  document.getElementById("selDept").innerHTML = "";
   /*
         Now for current search results.....
   */
-    writeCriteria();
-    getMetSearch(function (item) {
-        var total_Found;
-        total_Found = item.total;
-        document.getElementById("metArt").innerHTML += `<p> Total found: ${total_Found} </p>`;
-        totalInt = parseInt(total_Found);
-        /*
+  writeCriteria();
+  getMetSearch(function (item) {
+    var total_Found;
+    total_Found = item.total;
+    document.getElementById(
+      "metArt"
+    ).innerHTML += `<p> Total found: ${total_Found} </p>`;
+    totalInt = parseInt(total_Found);
+    /*
             If there are no objects found, no need to display get objects button
         */
-       if (totalInt == 0) {
-            document.getElementById("btnGetObjects").style.display = "block";
-            document.getElementById("metDebug").innerHTML += `<br> No works found : ${totalInt}`;
-       }
-       else {
-            /* 
+    if (totalInt == 0) {
+      document.getElementById("btnGetObjects").style.display = "block";
+      document.getElementById(
+        "metDebug"
+      ).innerHTML += `<br> No works found : ${totalInt}`;
+    } else {
+      /* 
                 If there are objects found for the search crieria given
                 need to hide the selection button until after the objects have been displayed
                 just to simplify UX
             */
-            if (totalInt > 0) {
-                document.getElementById("btnGetCriteria").style.display = "none";
-                document.getElementById("btnGetObjects").style.display = "block";
+      if (totalInt > 0) {
+        document.getElementById("btnGetCriteria").style.display = "none";
+        document.getElementById("btnGetObjects").style.display = "block";
+      }
+      objects = item.objectIDs;
+      for (objectId of objects) {
+        if (totalInt < 6) {
+          writeObjectDetails(objectId);
+          generatePaginationButton(pageCnt);
+        } else {
+          /*  Decided on 5 artworks per page, to save on memory issues... */
+          artCnt++;
+          if (artCnt < 6) {
+            writeObjectDetails(objectId);
+            var thisArtWork = new DisplayObject(artCnt, objectId, pageCnt);
+            document.getElementById(
+              "metDebug"
+            ).innerHTML += `<br> ${thisArtWork.workId} , ${thisArtWork.pageNo} less than 6`;
+            displayObjects.push(thisArtWork);
+          } else {
+            //if ( artCnt == 6) {pageCnt++};
+            if (artCnt % 5 == 1) {
+              pageCnt++;
             }
-            objects = item.objectIDs;
-            for (objectId of objects) {
-                if (totalInt < 6) { 
-                    writeObjectDetails(objectId);
-                    generatePaginationButton(pageCnt);
-                }
-            /*  Decided on 5 artworks per page, to save on memory issues... */    
-                else {    
-                    artCnt++;
-                    if (artCnt < 6) {
-                        writeObjectDetails(objectId);
-                        var thisArtWork = new DisplayObject(artCnt,objectId,pageCnt);
-                        document.getElementById("metDebug").innerHTML += `<br> ${thisArtWork.workId} , ${thisArtWork.pageNo} less than 6`; 
-                        displayObjects.push(thisArtWork);
-                    }
-                    else {
-                        //if ( artCnt == 6) {pageCnt++};
-                        if ( artCnt % 5 == 1 ) { pageCnt++ };
-                        generatePaginationButton(pageCnt);
-                        var thisArtWork = new DisplayObject(artCnt,objectId,pageCnt);
-                        document.getElementById("metDebug").innerHTML += `<br> ${thisArtWork.workId} , ${thisArtWork.pageNo}`; 
-                        displayObjects.push(thisArtWork);
-                    }
-                } 
-            }
-        }   
-    });
-        document.getElementById("metDebug").innerHTML = "*********** TESTING ********";
-
+            generatePaginationButton(pageCnt);
+            var thisArtWork = new DisplayObject(artCnt, objectId, pageCnt);
+            document.getElementById(
+              "metDebug"
+            ).innerHTML += `<br> ${thisArtWork.workId} , ${thisArtWork.pageNo}`;
+            displayObjects.push(thisArtWork);
+          }
+        }
+      }
+    }
+  });
+  document.getElementById("metDebug").innerHTML =
+    "*********** TESTING ********";
 }
 
-
 function writeNextPage(pageCnt) {
-    /*  Clear down any previous page results...  */
-    document.getElementById("metArt").innerHTML = "";
-    if ( currentPg < pageCnt) {
-        currentPg++;
-    }
-    /* writing current Page number to screen */
-    document.getElementById("metPageCount").innerHTML = `Page: ${currentPg}`;
+  /*  Clear down any previous page results...  */
+  document.getElementById("metArt").innerHTML = "";
+  if (currentPg < pageCnt) {
+    currentPg++;
+  }
+  /* writing current Page number to screen */
+  document.getElementById("metPageCount").innerHTML = `Page: ${currentPg}`;
 
-    var myWrk = {};
-    var myArr = Object.values(displayObjects);
+  var myWrk = {};
+  var myArr = Object.values(displayObjects);
 
-    /* unpacking the found art works */
-    for (let i in myArr) {
-        myWrk = myArr[i];
-        if ( myWrk.pageNo == currentPg ) {
-            document.getElementById("metDebug").innerHTML += `<br>Next page ${myWrk.workId}`;
-            writeObjectDetails(myWrk.workId);
-        }
+  /* unpacking the found art works */
+  for (let i in myArr) {
+    myWrk = myArr[i];
+    if (myWrk.pageNo == currentPg) {
+      document.getElementById(
+        "metDebug"
+      ).innerHTML += `<br>Next page ${myWrk.workId}`;
+      writeObjectDetails(myWrk.workId);
     }
-    if ( currentPg < 2 ) { 
-        document.getElementById("btnPrev").style.display = "none";  
-    } else {
-        document.getElementById("btnPrev").style.display = "block"; 
-    }
-    if ( currentPg == pageCnt ) { 
-        document.getElementById("btnNext").style.display = "none";  
-    } else {
-        document.getElementById("btnNext").style.display = "block"; 
-    }
+  }
+  if (currentPg < 2) {
+    document.getElementById("btnPrev").style.display = "none";
+  } else {
+    document.getElementById("btnPrev").style.display = "block";
+  }
+  if (currentPg == pageCnt) {
+    document.getElementById("btnNext").style.display = "none";
+  } else {
+    document.getElementById("btnNext").style.display = "block";
+  }
 }
 
 function writePreviousPage(pageCnt) {
+  /*  Clear down any previous page results...  */
+  document.getElementById("metArt").innerHTML = "";
+  if (currentPg > 1) {
+    currentPg--;
+  }
+  /* writing current Page number to screen */
+  document.getElementById("metPageCount").innerHTML = `Page: ${currentPg}`;
 
-    /*  Clear down any previous page results...  */
-    document.getElementById("metArt").innerHTML = "";
-    if ( currentPg > 1 ) {
-        currentPg--;
-    }
-    /* writing current Page number to screen */
-    document.getElementById("metPageCount").innerHTML = `Page: ${currentPg}`;
+  var myWrk = {};
+  var myArr = Object.values(displayObjects);
 
-    var myWrk = {};
-    var myArr = Object.values(displayObjects);
-    
-    /* unpacking the found art works */
-    for (let i in myArr) {
-        myWrk = myArr[i];
-        if ( myWrk.pageNo == currentPg ) {
-            document.getElementById("metDebug").innerHTML += `<br>Prev page ${myWrk.workId}`;
-            writeObjectDetails(myWrk.workId);
-        }
+  /* unpacking the found art works */
+  for (let i in myArr) {
+    myWrk = myArr[i];
+    if (myWrk.pageNo == currentPg) {
+      document.getElementById(
+        "metDebug"
+      ).innerHTML += `<br>Prev page ${myWrk.workId}`;
+      writeObjectDetails(myWrk.workId);
     }
-    if ( currentPg < 2 ) { 
-        document.getElementById("btnPrev").style.display = "none";  
-    } else {
-        document.getElementById("btnPrev").style.display = "block"; 
-    }
-    if ( currentPg == pageCnt ) { 
-        document.getElementById("btnNext").style.display = "none";  
-    } else {
-        document.getElementById("btnNext").style.display = "block"; 
-    }
+  }
+  if (currentPg < 2) {
+    document.getElementById("btnPrev").style.display = "none";
+  } else {
+    document.getElementById("btnPrev").style.display = "block";
+  }
+  if (currentPg == pageCnt) {
+    document.getElementById("btnNext").style.display = "none";
+  } else {
+    document.getElementById("btnNext").style.display = "block";
+  }
 }
-
-
 
 function writeObjectDetails(obj_ID) {
   var objTitle = "";
@@ -378,7 +404,6 @@ function writeObjectDetails(obj_ID) {
   var objRiver = "";
   var objClassification = "";
 
-
   getMetObject(obj_ID, function (item) {
     objTitle = item.title;
     objPrimaryImage = item.primaryImageSmall;
@@ -397,8 +422,8 @@ function writeObjectDetails(obj_ID) {
     objDimensions = item.dimensions;
     objCreditLine = item.creditLine;
     //objAdditionalImages = item.additionalImages; // array
-    for ( let i in item.additionalImages ) {
-        objAdditionalImages.push(item.additionalImages[i]);
+    for (let i in item.additionalImages) {
+      objAdditionalImages.push(item.additionalImages[i]);
     }
     //objConstituents = parse(item.constituents);  //array
     /*
@@ -410,7 +435,7 @@ function writeObjectDetails(obj_ID) {
     objArtistDisplayBio = item.artistDisplayBio;
     objPortfolio = item.portfolio;
     objArtistRole = item.artistRole;
-    objArtistPrefix = item.artistPrefix;   
+    objArtistPrefix = item.artistPrefix;
     objArtistSuffix = item.artistSuffix;
     objArtistNationality = item.artistNationality;
     objArtistGender = item.artistGender;
@@ -426,44 +451,68 @@ function writeObjectDetails(obj_ID) {
     objExcavation = item.excavation;
     objRiver = item.river;
     objClassification = item.classification;
-   
-    document.getElementById("metArt").innerHTML += `(${obj_ID}) ${objTitle}<br>`;
+
+    document.getElementById(
+      "metArt"
+    ).innerHTML += `(${obj_ID}) ${objTitle}<br>`;
     document.getElementById("metArt").innerHTML += `${objName} <br>`;
-    document.getElementById("metArt").innerHTML += `"<img class="img-fluid" src="${objPrimaryImage}" alt="${objTitle}"> <br>`;
+    document.getElementById(
+      "metArt"
+    ).innerHTML += `"<img class="img-fluid" src="${objPrimaryImage}" alt="${objTitle}"> <br>`;
     if (objArtistDisplayName.length > 0) {
-        document.getElementById("metArt").innerHTML += `Artist: ${objArtistDisplayName} <br>`;
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Artist: ${objArtistDisplayName} <br>`;
     }
-    if (objArtistDisplayBio.length > 0 ) {
-        document.getElementById("metArt").innerHTML += `Artist's bio: ${objArtistDisplayBio} <br>`;
+    if (objArtistDisplayBio.length > 0) {
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Artist's bio: ${objArtistDisplayBio} <br>`;
     }
     if (objArtistBegin.length > 0) {
-      document.getElementById("metArt").innerHTML += `Artist's birth: ${objArtistBegin} and death: ${objArtistEnd} <br>`;
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Artist's birth: ${objArtistBegin} and death: ${objArtistEnd} <br>`;
     }
     if (objMedium.length > 0) {
-        document.getElementById("metArt").innerHTML += `Medium: ${objMedium} <br>`;
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Medium: ${objMedium} <br>`;
     }
-    document.getElementById("metArt").innerHTML += `Department: ${objDept} <br>`;
+    document.getElementById(
+      "metArt"
+    ).innerHTML += `Department: ${objDept} <br>`;
     if (objCulture.length > 0) {
-      document.getElementById("metArt").innerHTML += `Culture: ${objCulture} <br>`;
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Culture: ${objCulture} <br>`;
     }
     if (objPeriod.length > 0) {
-      document.getElementById("metArt").innerHTML += `Period: ${objPeriod} <br>`;
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Period: ${objPeriod} <br>`;
     }
     if (objDynasty.length > 0) {
-      document.getElementById("metArt").innerHTML += `Dynasty: ${objDynasty} <br>`;
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Dynasty: ${objDynasty} <br>`;
     }
     if (objReign.length > 0) {
       document.getElementById("metArt").innerHTML += `Reign: ${objReign} <br>`;
     }
     if (objDimensions.length > 0) {
-      document.getElementById("metArt").innerHTML += `Artwork dimensions: ${objDimensions} <br>`;
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Artwork dimensions: ${objDimensions} <br>`;
     }
-    document.getElementById("metArt").innerHTML += `Artwork began: ${objBegin} Artwork finished: ${objEnd} <br>`;
+    document.getElementById(
+      "metArt"
+    ).innerHTML += `Artwork began: ${objBegin} Artwork finished: ${objEnd} <br>`;
 
     if (objCreditLine.length > 0) {
       document.getElementById("metArt").innerHTML +=
         "Origin and year acquired: " + objCreditLine + " <br>";
-    };
+    }
 
     /*  blanking out additional images for the moment...another window? 
     if (objAdditionalImages.length > 0) {
@@ -473,76 +522,106 @@ function writeObjectDetails(obj_ID) {
     };
     */
 
-    if (objConstituents.length > 0 ) {
-        for ( let i in objConstituents ) {
-            document.getElementById("metArt").innerHTML += `Constituents: ${objConstituents[i]} <br>`;
-        };
-    };
+    if (objConstituents.length > 0) {
+      for (let i in objConstituents) {
+        document.getElementById(
+          "metArt"
+        ).innerHTML += `Constituents: ${objConstituents[i]} <br>`;
+      }
+    }
 
-    if (objWiki.length > 0 ) {
-        document.getElementById("metArt").innerHTML +=
-        `WIKIData: <a href="${objWiki}" target="_blank" title="WIKIData link">WIKI link</a>  <br>`;
-    } ;
+    if (objWiki.length > 0) {
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `WIKIData: <a href="${objWiki}" target="_blank" title="WIKIData link">WIKI link</a>  <br>`;
+    }
 
-    if (objPortfolio.length > 0 ) {
-         document.getElementById("metArt").innerHTML += `Portfolio: ${objPortfolio} <br>`;
-    };
+    if (objPortfolio.length > 0) {
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Portfolio: ${objPortfolio} <br>`;
+    }
 
-    if (objArtistRole.length > 0 ) {
-        document.getElementById("metArt").innerHTML += `Artists role: ${objArtistRole} <br>`;
-    };
-    if (objArtistPrefix.length > 0 ) {
-        document.getElementById("metArt").innerHTML += `Prefix: ${objArtistPrefix} <br>`;
-    };
+    if (objArtistRole.length > 0) {
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Artists role: ${objArtistRole} <br>`;
+    }
+    if (objArtistPrefix.length > 0) {
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Prefix: ${objArtistPrefix} <br>`;
+    }
 
-    if ( objArtistSuffix.length > 0 ){ 
-        document.getElementById("metArt").innerHTML += `Suffix: ${objArtistSuffix} <br>`;
-    };
-    if (objArtistNationality.length > 0 ) { 
-        document.getElementById("metArt").innerHTML += `Nationality: ${objArtistNationality} <br>`;
-    };
-    if ( objArtistGender.length > 0 ) { 
-        document.getElementById("metArt").innerHTML += `Gender: ${objArtistGender} <br>`;
-    };
-    if (objDate.length > 0 ) { 
-        document.getElementById("metArt").innerHTML += `Artwork date: ${objDate} <br>`;
-    };
-    if ( objCity.length > 0 ) {
-         document.getElementById("metArt").innerHTML += `City: ${objCity} <br>`;
-    };
-    if ( objState.length > 0 ) {
-         document.getElementById("metArt").innerHTML += `State: ${objState} <br>`;
-    };
-    if (objCounty.length > 0 ) { 
-        document.getElementById("metArt").innerHTML += `County: ${objCounty} <br>`;
-    };
-    if ( objCountry.length > 0 ) { 
-        document.getElementById("metArt").innerHTML += `Country: ${objCountry} <br>`;
-    };
-    if ( objRegion.length > 0 ) { 
-        document.getElementById("metArt").innerHTML += `Region: ${objRegion} <br>`;
-    };
-    if (objSubRegion.length > 0 ) { 
-        document.getElementById("metArt").innerHTML += `Subregion: ${objSubRegion} <br>`;
-    };
-    if (objLocale.length > 0 ) { 
-        document.getElementById("metArt").innerHTML += `Locale: ${objLocale} <br>`;
-    };
-    if (objLocus.length > 0 ) { 
-        document.getElementById("metArt").innerHTML += `Locus: ${objLocus} <br>`;
-    };
-    if ( objExcavation.length > 0 ) { 
-        document.getElementById("metArt").innerHTML += `Excavation: ${objExcavation} <br>`;
-    };
-    if ( objRiver.length > 0 ) { 
-        document.getElementById("metArtt").innerHTML += `River: ${objRiver} <br>`;
-    };
-    if ( objClassification.length > 0 ) { 
-        document.getElementById("metArt").innerHTML += `Classification: ${objClassification} <br>`;
-    };
+    if (objArtistSuffix.length > 0) {
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Suffix: ${objArtistSuffix} <br>`;
+    }
+    if (objArtistNationality.length > 0) {
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Nationality: ${objArtistNationality} <br>`;
+    }
+    if (objArtistGender.length > 0) {
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Gender: ${objArtistGender} <br>`;
+    }
+    if (objDate.length > 0) {
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Artwork date: ${objDate} <br>`;
+    }
+    if (objCity.length > 0) {
+      document.getElementById("metArt").innerHTML += `City: ${objCity} <br>`;
+    }
+    if (objState.length > 0) {
+      document.getElementById("metArt").innerHTML += `State: ${objState} <br>`;
+    }
+    if (objCounty.length > 0) {
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `County: ${objCounty} <br>`;
+    }
+    if (objCountry.length > 0) {
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Country: ${objCountry} <br>`;
+    }
+    if (objRegion.length > 0) {
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Region: ${objRegion} <br>`;
+    }
+    if (objSubRegion.length > 0) {
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Subregion: ${objSubRegion} <br>`;
+    }
+    if (objLocale.length > 0) {
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Locale: ${objLocale} <br>`;
+    }
+    if (objLocus.length > 0) {
+      document.getElementById("metArt").innerHTML += `Locus: ${objLocus} <br>`;
+    }
+    if (objExcavation.length > 0) {
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Excavation: ${objExcavation} <br>`;
+    }
+    if (objRiver.length > 0) {
+      document.getElementById("metArtt").innerHTML += `River: ${objRiver} <br>`;
+    }
+    if (objClassification.length > 0) {
+      document.getElementById(
+        "metArt"
+      ).innerHTML += `Classification: ${objClassification} <br>`;
+    }
 
     document.getElementById("metArt").innerHTML += "<hr>";
-    
   });
 }
 
@@ -551,7 +630,7 @@ function getSelection() {
     $("#searchBtn").on("click", function () {
       /* clear down any previous searches */
       document.getElementById("qryDeptValidation").innerHTML = "";
-      document.getElementById("metCriteria").innerHTML = ""; 
+      document.getElementById("metCriteria").innerHTML = "";
 
       writeSelection();
     });
@@ -592,7 +671,9 @@ function writeSelection() {
   var searchCrit2Orig = `isHighlight=${qryHighlight}&isOnView=${qryView}&artistOrCulture=${qryCult}&medium=${qryMedium}&hasImages=${qryImages}&geoLocation=${qryLoc}&dateBegin=${qryBegin}&dateEnd=${qryEnd}`;
   searchCritArray = searchCrit2Orig.split("&");
   searchCrit2 = stripBlankSelections(searchCritArray);
-  document.getElementById("metCriteria").innerHTML += `<p> Search criteria: ${searchCrit1}${searchCrit2} </p>`;
+  document.getElementById(
+    "metCriteria"
+  ).innerHTML += `<p> Search criteria: ${searchCrit1}${searchCrit2} </p>`;
 
   /* let criteriaString = `Selection: ${qryStr} Department: ${qryDept} highlighted: ${qryHighlight} on view: ${qryView}
         artist or culture: ${qryCult} medium: ${qryMedium} has images: ${qryImages} geographic location: ${qryLoc} 
@@ -603,12 +684,11 @@ function writeSelection() {
   /*
     Now display the button to allow user to get selected works....
 */
-    document.getElementById("btnGetObjects").style.display = "block";
-
-};
+  document.getElementById("btnGetObjects").style.display = "block";
+}
 
 function stripBlankSelections(searchCritArray) {
-  var searchString = ""; 
+  var searchString = "";
   for (let i in searchCritArray) {
     if (searchCritArray[i].length != searchCritArray[i].lastIndexOf("=") + 1) {
       searchString += "&" + searchCritArray[i];
@@ -618,49 +698,64 @@ function stripBlankSelections(searchCritArray) {
 }
 
 function generatePaginationButton(pageCnt) {
+  document.getElementById("metPages").innerHTML = `<table><tr><td>`;
+  document.getElementById(
+    "metPages"
+  ).innerHTML = `<div class="btn-group btn-group-sm">`;
+  document.getElementById(
+    "metPages"
+  ).innerHTML += `<button id="btnPrev" onClick="writePreviousPage(${pageCnt})" class="btn btn-info">Previous 5 artworks of <span class="badge badge-light">${pageCnt}</span> pages</button>`;
+  document.getElementById("metPages").innerHTML += `</td></tr>`;
 
-    document.getElementById("metPages").innerHTML = `<table><tr><td>`;
-    document.getElementById("metPages").innerHTML = `<div class="btn-group btn-group-sm">`;
-    document.getElementById("metPages").innerHTML += `<button id="btnPrev" onClick="writePreviousPage(${pageCnt})" class="btn btn-info">Previous 5 artworks of <span class="badge badge-light">${pageCnt}</span> pages</button>`;
-     document.getElementById("metPages").innerHTML += `</td></tr>`;
+  document.getElementById("metPages").innerHTML += `<tr><td>`;
 
-    document.getElementById("metPages").innerHTML += `<tr><td>`;
+  document.getElementById(
+    "metPages"
+  ).innerHTML += `<button id="btnNext" onClick="writeNextPage(${pageCnt})" class="btn btn-info">Next 5 artworks of <span class="badge badge-light">${pageCnt}</span> pages</button>`;
+  document.getElementById("metPages").innerHTML += `</td></tr>`;
 
-    document.getElementById("metPages").innerHTML += `<button id="btnNext" onClick="writeNextPage(${pageCnt})" class="btn btn-info">Next 5 artworks of <span class="badge badge-light">${pageCnt}</span> pages</button>`;
-     document.getElementById("metPages").innerHTML += `</td></tr>`;
+  document.getElementById("metPages").innerHTML += `<tr><td>`;
 
-    document.getElementById("metPages").innerHTML += `<tr><td>`;
+  document.getElementById(
+    "metPages"
+  ).innerHTML += `<button id="btnNew" onClick="clickBtnNew()" class="btn btn-warning">New selection</button>`;
+  document.getElementById("metPages").innerHTML += `</div>`;
+  document.getElementById("metPages").innerHTML += `</td></tr></table>`;
 
-    document.getElementById("metPages").innerHTML += `<button id="btnNew" onClick="clickBtnNew()" class="btn btn-warning">New selection</button>`;
-    document.getElementById("metPages").innerHTML += `</div>`;
-    document.getElementById("metPages").innerHTML += `</td></tr></table>`;
+  document.getElementById("metPagesTop").innerHTML = `<table><tr><td>`;
+  document.getElementById(
+    "metPagesTop"
+  ).innerHTML = `<div class="btn-group btn-group-sm">`;
+  document.getElementById(
+    "metPagesTop"
+  ).innerHTML += `<button id="btnPrev" onClick="writePreviousPage(${pageCnt})" class="btn btn-info">Previous 5 artworks of <span class="badge badge-light">${pageCnt}</span> pages</button>`;
+  document.getElementById("metPagesTop").innerHTML += `</td></tr>`;
 
-    document.getElementById("metPagesTop").innerHTML = `<table><tr><td>`;   
-    document.getElementById("metPagesTop").innerHTML = `<div class="btn-group btn-group-sm">`;
-    document.getElementById("metPagesTop").innerHTML += `<button id="btnPrev" onClick="writePreviousPage(${pageCnt})" class="btn btn-info">Previous 5 artworks of <span class="badge badge-light">${pageCnt}</span> pages</button>`;
-    document.getElementById("metPagesTop").innerHTML += `</td></tr>`;
+  document.getElementById("metPagesTop").innerHTML += `<tr><td>`;
+  document.getElementById(
+    "metPagesTop"
+  ).innerHTML += `<button id="btnNext" onClick="writeNextPage(${pageCnt})" class="btn btn-info">Next 5 artworks of <span class="badge badge-light">${pageCnt}</span> pages</button>`;
+  document.getElementById("metPagesTop").innerHTML += `</td></tr>`;
 
-    document.getElementById("metPagesTop").innerHTML += `<tr><td>`;
-    document.getElementById("metPagesTop").innerHTML += `<button id="btnNext" onClick="writeNextPage(${pageCnt})" class="btn btn-info">Next 5 artworks of <span class="badge badge-light">${pageCnt}</span> pages</button>`;
-    document.getElementById("metPagesTop").innerHTML += `</td></tr>`;
- 
-    document.getElementById("metPagesTop").innerHTML += `<tr><td>`;
-    document.getElementById("metPagesTop").innerHTML += `<button id="btnNew" onClick="clickBtnNew()" class="btn btn-warning">New selection</button>`;
-    document.getElementById("metPagesTop").innerHTML += `</div>`;
-    document.getElementById("metPagesTop").innerHTML += `</td></tr></table>`;
+  document.getElementById("metPagesTop").innerHTML += `<tr><td>`;
+  document.getElementById(
+    "metPagesTop"
+  ).innerHTML += `<button id="btnNew" onClick="clickBtnNew()" class="btn btn-warning">New selection</button>`;
+  document.getElementById("metPagesTop").innerHTML += `</div>`;
+  document.getElementById("metPagesTop").innerHTML += `</td></tr></table>`;
 }
 
-function clickBtnNew () {
-    /*    Clear down previous search results...  */
-    document.getElementById("metArt").innerHTML = "";
-    document.getElementById("metCriteria").innerHTML = "";
-    document.getElementById("btnGetObjects").style.display = "none";
-    document.getElementById("metPages").innerHTML = "";
-    document.getElementById("metPagesTop").innerHTML = "";
-    document.getElementById("metDebug").innerHTML = "";
-    /* allow user to make another selection */
-    document.getElementById("btnGetCriteria").style.display = "block";
-    /* initialise variables holding old selections */
-    currentPg = 1;
-    displayObjects = [];
+function clickBtnNew() {
+  /*    Clear down previous search results...  */
+  document.getElementById("metArt").innerHTML = "";
+  document.getElementById("metCriteria").innerHTML = "";
+  document.getElementById("btnGetObjects").style.display = "none";
+  document.getElementById("metPages").innerHTML = "";
+  document.getElementById("metPagesTop").innerHTML = "";
+  document.getElementById("metDebug").innerHTML = "";
+  /* allow user to make another selection */
+  document.getElementById("btnGetCriteria").style.display = "block";
+  /* initialise variables holding old selections */
+  currentPg = 1;
+  displayObjects = [];
 }
