@@ -49,6 +49,11 @@ header {
     margin:1rem;
     padding:0;
     text-align: center;
+    text-overflow:ellipsis;
+}
+
+#metArtTotal:hover {
+  overflow: visible;
 }
 
 #theButtons {
@@ -85,9 +90,6 @@ header {
     font-size: 1em;
 }
 
-#metArtTotal {
-    text-align: center;
-}
 
 
 /*--------------------------------------------Footer   */
